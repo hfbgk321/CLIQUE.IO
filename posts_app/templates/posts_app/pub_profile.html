@@ -1,0 +1,23 @@
+{% extends 'authorize_main/base.html' %}
+{%load static%}
+{%block content%}
+
+<div class = 'profileBox'>
+  <br><br><br><br><br>
+  <h1><b>{{applicant.first_name}} {{applicant.last_name}}</b></h1>
+  <img src= {{profile_pic}} alt="Profile Picture Not Uploaded">
+  <br><br>
+  <h3>
+  Email: {{email}}<br><br>
+  University: {{applicant.university}}<br><br>
+  Major: {{applicant.major}}<br><br>
+  School Year: {{applicant.get_school_year_display}}<br></h3>
+</div>
+<style>
+  img{
+    width: 200px;
+    height: 200px;
+  }
+</style>
+
+{%endblock%}

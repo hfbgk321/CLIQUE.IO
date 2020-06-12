@@ -1,0 +1,19 @@
+{%extends 'authorize_main/base.html'%}
+
+{%block content%}
+
+{% if user.is_authenticated %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {%for post in favorite_posts%}
+    <h1>{{post.favorite_post.title}}</h1>
+    <p>{{post.favorite_post.description}}</p>
+    <p>id: {{post.id}}</p>
+    <button><a href="{%url 'delete_favorite' post.id%}">Delete</a></button>
+    {%endfor%}
+{% endif%}
+
+{%endblock%}

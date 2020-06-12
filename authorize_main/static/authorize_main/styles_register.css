@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    outline: none;
+}
+li {
+    list-style: none;
+}
+body {
+    /* background-color: white; */
+    background: linear-gradient(90deg, rgba(226,105,91,1) 0%, rgba(222,107,102,1) 43%, rgba(250,219,60,1) 100%);
+}
+.w {
+    
+    width: 980px;
+    margin:0 auto;
+    border-top: 1px solid transparent;
+    text-align: center;
+}
+
+ .logo{
+    
+    /* margin-top: 5%; */
+    text-align: center;
+}
+.logo img{
+    margin-top:30px;
+    display: block;
+    width: 30%;
+    background:  no-repeat center;
+}
+.register ul{
+    margin: 5% 20px;
+    background-color: #6886c5;
+}
+.register .text{
+    text-align:center;
+    line-height: 40px;
+    color:white;
+    margin-bottom: 2%;
+    font-weight: 400;
+    font-size: 30px;
+
+}
+.form .info {
+    
+    width: 55%;
+    line-height: 3em;
+    margin: 0 auto;
+}
+
+::placeholder{
+    color:rgb(253, 253, 253);
+}
+.form .info ul{
+    border-radius:10px;
+    padding: 5% 10%;
+    text-align: center;
+    background-color: #06D6A0;
+}
+
+.form .info ul li:nth-child(n+1){
+    text-align: left;
+}
+.form .info ul li:nth-child(n+1) input {
+    display: inline-block;
+    width: 100%;
+}
+.form .info ul li:nth-child(9){
+    text-align: center;
+}
+.form .info ul li select{
+    margin-left:10%;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    background-color: transparent;
+    width:100%;
+    margin: auto;
+    outline:.5px solid white;
+    border:none;
+}
+.form .info ul li select option{
+    color:white;
+    background-color:rgb(226,105,91);
+}
+.form .info ul li{
+    margin-bottom: 10px;
+}
+.form .info ul li input{
+    color:white;
+    font-size: 15px;
+    width:44.8%;
+    height:.1%;
+    padding-bottom:10px;
+    border:0;
+    background:rgba(0, 0, 0, 0);
+    border-bottom: 1px solid white;
+}
+
+
+.form .info ul li input[type="submit"]{
+    height:50px;
+    border-radius: 25px;
+    width:100px;
+    cursor:pointer;
+    background-color:#ef476f;
+    border-bottom: 0px;
+}
+.form .info ul li input[type="submit"]:hover{
+    cursor:pointer;
+    background:#FFF;
+    color:rgb(226,105,91);
+    border-bottom: 0px;
+}
+.schoolyeartext{
+    font-size:15px;
+}

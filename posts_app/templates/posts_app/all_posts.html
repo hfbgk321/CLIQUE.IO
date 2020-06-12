@@ -1,0 +1,45 @@
+{%extends 'authorize_main/base.html'%}
+
+{%block content%}
+
+{% if user.is_authenticated %}
+      {% if messages %}
+      {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+      {% endfor %}
+      {% endif %}
+
+        <form action= "{%url 'search_results'%}"method = "get">
+            {% csrf_token %}
+            <input type="search" name="q" id="id_q" minlength="1" placeholder="Enter a title or description">
+            <button type ="submit">Search</button>
+        </form>
+        {% if all_search_results.searched == True %}
+            {% if all_search_results.result and all_search_results.found == True %}
+                {% for post in all_search_results.result %}
+                <h1>{{post.title}}</h1>
+                <p>{{post.description}}</p>
+                <p>id: {{post.id}}</p>
+                <button><a href="{%url 'add_favorite_post' post.id%}">Favorite</a></button>
+                {% endfor %}
+            {% elif all_search_results.found == False %} 
+                <p>Your Search Cannot Be Found</p>
+                {% for post in all_search_results.result %}
+                <h1>{{post.title}}</h1>
+                <p>{{post.description}}</p>
+                <p>id: {{post.id}}</p>
+                <button><a href="{%url 'add_favorite_post' post.id%}">Favorite</a></button>
+                {%edfor%}
+            {% endif %}
+        {% endif %}
+        
+        {%for post in post_list%}
+            {%if post.account.email != user.email%}
+                <h1>{{post.title}}</h1>
+                <p>{{post.description}}</p>
+                <p>id: {{post.id}}</p>
+                <button><a href="{%url 'add_favorite_post' post.id%}">Favorite</a></button>
+            {%endif%}
+        {%endfor%}
+    {% endif %}
+{%endblock%}

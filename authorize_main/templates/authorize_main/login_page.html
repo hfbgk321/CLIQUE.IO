@@ -1,0 +1,48 @@
+{%extends 'authorize_main/base.html'%}
+{%load static%}
+
+{%block content%}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+      Clique Login
+    </title>
+    <link rel= "stylesheet" href="{% static 'authorize_main/styles_login.css' %}">
+</head>
+
+<body>
+  
+  {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+        {% endfor %}
+  {% endif %} 
+  <!-- <div class="place" style = "height:50px"></div> -->
+  <div class="w">
+    <div class="loginlogo">
+        <img src="{%static 'authorize_main/clique_logo.png'%}">
+    <h1 class="welcomebacklogin">Welcome Back!</h1>
+    </div>
+    {%if badform == True%}
+    <h4 class="loginerror">The email or password is incorrect.</h4>
+    {%endif%}
+  <div class="login">
+      <h1 class="text">Login to Start Creating</h1>
+      <form method = "post">
+      {%csrf_token%}
+      <input type="Email" id="password" name="email" placeholder="Email">
+      <br>
+      <input type="Password" name="password" id="password" placeholder="Password">
+      <br>
+      <input type="submit" id="login" name="Login" value="Login">
+      <br>
+      <a href="/password_reset" class = "forgetpw">Forgot password?</a>
+      <a href="{%url 'signup'%}" class="noacc">Don't have an account?</a>
+      </form>
+    </div>
+  </div>
+</body>
+
+{%endblock%}

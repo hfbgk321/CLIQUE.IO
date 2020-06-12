@@ -1,0 +1,97 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- line below is new -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="{%static 'posts_app/styles_reset.css'%}">
+  <link rel="stylesheet" href="{%static 'posts_app/styles_home.css'%}">
+  <link rel="stylesheet" href="{%static 'posts_app/styles_homepage.css'%}">
+  <link rel="stylesheet" href="{%static 'authorize_main/landing_page_styles.css'%}">
+  <link rel="stylesheet" href="{%static 'authorize_main/base.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/javascript"src="{% static 'posts_app/js/load.js' %}"></script>
+  <title>Clique.io</title>
+</head>
+
+<body style="background:#f8ffE5;">
+  <nav class="navbar navbar-expand-lg ">
+    <a class="navbar-brand" href="{%url 'landing_page'%}"><img class="homelogo" src="{%static 'authorize_main/clique_logo.png'%}"></a>
+    <button onclick="navbarDrop();" id="navbar-toggler"class="navbar-toggler" type="button"  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- ^^^^^^^ data-toggle="collapse" -->
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        {%if user.is_authenticated%}
+        
+        <!-- {% comment %} <li class = "nav-item"><a class="nav-link"href="{%url 'see_favorite'%}"style = "color:white;">Favorites</a></li> {% endcomment %}
+        {% comment %} <li class = "nav-item"><a class="nav-link"href="{% url 'see_my_posts' %}"style = "color:white;">My Posts</a></li>{%endcomment%}-->
+        <!-- <li class = "nav-item"><a class="nav-link"href="{% url 'createposts'%}"style = "color:white;">Post an Idea</a></li> -->
+        <!-- {% comment %} <li class = "nav-item"><a class="nav-link"href="{%url 'see_all_posts'%}"style = "color:white;">All Posts</a></li> {% endcomment %}-->
+        <li class ="nav-item"><a class="nav-link" href="" onclick="showNotifications();" style = "margin-right:50px;color:white;font-size:25px;"><i title = "Notification" class="fa fa-bell"></i></a></li>
+        <li class ="nav-item"><a onclick="hideNotifications();"class="nav-link"style = "margin-right:50px;color:white;font-size:25px;" href="{%url 'hometemplate' %}" class="nav-link"><i title = "Home" class="fa fa-home"></i></a></li>
+        <li class = "nav-item"><a onclick="hideNotifications();"class = "nav-link" href="{% url 'profile' %}" style = "margin-right:50px;color:white;font-size:25px;"><i title = "Profile" class="fa fa-user-circle"></i></a></li>
+        
+        
+        <li class ="nav-item"><a onclick="hideNotifications();"class="nav-link"href="{%url 'logout'%}"style = "color:white;font-size:25px;"><i title = "Sign out"class="fa fa-sign-out"></i></a></li>
+        {%else%}        
+         <li class="nav-item"><a onclick="hideNotifications();"class="nav-link" href="{%url 'landing_page'%}" style="color:white;">Home <span class="sr-only">(current)</span></a>  </li>
+        <li class ="nav-item"><a onclick="hideNotifications();"href="{%url 'login'%}" class="loginbutton" style="color:white;">Login</a></li>        
+        <li class="nav-item"><a onclick="hideNotifications();"class="nav-link" href="{%url 'signup'%}" style = "color:white;">Sign Up</a></li>
+        {%endif%}
+      </ul>
+    </div>
+    
+  </nav>
+
+  <div onmouseleave="hideNotifications();"id="notification-box">
+    <!-- class="hide1" -->
+    <a id="clear" onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
+    <h1>
+    <ul class = "notif">
+      {%for notification in all_notifications%}
+      <li>
+        <div class="notifBox">
+        <br>
+        <button class="close-button" type="button" name="button"><a href="#">&times;</a></button>
+        <h1 class="notifTitle">Message For {{notification.account.first_name}}</h1>
+        <a class="notifMsg" href="#">{{notification.notified_message}}</a>
+        <h1>{{notification.date_created}}</h1>
+      
+      </div>
+      </li>
+      {%endfor%}
+    </ul>
+    
+  </div>
+  <script>
+    
+if(document.cookie.indexOf('notificationClicked=on')!=-1){
+    showNotifications();
+}
+else if(document.cookie.indexOf("notificationClicked=off")!=-1){
+    hideNotifications();
+}
+  </script>
+
+
+
+  
+
+
+  {%block content%}
+
+  {%endblock%}
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

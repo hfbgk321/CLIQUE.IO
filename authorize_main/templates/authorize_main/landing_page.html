@@ -1,0 +1,32 @@
+{%extends 'authorize_main/base.html'%}
+{%load static%}
+{%block content%}
+<link rel="stylesheet" href="{%static 'authorize_main/landing_page_styles.css'%}">
+{% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+        {% endfor %}
+{% endif %}
+<div class="background">
+<div class="container">
+    <div class="w">
+        <br><br><br><br><br><br><br><br>
+    <div class="Have">
+        <h1 class = "land">Have an idea?</h1>
+        <p class = "pland" style="font-size:20px;">Recruit some team members! Just fill out a simple form!</p>
+        <a class = "button" style = "color:white;" href = "#">Post Your Idea<span class = "span"></span></a>
+        <!-- <hr><hr><hr><hr> -->
+
+        <h1 class = "land" style = "margin-top:30%">Don't have an idea?</h1>
+        <p class = "pland" style="font-size:20px;">Join a team that needs your skills! Submit your resume!</p>
+        <a class = "button JoinT" style = "color:white;" href = "#">Join a Team<span class ="span"></span></a>
+    </div>
+
+    <div class="Image">
+        <img src="{% static 'authorize_main/LandingPagePic.png' %}" alt="People Collaborating">
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{%extends 'authorize_main/base.html'%}
+
+{%block content%}
+
+{% if user.is_authenticated %}
+    {%for post in post_list%}
+    <h1>{{post.title}}</h1>
+    <p>{{post.description}}</p>
+    <button ><a href="{%url 'delete' post.id %}">Remove Post</a></button>
+    {%endfor%}
+{% endif%}
+
+{%endblock%}
+
+                

@@ -1,0 +1,107 @@
+{%extends 'authorize_main/base.html'%}
+{%load static%}
+{%block content%}
+ {%if user.is_authenticated%} 
+ <link rel="stylesheet/scss" href="{%static 'authorize_main/profile.scss'%}">
+ 
+    <h1 style="text-align:center;">This Is Where All The User Information is!</h1>
+    
+
+{%if user.profile_pic != 'None'%}
+        <img style="position: absolute; top: 20px; left:20px;" class = "profile_pic" src={{user.profile_pic.url}} alt="Profile_Picture">
+      {%else%}
+        <img style="position: absolute; top: 20px; left:20px;" class = "profile_pic" src="../media/media/default_profile.png" alt="Profile_Picture">
+      {%endif%}
+    
+<button id="pfp" class="add" style="color:white; padding:2%">Add Profile Picture</button>
+<div class="popup hide">
+  <label for="file">PFP</label>
+  <input type="file" id="file" size="60">
+</div>
+      <!-- <button id="pfp">Add Profile Picture</button> -->
+      <div class="profileBox">
+        <ul id = "profile-content">
+            <li style="font-weight: bold;">{{user.first_name}} {{user.last_name}}</li><br>
+            <li>{{user.email}}</li><br>
+            <li>{{user.university}}</li><br>
+            <li>{{user.major}}</li><br>
+            <li>{{user.get_school_year_display}}</li><br>
+        </ul>
+        </div>
+    <div class="add">
+          
+      <label for="file">Add Resume
+      <input type = "file" id = 'file' size="60">
+        </label>
+    </div>
+
+    <!-- <div class="bio">
+      <h1>Bio</h1>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="">
+          </div>
+          <div class="flip-card-back">
+            <button id="bb" class="bb">Add Bio</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="bio-wrapper" class="hidetextbox">
+        <button id="exit" style="float: right;">X</button>
+      <textarea class="textbox" name="bio" id="bio" cols="30" rows="10"></textarea>
+      <button id="submit">Submit</button>
+      </div>
+      <div id="actualbio">
+
+      </div>
+    </div> -->
+
+    <script>
+      var biobutton = document.querySelector("#bb");
+      
+      var textbox = document.querySelector("#bio");
+
+      biobutton.addEventListener('click', function(){
+        document.querySelector("#bio-wrapper").classList.add("showtextbox");
+      })
+
+      var exitbutton = document.querySelector("#exit");
+      exitbutton.addEventListener("click", function(){
+        document.querySelector("#bio-wrapper").classList.remove("showtextbox");
+        document.querySelector("#bio-wrapper").classList.add("hidetextbox");
+      })
+
+      var submitbutton = document.querySelector("#submit");
+      submitbutton.addEventListener('click', function(){
+        if (textbox.value == "")
+        {
+          biobutton.innerHTML = "Add Bio";
+          alert("There is no input!")
+        }
+        else 
+        {
+          biobutton.innerHTML = "Edit Bio";
+          var alltext = textbox.value;
+          document.querySelector("#bio-wrapper").classList.remove("showtextbox");
+          document.querySelector("#bio-wrapper").classList.add("hidetextbox");
+          console.log(alltext);
+          document.querySelector("#actualbio").innerHTML = "<p style='color:blue;font-size:38px;'>"+alltext+ "</p>";
+
+
+        }
+      })
+      console.log(biobutton);
+
+      var pfp = document.querySelector("#pfp");
+      pfp.addEventListener('click', function(){
+        document.querySelector(".popup").classList.remove("hide");
+        document.querySelector(".popup").classList.add("show");
+      })
+    </script>
+
+ {%endif%}
+{% endblock %}
