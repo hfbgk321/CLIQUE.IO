@@ -81,7 +81,6 @@ def edit_profile(request):
     user.major = request.POST['major']
     user.school_year = request.POST['school_year']
     user.save()
-    print()
     print(request.POST)
     
     if request.POST.get('display_profile') == "1":
