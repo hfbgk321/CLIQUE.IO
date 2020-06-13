@@ -1,4 +1,4 @@
-# Clique.IO
+# 
 ![Clique IO](authorize_main/static/authorize_main/clique_logo.png)
 
 
