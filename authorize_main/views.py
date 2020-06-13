@@ -125,4 +125,5 @@ def edit_profile(request):
   else:
     messages.success(request,'Error')
     print('error')
+    print('hello')
     return redirect('profile')  
