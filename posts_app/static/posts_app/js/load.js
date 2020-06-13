@@ -18,7 +18,7 @@ function navbarDrop(){
        }
     }
     else{
-        console.log("hello");
+        console.log("bye");
        document.getElementById("navbarSupportedContent").className="navbar-collapse collapse show";
        var x =document.querySelectorAll(".nav-link");
        for(var i =0;i<x.length;i++){
@@ -31,7 +31,7 @@ function showNotifications() {
     document.cookie="notificationClicked=on";
    
     var box = document.getElementById("notification-box");
-    
+    k
     // 
     // box.classList.add("show2");
     // }
