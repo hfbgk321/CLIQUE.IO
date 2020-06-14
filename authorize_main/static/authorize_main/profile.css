@@ -1,4 +1,141 @@
-.namesd {
-   color: green;
+*{
+   margin:0;
+   padding:0;
+   box-sizing: border-box;
 }
-    
+.wrap{
+   /* background-color: green; */
+   position:relative;
+   top:75px;
+   width:1400px;;
+   margin: auto;
+   /* background:pink; */
+   /* position:absolute;
+    margin-top:100px;;
+    height:420px;
+    width:400px;
+    background:#FFC43D;
+    left:50px;
+    padding:10px;
+    border-radius:25px;
+    border:5px solid white; */
+}
+.editProf{
+   position:relative;
+   top:20px;
+   width:45%;
+   background-color:rgba(0,0,0,0.3);
+   border-radius: 100px;
+
+}
+
+input,
+select{
+   background-color: rgba(255,255,255,0.5);
+   border:none;
+   border-radius:5px;
+   padding:5px;
+}
+.profile_pic{
+   position:relative;
+   left:50%;
+   transform:translateX(-50%);
+   margin-top:20px;
+   width:180px;
+   height:180px;
+   border-radius: 50%;
+   box-shadow: 2px 2px 2px 1px rgba(0, 0, 255, .2);
+}
+.selectImg {
+   position:relative;
+   left:50%;
+   transform:translateX(-50%);
+   background-color: #1B9AAA;
+   width:120px;
+   height:45px;
+   line-height: 45px;
+   text-align: center;
+   border-radius: 10px;
+   transition:all 1s;
+   cursor:pointer;
+   transition:all .1s;
+}
+.selectImg:hover{
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+.makeChange:hover{
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+#img {
+   display:none;
+}
+.changeImg{
+   /* background-color:green; */
+   position:relative;
+   height:45px;
+}
+.imgName {
+   display:none;
+   position:absolute;
+   top:50%;
+   transform:translateY(-50%);
+   left:61%;
+   height:20px;
+   background-color:#FFC43D;
+   padding:5px 10px 5px 10px;
+   font-size: 12px;
+   border-radius:5px;
+   text-align: center;
+   line-height: 9px;
+}
+.imgName:before{
+   position:absolute;
+   z-index:-1;
+   content:'';
+   height:10px;
+   width:10px;
+   background:pink;
+   left:-3px;
+   transform: rotate(45deg);
+}
+
+.checkdisplay,
+.checkDisplayEmail{
+   margin-top:10px;
+   /* background-color: green; */
+}
+.displayImg,
+.displayEmail{
+   /* background-color:green; */
+   position:relative;
+   left:50%;
+   transform:translateX(-50%);
+   transform: translateX(-50%);
+}
+
+.uname,
+.university,
+.major,
+.email,
+.schoolYear{
+   margin-top:13px;
+  text-align: center;
+  font-size: 18px;
+  font-weight:700;
+   /* background-color: green; */
+}
+
+.makeChange{
+   position:relative;
+   /* outline:none; */
+   margin-top:30px;
+   padding:10px;
+   border-radius: 10px;
+   left:50%;
+   transform:translateX(-50%);
+   margin-bottom:20px;
+   border:none;
+   background-color:#1B9AAA;
+
+}
+

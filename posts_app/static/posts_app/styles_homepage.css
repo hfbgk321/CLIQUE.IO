@@ -14,7 +14,15 @@ body {
     left:52%;
     top:700px;
 }
-
+.projectProfImage{
+    border:1px solid #1B9AAA;
+    border-radius: 25%;
+    position:absolute;
+    top:5%;
+    right:10%;
+    height:100px;
+    width:auto;
+}
 
 .applied,
 .bookmarked,
@@ -462,5 +470,44 @@ body .filter {
     color:white;
     text-decoration: none;
 }
+.profileBox{
+    position:absolute;
+    margin-top:100px;;
+    height:520px;
+    width:500px;
+    background:transparent;
+    left:720px;
+    padding:40px;
+    border-radius:25px;
+    border:5px solid white;
+}
+.profileBox h1{
+    text-align:center;
+    margin-left:10px;
+    font-size:50px;
+    
+    color:#1B9AAA;
+}
+.pubprofDesc{
+    overflow:scroll;
+    overflow-x:hidden;
+    max-height:150px;
+ }
+ 
+.profileBox h3{
+    font-size:17px;
+    margin-left:30px;
+    color:#1B9AAA;
+}
+.profileBox img{
+    border:2px solid white;
+    margin-left:10px;
+    width: 400px;
+    max-width:400px;
+    max-height:200px;
+    height: auto;
+    border-radius:30%;
+}
+
 /* ########################## */
 

@@ -43,9 +43,9 @@
 			onclick="openProject('{{application.applied_post.title_of_post}}','{{application.applied_post.num_of_positions}}','{{application.applied_post.skills_needed}}','lolol','{{application.applied_post.description_of_post}}');">
 			<div id="project"  class="project">
 				{%if application.applied_post.post_made_by.profile_pic == 'None'%}
-				<img src = '/media/media/default_profile.png' alt = "">
+				<img class="projectProfImage" src = '/media/media/default_profile.png' alt = "">
 				{%else%}
-				<img src={{application.applied_post.post_made_by.profile_pic.url}} alt="">
+				<img class="projectProfImage" src={{application.applied_post.post_made_by.profile_pic.url}} alt="">
 				{%endif%}
 				<h4 style="color: rgb(27, 14, 211);" id = "date_created" class='date_posted'>Date Posted: {{application.applied_post.date_created}}</h4>
 				<h4 style="color: rgb(146, 23, 136);">Application Deadline: {{application.applied_post.application_deadline}}</h4>

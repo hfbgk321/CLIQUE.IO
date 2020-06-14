@@ -52,9 +52,9 @@
 	<div class = "projectSec" onclick="openProject1('{{bookmark.bookmarked_post.title_of_post}}','{{bookmark.bookmarked_post.num_of_positions}}','{{bookmark.bookmarked_post.skills_needed}}','lolol','{{bookmark.bookmarked_post.description_of_post}}','{{bookmark.bookmarked_post.id}}');">
 		<div id = "project" class="project" class="infinite-item">
 				{%if bookmark.bookmarked_post.post_made_by.profile_pic == 'None'%}
-				<img src = '/media/media/default_profile.png' alt = "">
+				<img  class="projectProfImage"src = '/media/media/default_profile.png' alt = "">
 				{%else%}
-				<img src="{{bookmark.bookmarked_post.post_made_by.profile_pic.url}}" alt="">
+				<img  class="projectProfImage"src="{{bookmark.bookmarked_post.post_made_by.profile_pic.url}}" alt="">
 				{%endif%}
 			<h4 style="color: rgb(27, 14, 211);" id = "date_created" class='date_posted'>Date Posted: {{bookmark.bookmarked_post.date_created}}</h4>
 			<h4 style="color: aquamarine;">Application Deadline: {{bookmark.bookmarked_post.application_deadline}}</h4>

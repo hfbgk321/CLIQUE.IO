@@ -2,6 +2,24 @@
 //   alert("clicked");
 // });
 // document.getElementById("acceptedPostID").value=currentPostID;
+let profileSelect = document.querySelector('#img');
+let custBut = document.querySelector('.selectImg');
+let filename = document.querySelector('.imgName');
+let regEx = /[0-9a-zA-z\^\&\'\@\{\}\[\]\,\$\=\!\#\(\)\.\%\+\~\_]+$/;
+function active() {
+  profileSelect.click();
+}
+profileSelect.addEventListener("change", function () {
+  if (this.value) {
+    filename.style.display = 'block';
+    filename.innerHTML = '' + this.value.replace(/^.*[\\\/]/, '');
+    console.log(filename.innerHTML);
+    // filename.style.display = 'block';
+  }
+})
+
+
+
 
 document.getElementById("acceptedPostID").value
 var alertMessa = document.querySelector('#alertMessa');
@@ -9,6 +27,8 @@ console.log(alertMessa);
 setTimeout(function () {
   alertMessa.display = 'none';
 }, 3000);
+
+
 
 if(document.getElementById("listProjName").innerHTML==''){
   document.getElementById("applicantList").style.display="none";

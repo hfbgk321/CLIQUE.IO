@@ -1,23 +1,21 @@
 {% extends 'authorize_main/base.html' %}
 {%load static%}
 {%block content%}
-
-<div class = 'profileBox'>
-  <br><br><br><br><br>
-  <h1><b>{{applicant.first_name}} {{applicant.last_name}}</b></h1>
+<div>
+<div class = 'profileBox notifAnimation'>
   <img src= {{profile_pic}} alt="Profile Picture Not Uploaded">
   <br><br>
+  <h1><b>{{applicant.first_name}} {{applicant.last_name}}</b></h1>
+  <br>
+  <div class="pubprofDesc">
   <h3>
   Email: {{email}}<br><br>
   University: {{applicant.university}}<br><br>
   Major: {{applicant.major}}<br><br>
-  School Year: {{applicant.get_school_year_display}}<br></h3>
+  School Year: {{applicant.get_school_year_display}}<br>
+  Bio:Aenean convallis congue ipsum, at faucibus orci rutrum nec. Fusce nisi urna, molestie vitae tincidunt ut, euismod vitae ligula. Suspendisse potenti. Ut vel lorem sodales, porttitor magna id, blandit magna. Etiam velit ligula, dictum et risus interdum, consequat volutpat velit. Donec lobortis mauris tincidunt, venenatis sapien at, imperdiet ante. Pellentesque ipsum ex, accumsan eget risus ac, convallis interdum nulla. Morbi ac tristique sem. Morbi lacinia, augue sed tristique malesuada, tellus nisi placerat nunc, non viverra lacus tellus eu.<br></h3>
 </div>
-<style>
-  img{
-    width: 200px;
-    height: 200px;
-  }
-</style>
+</div>
+</div>
 
 {%endblock%}

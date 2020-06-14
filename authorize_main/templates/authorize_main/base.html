@@ -26,7 +26,8 @@
       <!-- ^^^^^^^ data-toggle="collapse" -->
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+    <input style="display:none;"name="savePage" id="savePage"type="text">
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         {%if user.is_authenticated%}
@@ -53,26 +54,29 @@
 
   <div onmouseleave="hideNotifications();"id="notification-box">
     <!-- class="hide1" -->
-    <a id="clear" onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
-    <h1>
+    <br><br>
+    <a id="clear"  onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
     <ul class = "notif">
       {%for notification in all_notifications%}
       <li>
         <div class="notifBox">
-        <br>
-        <button class="close-button" type="button" name="button"><a href="#">&times;</a></button>
+        <button onclick="saveURL();"class="closeNotifButton" type="button" name="button"><a 
+        class="closeNotif" href="{%url 'delete_notification' notification.id%}">&times;</a></button>
         <h1 class="notifTitle">Message For {{notification.account.first_name}}</h1>
-        <a class="notifMsg" href="#">{{notification.notified_message}}</a>
+        <div class="notifMsgBox">
+        <h1 class="notifMsg" >{{notification.notified_message}}</h1>
+        </div>
         <h1>{{notification.date_created}}</h1>
-      
       </div>
       </li>
       {%endfor%}
     </ul>
     
   </div>
+  <input style="display:none;"name="savePage" id="savePage"type="text" >
   <script>
     
+    console.log(document.getElementById("savePage").value);
 if(document.cookie.indexOf('notificationClicked=on')!=-1){
     showNotifications();
 }
@@ -81,14 +85,10 @@ else if(document.cookie.indexOf("notificationClicked=off")!=-1){
 }
   </script>
 
+{% block css %}{% endblock css %}
+{% block content %}{% endblock content %}
+{% block extra_js %}{% endblock extra_js %}
 
-
-  
-
-
-  {%block content%}
-
-  {%endblock%}
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

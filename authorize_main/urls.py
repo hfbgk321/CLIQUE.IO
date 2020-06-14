@@ -30,6 +30,7 @@ urlpatterns = [
      name='password_reset_complete'),
     
     path('edit_profile/', views.edit_profile, name='edit_profile'),
+    
 ]
 
 if settings.DEBUG: # new

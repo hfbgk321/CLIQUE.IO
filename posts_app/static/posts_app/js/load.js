@@ -1,5 +1,6 @@
 
 
+ console.log(document.cookie);
 function navbarDrop(){
     // if(document.getElementById('navbar-toggler').getAttribute('aria-expanded')=='true'){
     // document.getElementById('navbar-toggler').setAttribute("aria-expanded","false");
@@ -26,7 +27,22 @@ function navbarDrop(){
        }
     }
 }
-
+function saveURL(){
+    document.cookie="deleteNotification=true";
+    if(window.location.href.indexOf('posts')!=-1){
+        document.cookie="currentPage="+window.location.href.substring(window.location.href.indexOf('posts'));
+    }
+}
+function setSavedPage(){
+    if(document.cookie.indexOf("deleteNotification=true")!=-1){
+        document.getElementById("savePage").value=document.cookie.substring(
+            document.cookie.indexOf("posts"),document.cookie.indexOf(';',document.cookie.indexOf("posts"))
+        );
+        
+        document.cookie="deleteNotification=false";
+       
+    }
+}
 function showNotifications() {
     document.cookie="notificationClicked=on";
    

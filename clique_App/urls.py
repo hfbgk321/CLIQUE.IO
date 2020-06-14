@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('authorize_main.urls')),
     path('posts/', include('posts_app.urls')),
     path('notifications/', include('Notifications.urls')),
+    path('chat/', include('chat.urls')),
 ]
 
 if settings.DEBUG:
