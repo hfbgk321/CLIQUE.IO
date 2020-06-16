@@ -17,6 +17,40 @@ profileSelect.addEventListener("change", function () {
     // filename.style.display = 'block';
   }
 })
+const email = document.querySelector("#emailBox");
+const universitySec = document.querySelector(".universitySec");
+const universityBox = document.querySelector("#universityBox");
+const majorSec = document.querySelector(".majorSec");
+const majorBox = document.querySelector("#majorBox");
+const emailSec = document.querySelector('.emailSec');
+const BioSec = document.querySelector('.BioSec');
+const BioBox = document.querySelector('#bio')
+console.log(BioBox);
+let box = [email, universityBox, majorBox, BioBox];
+let sec = [emailSec, universitySec, majorSec, BioSec];
+for (let i = 0; i < sec.length; i++){
+  sec[i].onmouseenter = function(){
+    box[i].style.backgroundColor = 'white';
+    console.log("enter");
+  }
+  sec[i].onmousleave = function(){
+    box[i].style.backgroundColor = 'transparent';
+  }
+}
+emailSec.onclick = function(){
+  email.focus();
+}
+universitySec.onclick = function () {
+  universityBox.focus();
+}
+majorSec.onclick = function () {
+  majorBox.focus();
+ 
+}
+BioSec.onclick = function(){
+  BioBox.focus();
+
+}
 
 
 

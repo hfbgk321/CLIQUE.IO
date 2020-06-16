@@ -14,30 +14,35 @@ style = "background-color: #1B9AAA; position:relative;top:75px; z-index:99999;" 
   <form class = "editProf"action="{%url 'edit_profile'%}" method='post'enctype="multipart/form-data">
     {% csrf_token %}
     {%if user.profile_pic != 'None'%}
-    <img class="profile_pic" src={{user.profile_pic.url}}
-      alt="Custom Profile Picture Unable to Load"><br><br>
-      <div class="changeImg">
-      <label class = "selectImg" for="img" >Select image</label><br><br>
+    <div title = "Press to add photo" class="profileSec">
+      <label class = "pressImg" for="img"><img class="profile_pic" src={{user.profile_pic.url}}  alt="Custom Profile Picture Unable to Load"></label>
+     <br><br>
+      <label for="img" class="uploadPhoto">PHOTO</label>
+      <label class = "selectImg" for="img" ></label>
       <input type="file" id="img" name="img" accept="image/*">
-      <span class="imgName">No File Chosen</span>
-    </div>
+      <label class="imgName" for="img">Add a photo to personalize your account</label>
     <div class="checkdisplay">
-      <label class = "displayImg" for="display_profile">Display as Public Profile Picture {% if profile_pic == True %}
+      <label class = "displayImg" for="img" for="display_profile">Display as Public Profile Picture {% if profile_pic == True %}
         <input type="checkbox"  name = "display_profile" value ="1" checked>
       {%else%}
         <input type="checkbox"  name = "display_profile" value ="1">
       {%endif%}</label>
      
     </div>  
+  </div>
     {%else%}
-    <img class="profile_pic" src="/media/media/default_profile.png" alt="Profile Picture Not Uploaded"><br><br>
+    <img class="profile_pic" src="/media/media/default_profile.png" alt="Profile Picture Not Uploaded">
     <label class = "selectImg" for="display_img" >Select image:</label><br><br>
     <input type="file" id="img" name="display_img" accept="image/*">
-    <span class="imgName">No File Chosen</span>
+    <label class="imgName" for="img">Add a photo to personalize your account</label>
     {% endif %}
-    <h1 class = "uname">Name: {{user.first_name}} {{user.last_name}}</h1>
-    
-    <h3 class = "email">Email: <input type="text" value='{{user.email}}' name = 'email'></h3>
+    <div class="nameSec">
+    <h1 class = "nameTag">NAME</h1>
+    <h1 class = "uname">{{user.first_name}} {{user.last_name}}</h1>
+  </div>
+    <div title = "Email: Press to edit" class="emailSec">
+    <h1 class="emailTag">EMAIL</h1>
+    <h3 class = "email"><input type="text" value='{{user.email}}' name = 'email' id = "emailBox"></h3>
     <div class="checkDisplayEmail">
     <label class = "displayEmail"for="display_email">Display Email in Public Profile  {% if email == True %}
       <input type="checkbox" name = "display_email" value ="1" checked>
@@ -46,8 +51,11 @@ style = "background-color: #1B9AAA; position:relative;top:75px; z-index:99999;" 
     {%endif%}</label>
   
   </div>
-    <h3 class = "university">University: <input type="text" value='{{user.university}}' name="university"></h3>
-    
+</div>
+  <div title = "University: Press to edit" class="universitySec">
+    <label class = "universityTag">UNIVERSITY</label>
+    <h3 class = "university"><input type="text" value='{{user.university}}' name="university" id="universityBox"></h3>
+  </div>
     <!-- <label style = "color: orange;" for="university">Display University in Public Profile</label> -->
     <!-- {% if university == True %}
       <input type="checkbox" name = "display_university" value ="1" checked>
@@ -55,8 +63,10 @@ style = "background-color: #1B9AAA; position:relative;top:75px; z-index:99999;" 
       <input type="checkbox" name = "display_university" value ="1">
     {%endif%}  -->
     <!-- <br><br> -->
-    <h3 class = "major">Major:  <input type="text" value='{{user.major}}' name='major'></h3>
- 
+    <div title = "Major: Press to edit" class="majorSec">
+      <label class ="majorTag">MAJOR</label>
+    <h3 class = "major"><input type="text" value='{{user.major}}' name='major' id="majorBox"></h3>
+  </div>
     <!-- <label style = "color: orange;" for="major">Display Major in Public Profile</label>
     {%if major%}
       <input type="checkbox" name = "display_major" value ="1" checked>
@@ -65,7 +75,7 @@ style = "background-color: #1B9AAA; position:relative;top:75px; z-index:99999;" 
     {%endif%} -->
     <!-- <br><br> -->
     <div class="schoolYear">
-    <label  for="school_year">School Year: </label>
+    <label  for="school_year" class = "schoolYearTag">SCHOOL YEAR</label>
     {%if user.school_year == '1'%}
     <select name="school_year">
       <option value="1" selected>Freshman</option>
@@ -94,8 +104,8 @@ style = "background-color: #1B9AAA; position:relative;top:75px; z-index:99999;" 
       <option value="3">Junior</option>
       <option value="4" selected>Senior</option>
     </select>
-  
     {%endif%}
+  
   </div>
     <!-- <br><br> -->
     <!-- <label style = "color: orange;" for="school_year">Display School Year in Public Profile</label>
@@ -105,78 +115,17 @@ style = "background-color: #1B9AAA; position:relative;top:75px; z-index:99999;" 
     {%else%}
       <input type="checkbox" name = "display_school_year" value ="1">
     {%endif%} -->
+  
+  
+  <div title = "Press to edit biography" class="BioSec">
+    <label for = "bio" class ="BioTag">BIOGRAPHY</label>
+    <h3 class = "biography"><textarea style ="overflow: auto;" name="bio" id="bio">{{user.bio}}</textarea></h3>
+  </div>
+  
   <button class = "makeChange" type="submit">Make Changes</button>
   </form>
 </div>
-
-
-<!-- <h1>Bio</h1>
-
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="">
-          </div>
-          <div class="flip-card-back">
-            <button id="bb" class="bb">Add Bio</button>
-          </div>
-        </div>
-
-      </div>
-
-      <div id="bio-wrapper" class="hidetextbox">
-        <button id="exit" style="float: right;">X</button>
-      <textarea class="textbox" name="bio" id="bio" cols="30" rows="10"></textarea>
-      <button id="submit">Submit</button>
-      </div>
-      <div id="actualbio">
-
-      </div>
-    </div> -->
-    <script type="text/javascript"src="{% static 'posts_app/js/extra.js' %}"></script>
-
-    <script>
-      var biobutton = document.querySelector("#bb");
-      
-      var textbox = document.querySelector("#bio");
-
-      biobutton.addEventListener('click', function(){
-        document.querySelector("#bio-wrapper").classList.add("showtextbox");
-      })
-
-      var exitbutton = document.querySelector("#exit");
-      exitbutton.addEventListener("click", function(){
-        document.querySelector("#bio-wrapper").classList.remove("showtextbox");
-        document.querySelector("#bio-wrapper").classList.add("hidetextbox");
-      })
-
-      var submitbutton = document.querySelector("#submit");
-      submitbutton.addEventListener('click', function(){
-        if (textbox.value == "")
-        {
-          biobutton.innerHTML = "Add Bio";
-          alert("There is no input!")
-        }
-        else 
-        {
-          biobutton.innerHTML = "Edit Bio";
-          var alltext = textbox.value;
-          document.querySelector("#bio-wrapper").classList.remove("showtextbox");
-          document.querySelector("#bio-wrapper").classList.add("hidetextbox");
-          console.log(alltext);
-          document.querySelector("#actualbio").innerHTML = "<p style='color:blue;font-size:38px;'>"+alltext+ "</p>";
-
-
-        }
-      })
-      console.log(biobutton);
-
-      var pfp = document.querySelector("#pfp");
-      pfp.addEventListener('click', function(){
-        document.querySelector(".popup").classList.remove("hide");
-        document.querySelector(".popup").classList.add("show");
-      })
-    </script>
+<script type="text/javascript"src="{% static 'posts_app/js/extra.js' %}"></script>
 
 {%endif%}
 {%endblock%}

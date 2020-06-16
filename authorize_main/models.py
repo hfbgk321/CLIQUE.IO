@@ -41,7 +41,7 @@ class Account(AbstractBaseUser):
   email = models.EmailField(verbose_name="email", max_length=60,unique=True)
   first_name = models.CharField(verbose_name="first_name",max_length=20,blank=True)
   last_name = models.CharField(verbose_name="last_name",max_length=20,blank=True)
-  
+  bio = models.TextField(default='No Bio At The Moment')
   university = models.CharField(verbose_name="university",max_length=35,default ="")
   major = models.CharField(verbose_name="major",max_length=25,default="")
   school_year = models.CharField(choices = (("1", "Freshman"),("2", "Sophomore"),("3", "Junior"),("4", "Senior"), ("5", "Other")),default="",max_length=1)

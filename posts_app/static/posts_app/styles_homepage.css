@@ -509,5 +509,80 @@ body .filter {
     border-radius:30%;
 }
 
+.news {
+    text-decoration-color: blanchedalmond;
+    text-align: center;
+    border: solid #1B9AAA;
+    background-color: #1B9AAA;
+    height: 550px;
+    width: 400px;
+    position: relative;
+    left: 1100px;
+    top: 80px;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-radius: 25px;
+}
+
+
+/* .news-content {
+    background-color: red;
+    height: 200px;
+    width: 500px;
+} */
+
+.content-box {
+    text-align: center;
+    margin-left: 10px;
+    padding: 5%;
+    height: 400px;
+}
+
+.content-box:hover{
+    background-color: #F8B195;
+    transform: scale(1.08);
+    margin-left: 10px;
+    padding: 5%;
+    box-shadow: 20px #888888;
+    height: 400px;
+    
+}
+
+.src_name {
+    color: white;
+}
+
+.title {
+    font-family: 'Sriracha', cursive;
+    font-size: 20px;
+    padding: 4px;
+    color: brown;
+    font-style: bold;
+
+}
+
+.author {
+    font-style: italic;
+
+}
+
+.image {
+    float:left;
+}
+
+.loc {
+
+}
+
+.content {
+    /* border: solid black; */
+    position: relative;
+    top: 10px;
+    font-family: 'News Cycle', sans-serif;
+    text-align: left;
+    
+
+}
+
 /* ########################## */
 

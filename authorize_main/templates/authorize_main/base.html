@@ -36,16 +36,21 @@
         {% comment %} <li class = "nav-item"><a class="nav-link"href="{% url 'see_my_posts' %}"style = "color:white;">My Posts</a></li>{%endcomment%}-->
         <!-- <li class = "nav-item"><a class="nav-link"href="{% url 'createposts'%}"style = "color:white;">Post an Idea</a></li> -->
         <!-- {% comment %} <li class = "nav-item"><a class="nav-link"href="{%url 'see_all_posts'%}"style = "color:white;">All Posts</a></li> {% endcomment %}-->
+        <li class="nav-item"><a onclick="hideNotifications();"class="nav-link" href="{%url 'index'%}" style = "color:white;">Chat</a></li>
         <li class ="nav-item"><a class="nav-link" href="" onclick="showNotifications();" style = "margin-right:50px;color:white;font-size:25px;"><i title = "Notification" class="fa fa-bell"></i></a></li>
         <li class ="nav-item"><a onclick="hideNotifications();"class="nav-link"style = "margin-right:50px;color:white;font-size:25px;" href="{%url 'hometemplate' %}" class="nav-link"><i title = "Home" class="fa fa-home"></i></a></li>
         <li class = "nav-item"><a onclick="hideNotifications();"class = "nav-link" href="{% url 'profile' %}" style = "margin-right:50px;color:white;font-size:25px;"><i title = "Profile" class="fa fa-user-circle"></i></a></li>
         
         
         <li class ="nav-item"><a onclick="hideNotifications();"class="nav-link"href="{%url 'logout'%}"style = "color:white;font-size:25px;"><i title = "Sign out"class="fa fa-sign-out"></i></a></li>
-        {%else%}        
-         <li class="nav-item"><a onclick="hideNotifications();"class="nav-link" href="{%url 'landing_page'%}" style="color:white;">Home <span class="sr-only">(current)</span></a>  </li>
-        <li class ="nav-item"><a onclick="hideNotifications();"href="{%url 'login'%}" class="loginbutton" style="color:white;">Login</a></li>        
-        <li class="nav-item"><a onclick="hideNotifications();"class="nav-link" href="{%url 'signup'%}" style = "color:white;">Sign Up</a></li>
+        {%else%}     
+        <script>
+          document.getElementById('notification-box').style.display=none;
+        </script>   
+        <li class="nav-item"><a onclick="hideNotifications();" class="nav-link" href="{%url 'landing_page'%}" style="color:white;">Home <span class="sr-only">(current)</span></a>  </li>
+        <li class ="nav-item"><a onclick="hideNotifications();" href="{%url 'login'%}" class="loginbutton" style="color:white;">Login</a></li>        
+        <li class="nav-item"><a onclick="hideNotifications();" class="nav-link" href="{%url 'signup'%}" style = "color:white;">Sign Up</a></li>
+        
         {%endif%}
       </ul>
     </div>
@@ -57,19 +62,31 @@
     <br><br>
     <a id="clear"  onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
     <ul class = "notif">
-      {%for notification in all_notifications%}
-      <li>
-        <div class="notifBox">
-        <button onclick="saveURL();"class="closeNotifButton" type="button" name="button"><a 
-        class="closeNotif" href="{%url 'delete_notification' notification.id%}">&times;</a></button>
-        <h1 class="notifTitle">Message For {{notification.account.first_name}}</h1>
-        <div class="notifMsgBox">
-        <h1 class="notifMsg" >{{notification.notified_message}}</h1>
-        </div>
-        <h1>{{notification.date_created}}</h1>
-      </div>
-      </li>
-      {%endfor%}
+      {%if user.is_authenticated%}
+        {%for notification in all_notifications%}
+          <li>
+            <span style="
+                position:absolute; 
+                width:100%;
+                height:100%;
+                top:0;
+                left: 0;
+                z-index: 1;">
+                  <a href="https://google.com"></a>
+                </span>
+              <div class="notifBox">
+                <button onclick="saveURL();"class="closeNotifButton" type="button" name="button"><a 
+                class="closeNotif" href="{%url 'delete_notification' notification.id%}">&times;</a></button>
+                <h1 class="notifTitle">Message For {{notification.account.first_name}}</h1>
+                <div class="notifMsgBox">
+                  <h1 class="notifMsg" >{{notification.notified_message}}</h1>
+                </div>
+                <h1>{{notification.date_created}}</h1>
+                
+              </div>
+          </li>
+        {%endfor%}
+      {%endif%}
     </ul>
     
   </div>

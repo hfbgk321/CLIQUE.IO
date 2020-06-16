@@ -1,0 +1,93 @@
+.Profilebox{
+    position:relative;
+    width:700px;
+    top:100px;
+    /* margin:50% auto; */
+    margin:auto;
+    background-color: white;
+    border:5px solid #f5f5f5;
+    padding-top:10px;
+    border-radius:25px;
+    margin-bottom:20px;
+}
+.profpic{
+    position:relative;
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+    left:50%;
+    transform:translateX(-50%);
+    /* margin-top:20px */
+}
+h3{
+    /* text-align: center; */
+    position:relative;
+    height:80px;
+    width:100%;
+    /* background-color:blue; */
+    /* border-bottom:1px solid black; */
+    /* text-align: center; */
+    /* padding-left:30%; */
+    line-height: 80px;
+}
+
+h3::after{
+    content:'';
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    /* z-index:40; */
+    width:90%;
+    height:1px;
+    bottom:0;
+    background-color:black;
+}
+h3:last-child::after{
+    background-color:transparent;
+}
+.pubBio{
+    line-height:30px;
+    /* padding:50px; */
+    padding-top:10px;
+    padding-bottom:50px;
+    border-radius:0 0 25px 25px;
+    height:auto;
+}
+span{
+    float:left;
+    margin-left:15px;
+}
+.biospan{
+    height:auto;
+}
+.pubBioS{
+    margin-left:0px;
+}
+strong{
+    /* position:absolute; */
+    /* left:50px; */
+    /* margin-top:50px; */
+    /* position:relative; */
+    display:block;
+    width:150px;
+    float:left;
+    /* background-color:green; */
+    margin-left:50px;
+    /* height:100px; */
+    /* background-color: green; */
+    /* position:absolute; */
+    /* top:50%; */
+    /* transform:translateY(-50%); */
+    font-weight: 700;
+    /* float:left; */
+}
+.pubBio{
+    padding:50px;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+.pubuname{
+    text-align: center;
+    font-weight: 900;
+    font-size: 22px;
+}

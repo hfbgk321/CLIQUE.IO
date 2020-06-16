@@ -5,7 +5,8 @@
     <title>Chat Room</title>
 </head>
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    
+    <textarea id="chat-log" cols="100" rows="20">{{text_}}</textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
@@ -38,7 +39,7 @@
 
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
+            const message = '{{user.first_name}}: ' + messageInputDom.value;
             chatSocket.send(JSON.stringify({
                 'message': message
             }));

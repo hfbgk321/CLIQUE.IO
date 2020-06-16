@@ -7056,10 +7056,11 @@ function setWindowID(ID){
 		<h1 style="color:white;font-weight:bold;">Number of Accepted Applicants: {{num_accepted}}</h1> 
 		<br>
 		<!-- for loop -->
-		{%for accepted_user in accepted%}
+		{%for accepted_user, url in user_url_combined%}
 		<h1 style="color:white;">- {{accepted_user.first_name}} {{accepted_user.last_name}}</h1>
 		<h1 style="display:none;">{{accepted_user.id}}</h1>
 		
+		<a href="{%url 'room' url %}">Chat</a>
 		<br>
 		{%endfor%}
 		<!-- end for loop -->

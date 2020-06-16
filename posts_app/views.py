@@ -14,6 +14,7 @@ import datetime
 from authorize_main.models import Account
 from Notifications.models import NotificationModel
 from Notifications.views import Notifications
+from newsapi import NewsApiClient
 
 def getbookmarkinfo_allposts(request, post_id, page_number):
   return make_bookmark(request, post_id, page_number)
@@ -74,7 +75,10 @@ def PostApplyList(request): #for poster to see which users applied
 
 def PostList(request):
   postlist =AllAppliedBookmarkedView(request)[0]
-  return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request)})
+  newsapi = NewsApiClient(api_key='2d6d2823f99f42aaa163e76c3dbb20fa')
+  top_headlines = newsapi.get_top_headlines(language='en',sources='techcrunch')
+  all_articles = top_headlines['articles']
+  return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request),"all_articles":all_articles})
 
 def ApplyList(request): #for user to see which posts they applied to
   appliedposts_obj = AllAppliedBookmarkedView(request)[1]
@@ -91,6 +95,8 @@ def MyPostList(request, post_id=None,page_number=1):
   current_post = ''
   users = []
   accepted = []
+  chat_url = []
+  
   if post_id:
     post = PostModel.objects.get(id=post_id)
     applicants = post.applicants
@@ -101,13 +107,27 @@ def MyPostList(request, post_id=None,page_number=1):
     
     for x in post.applicants:
       users.append(Account.objects.get(id=x))
-    print(accepted)
+    #print(accepted)
 
+    
+    for x in range(len(accepted)):
+      
+      #print(request.user.id)
+      #print(accepted[x].id)
+      
+      url = request.user.id + accepted[x].id * post.id 
+    
+      chat_url.append(url)
+      
+    user_url_combined = zip(accepted, chat_url)
+    
   else:
+    user_url_combined = []
     applicants = []
 
   return render(request, 'posts_app/My_Post.html', {"pag_mypost":mypost_obj, 'users': users,"current_post":current_post,
-  "num":len(users),"post_id":post_id,"accepted":accepted,"num_accepted":len(accepted), 'all_notifications': Notifications(request)})
+  "num":len(users),"post_id":post_id,"accepted":accepted,"num_accepted":len(accepted), 'all_notifications': Notifications(request),
+  'user_url_combined': user_url_combined})
   
 def AllAppliedBookmarkedView(request,page_number=None):
   all_posts = PostModel.objects.all()

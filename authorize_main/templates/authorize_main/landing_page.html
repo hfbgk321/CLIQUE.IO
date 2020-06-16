@@ -7,7 +7,7 @@
             <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
         {% endfor %}
 {% endif %}
-<div class="background">
+<!-- <div class="background">
 <div class="container">
     <div class="w">
         <br><br><br><br><br><br><br><br>
@@ -15,7 +15,7 @@
         <h1 class = "land">Have an idea?</h1>
         <p class = "pland" style="font-size:20px;">Recruit some team members! Just fill out a simple form!</p>
         <a class = "button" style = "color:white;" href = "#">Post Your Idea<span class = "span"></span></a>
-        <!-- <hr><hr><hr><hr> -->
+       
 
         <h1 class = "land" style = "margin-top:30%">Don't have an idea?</h1>
         <p class = "pland" style="font-size:20px;">Join a team that needs your skills! Submit your resume!</p>
@@ -27,6 +27,54 @@
     </div>
   </div>
 </div>
-</div>
+</div> -->
 
+<section id="videoSection">
+    <div id="landingPageBody"class="landingPageBody">
+    <!-- <img id='imgBg'style="background-image: linear-gradient(125deg,#1B9AAA,#06D6A0, #FFC43D);
+    background-size: 400%;
+    animation: bg 12s infinite;"> -->
+    <video id="landingVid"src="{%static 'authorize_main/landing_page_vid.mp4'%}" autoplay="" muted="" loop=""></video>
+    <div id="video-overlay" class="video-overlay"></div>
+    <img src="{%static 'authorize_main/clique_logo.png'%}" id="cliqueLogo">
+</div>
+</section>
+<section>
+    <div style="background:transparent;" id="landingPageBlock1">
+    <div id="landingText" class="landingText">
+        <h1>What we do</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem nulla, porta a bibendum vitae, egestas ac lectus. Donec ut erat dapibus, accumsan purus viverra, porta massa. Suspendisse potenti. Integer eget augue sit amet turpis tincidunt maximus. Nulla maximus dui sit amet turpis varius gravida. Aliquam et cursus diam. Ut euismod libero id ante eleifend varius. Mauris tellus massa, molestie id urna pharetra, facilisis consectetur lectus. Morbi malesuada eros nec faucibus ultricies. Aliquam dignissim sem et sapien sagittis ornare. Suspendisse at nisl porttitor dolor pharetra sagittis nec non est. Aliquam iaculis, enim eu suscipit commodo, nisi libero efficitur turpis, vitae rhoncus tortor nunc non dui.
+            Integer blandit porta eleifend. Sed tincidunt risus vitae libero euismod scelerisque. Phasellus vitae ligula elementum, ultrices tellus id, efficitur turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla fringilla pellentesque arcu, eu volutpat augue laoreet ut. Maecenas facilisis risus et orci aliquet, ac sodales neque auctor. In vulputate congue tortor. Fusce sollicitudin accumsan accumsan. Fusce lacus neque, dictum eget sapien eget, efficitur eleifend eros. Nunc sit amet mauris luctus, accumsan velit non, finibus tortor. Donec imperdiet nunc vitae orci cursus, id aliquam metus aliquam. Suspendisse nec tortor magna. Vestibulum tincidunt id arcu sed rhoncus. Sed ut euismod nunc, sit amet efficitur orci. In ultrices sapien libero, sed condimentum mauris hendrerit nec. Duis maximus feugiat neque, nec tincidunt ante vulputate at.
+        </p>
+    </div>
+    <img id="landingDoodle"src="{% static 'authorize_main/LandingPagePic.png' %}" alt="People Collaborating">
+</div>
+</section>
+</div>
+<script type="text/javascript">
+    let videoOverlay=document.getElementById("video-overlay");
+    let block1=document.getElementById('landingPageBlock1');
+    let image=document.getElementById('cliqueLogo');
+    let video=document.getElementById('landingVid');
+    
+    
+   
+    window.addEventListener('scroll',function(){
+        let value=1+window.scrollY/-400;
+        image.style.opacity=value;
+        video.style.opacity=value;
+        if(video.style.opacity<0.8){
+        videoOverlay.style.opacity=0;
+    }
+    else{
+        videoOverlay.style.opacity=.15;
+    }
+    });
+    window.addEventListener('scroll',function(){
+        let value=0+(window.scrollY-100)/500;
+        block1.style.opacity=value;
+    });
+   
+    
+</script>
 {% endblock %}

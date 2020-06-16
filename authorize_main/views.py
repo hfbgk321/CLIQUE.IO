@@ -9,7 +9,13 @@ from authorize_main.models import Account
 from Notifications.views import Notifications
 
 def landing_page_view(request):
-  return render(request,'authorize_main/landing_page.html',{"all_notifications":Notifications(request)})
+  #print(request.user.is_authenticated)
+  if request.user.is_authenticated:
+    return render(request,'authorize_main/landing_page.html',{"all_notifications":Notifications(request)})
+  else:
+    return render(request,'authorize_main/landing_page.html',{})
+   
+  
 
 def logout_view(request):
   logout(request)
@@ -80,6 +86,7 @@ def edit_profile(request):
     user.university = request.POST['university']
     user.major = request.POST['major']
     user.school_year = request.POST['school_year']
+    user.bio = request.POST['bio']
     user.save()
     print(request.POST)
     
