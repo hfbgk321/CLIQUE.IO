@@ -25,7 +25,16 @@ body {
 #notification-box{
     padding-left:5px;
 }
-
+.notifDot{
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    left:20px;
+    top:20px;
+    position:relative;
+  }
 .navbar-brand{
     display:inline-block;
     padding:0;
@@ -41,6 +50,9 @@ body #notification-box .notif {
     /* transform:translateX(-46%); */
 }
 .notifBox{
+    box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+    border:1px solid rgba(0,0,0,.15);
+    transition: box-shadow 83ms;
     position:relative;  
      padding:4%;
      /* left:4px; */
@@ -51,9 +63,12 @@ body #notification-box .notif {
     background:#F8FFE5;
     border-radius:5px;
     border:1px solid white;
-    z-index:500;
+    z-index:10;
+    margin-bottom:-32px;
 }
-
+.notifBoxItem{
+    margin:0;
+}
 .notifAnimation{
     animation: fadeIn ease 1s;
 -webkit-animation: fadeIn ease 1s;
@@ -93,11 +108,16 @@ body #notification-box .notif {
     color:gray;
 }
 .notifMsgBox{
-    max-width:10px;
-    max-height:35px;
+    
+    /* max-width:10px;
+    max-height:15px; */
+    display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
 }
-.notifMsg{
-    margin-left:0;
+.notifMsg{  
+    overflow: hidden;
     color:#1B9AAA;
 }
 .closeNotifButton{
@@ -173,6 +193,107 @@ body #notification-box .notif {
   bottom: auto;
   top: 0;
   width: 70%;
+}
+.chatTab{
+    position:fixed;
+    bottom:0;
+    right:23.5%;
+    z-index:10;
+    width:250px;
+    height:30px;
+    background:#1B9AAA;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+    border:1px solid rgba(0,0,0,.15);
+    transition: box-shadow 83ms;
+}
+.chatBoxText{
+    max-height:90%;
+    overflow:scroll;
+}
+.chatBoxName{
+    width:250px;
+    height:35px;
+    background:#1B9AAA;
+    outline:none;
+    border:none;
+    color:white;
+}
+.chatBox{
+    margin-top:20px;
+}
+.chatBoxMsgs p{
+    position:relative;
+    top:-43px;
+    max-width:20ch;
+    position:relative;
+    font-size:15px;
+    margin:10px;
+    left:12%;
+}
+.chatBoxMsgs img{
+    margin-top:5px;
+    max-height:30px;
+    min-height:30px;
+    max-width:30px;
+    min-width:30px;
+    left:5px;
+    border-radius:50px;
+}
+.chatBoxMsgs {
+    padding:10px;
+}
+.chatBoxUser h1{
+    font-size:10px;color:gray;
+    position:relative;
+    left:160px;
+    top:-30px;
+}
+.chatBoxMsgs h1{
+    font-size:10px;color:gray;
+    position:relative;
+    top:-30px;
+}
+.chatBoxUser p{
+    position:relative;
+    max-width:80%;
+    right:1px;
+    font-size:15px;
+    top:-30px;
+}
+
+.chatBoxUser img{
+    margin-top:5px;
+    max-height:30px;
+    min-height:30px;
+    max-width:30px;
+    min-width:30px;
+    margin-left:85%;
+    border-radius:50px;
+}
+.chatBoxUser{
+    padding:10px;
+}
+.chatBoxInput{
+    padding-left:5px;
+    padding-right:5px;
+    outline:none;
+    border:1px solid gray;
+    width:100%;
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+.chatBox{
+    right:23.5%;
+    position:fixed;
+    bottom:0;
+    z-index:10;
+    width:250px;
+    height:400px;
+    background:#F8FFE5;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+    border:1px solid rgba(0,0,0,.15);
+    transition: box-shadow 83ms;
 }
 
 .show2 {

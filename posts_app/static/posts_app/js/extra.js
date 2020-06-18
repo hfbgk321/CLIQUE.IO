@@ -2,10 +2,21 @@
 //   alert("clicked");
 // });
 // document.getElementById("acceptedPostID").value=currentPostID;
+// module.exports.notBubbleUp = notBubbleUp();
 let profileSelect = document.querySelector('#img');
 let custBut = document.querySelector('.selectImg');
 let filename = document.querySelector('.imgName');
-let regEx = /[0-9a-zA-z\^\&\'\@\{\}\[\]\,\$\=\!\#\(\)\.\%\+\~\_]+$/;
+let scrollnews = document.querySelector('.scrollnews');
+let contentUL = document.querySelector('.news');
+// console.log(contentUL.scrollTop);
+// let Scrolltop = 0;
+scrollnews.addEventListener('click', function () {
+  // console.log(contentUL.scrollTop);
+    contentUL.scrollTop += 300;
+  // contentUL.scrollTop = contentUL.scrollTop + '100';
+    // console.log(Scrolltop);
+})
+
 function active() {
   profileSelect.click();
 }

@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html>
+{%extends 'authorize_main/base.html'%}
+{%load static%}
+{%block content%}
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
 </head>
 <body>
-    
-    <textarea id="chat-log" cols="100" rows="20">{{text_}}</textarea><br>
+    <br><br><br><br><br>
+    <textarea id="chat-log" cols="100" rows="20">{%for line, align in message_combined%}{%if align == 'right'%}                                          {{line}}{%else%}{{line}}{%endif%}{% endfor %}</textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
@@ -47,4 +48,4 @@
         };
     </script>
 </body>
-</html>
+{%endblock%}

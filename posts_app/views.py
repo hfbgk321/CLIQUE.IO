@@ -15,6 +15,7 @@ from authorize_main.models import Account
 from Notifications.models import NotificationModel
 from Notifications.views import Notifications
 from newsapi import NewsApiClient
+from chat.views import chat_key_seeder, create_private_chat, notify_chat
 
 def getbookmarkinfo_allposts(request, post_id, page_number):
   return make_bookmark(request, post_id, page_number)
@@ -78,11 +79,40 @@ def PostList(request):
   newsapi = NewsApiClient(api_key='2d6d2823f99f42aaa163e76c3dbb20fa')
   top_headlines = newsapi.get_top_headlines(language='en',sources='techcrunch')
   all_articles = top_headlines['articles']
+
+  for article in all_articles:
+    clock = article['publishedAt']
+    date = clock[0:10]
+    year = date[0:4]
+    month = date[5:7]
+    day = date[8:10]
+
+    rearranged = month+'-'+day+'-'+year
+    
+    time = clock[11:int(len(clock)-4)]
+    hours = time[0:2]
+    minutes = time[3:5]
+    am_or_pm=''
+    if(int(hours) >= 12):
+      am_or_pm = 'PM'
+      hours = str(int(hours)-12)
+    else:
+      am_or_pm ='AM'
+    
+    article['publishedAt'] = rearranged+" "+ hours+":"+minutes+" "+am_or_pm
+    
+
+    # print(type(time))
+    # print(time[0:10])
+    # print(time[11:len(time)-1])
+    # article['publishedAt'] = time[0:10]+" "+time[11:len(time)-1]
+    # time = time[0,10] +" "+time[11,int(len(time))]
   return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request),"all_articles":all_articles})
 
 def ApplyList(request): #for user to see which posts they applied to
   appliedposts_obj = AllAppliedBookmarkedView(request)[1]
-  return render(request, 'posts_app/Applied.html', {'pag_appliedposts': appliedposts_obj, 'all_notifications': Notifications(request)})
+  applied_posts_urls = AllAppliedBookmarkedView(request)[4]
+  return render(request, 'posts_app/Applied.html', {'pag_appliedposts': appliedposts_obj, 'applied_posts_urls': applied_posts_urls, 'all_notifications': Notifications(request)})
 
 def BookmarkList(request):
   bookmarks_obj = AllAppliedBookmarkedView(request)[2]
@@ -114,9 +144,8 @@ def MyPostList(request, post_id=None,page_number=1):
       
       #print(request.user.id)
       #print(accepted[x].id)
-      
-      url = request.user.id + accepted[x].id * post.id 
-    
+      url = request.user.id * accepted[x].id + post_id
+      create_private_chat(request, url, accepted[x].id)
       chat_url.append(url)
       
     user_url_combined = zip(accepted, chat_url)
@@ -178,6 +207,20 @@ def AllAppliedBookmarkedView(request,page_number=None):
   for app_post in all_apps:
     if app_post.account.id == request.user.id:
       applied_posts.append(app_post)
+      
+  urls = []
+  for application in applied_posts:
+    if application.accepted == True:
+      poster_id = application.applied_post.post_made_by.id
+      post_id = application.applied_post.id
+      url = poster_id * request.user.id + post_id 
+      urls.append(url)
+
+    else:
+      urls.append(0)
+    
+  applied_posts_urls = zip(applied_posts, urls)
+      
   #print(applied_posts)
   paginator_allposts = Paginator(all_posts_filtered, 3)
   allposts_number = request.GET.get('page1',)
@@ -196,7 +239,7 @@ def AllAppliedBookmarkedView(request,page_number=None):
   mypost_obj = paginator_mypost.get_page(mypost_number)
   
   
-  return [allposts_obj, appliedposts_obj, bookmarks_obj, mypost_obj]
+  return [allposts_obj, appliedposts_obj, bookmarks_obj, mypost_obj, applied_posts_urls]
   
   #return render(request,'posts_app/home_template.html',
                 #{'pag_allposts': allposts_obj, 'pag_bookmarks': bookmarks_obj,"pag_mypost":mypost_obj})

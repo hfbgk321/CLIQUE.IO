@@ -1,5 +1,12 @@
 
+// const notBubbleUp = require("extra").notBubbleUp;
+// console.log('1');
 
+console.log(closeNotifButt);
+function notBubbleUp2(e) {
+    // window.location = "{%url 'delete_notification' notification.id%}";
+    e.stopImmediatePropagation();
+  }
  console.log(document.cookie);
 function navbarDrop(){
     // if(document.getElementById('navbar-toggler').getAttribute('aria-expanded')=='true'){
@@ -26,6 +33,12 @@ function navbarDrop(){
            x[i].style.marginBottom="10px";
        }
     }
+}
+function startChat(){
+    document.getElementById('chatBox').style.display="block";
+}
+function endChat(){
+    document.getElementById('chatBox').style.display="none";
 }
 function saveURL(){
     document.cookie="deleteNotification=true";

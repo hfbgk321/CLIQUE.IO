@@ -4,12 +4,12 @@
 <link rel="stylesheet" href="{%static 'posts_app/pub_profile.css'%}">
 <div class = 'Profilebox'>
   <img class = "profpic" src= {{profile_pic}} alt="Profile Picture Not Uploaded">
-  <h3 class = "pubuname">{{applicant.first_name}} {{applicant.last_name}}</h3>
+  <h1 class = "pubuname">{{applicant.first_name}} {{applicant.last_name}}</h1>
   <h3 class = "pubemail"><strong>Email: </strong><span>{{email}}</span></h3>
   <h3 class = "pubuni"><strong>University: </strong><span> {{applicant.university}}</span></h3>
   <h3 class = "pubmaj"><strong>Major: </strong><span> {{applicant.major}}</span></h3>
   <h3 class = "pubschy"><strong>School Year: </strong><span> {{applicant.get_school_year_display}}</span></h3>
-  <h3 class = "pubBio"><strong class = "pubBioS">Bio: </strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{applicant.bio}}</h3>
+  <h3 class = "pubBio"><strong class = "pubBioS">Bio: </strong><p class ="biospan">&emsp;&emsp;{{applicant.bio}}</p></h3>
 </div>
 
 

@@ -38,7 +38,7 @@
 
 <!-- List of APPLIED projects -->
 <div class="gallery applied">
-	{%for application in pag_appliedposts%}
+	{%for application, url in applied_posts_urls%}
 	<div class = "projectSec" id="clickPost"
 			onclick="openProject('{{application.applied_post.title_of_post}}','{{application.applied_post.num_of_positions}}','{{application.applied_post.skills_needed}}','lolol','{{application.applied_post.description_of_post}}');">
 			<div id="project"  class="project">
@@ -61,6 +61,7 @@
 				{% endif %}
 				{%if application.accepted == True%}
 					<h1 style = "color:rgb(255, 0, 0);" >Status: Accepted</h1>
+					<a onclick = "notBubbleUp(event);" href="{%url 'room' url%}" style="color: rgb(0, 0, 0);"><h4>Start Chatting!</h4></a>
 				{%else%}
 					<h1 style ="color:rgb(255, 0, 0);">Status: Pending</h1>
 				{%endif%}

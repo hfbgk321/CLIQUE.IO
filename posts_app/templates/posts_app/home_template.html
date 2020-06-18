@@ -3,6 +3,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=News+Cycle&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
 {%block content%}
 {% if messages %}
 {% for message in messages %}
@@ -6944,19 +6945,31 @@
 </div>
 
 <div class="news">
-	<h1 style="font-size: 20px; background-color: #F67280; color:#355C7D; font-weight:900;">News</h1>
-	<hr style="color: black;height:5px;">
+	<h1 style="font-size: 20px;height:50px; line-height:50px;background-color: #1B9AAA; color:#fff; font-weight:900;">News</h1>
+	<!-- <hr style="color: black;height:5px;"> -->
+	<ul class = "contentUL" >
 	{%for article in all_articles%}
+	<li class="content-list-item">
+	<a href="{{article.url}}">
 	<div class="content-box">
+		<span class="dot"></span>
+		<div class="contentarticle">
 		<h1 class="src_name">{{article.source.name}}</h1>
 		<h2 class="title">{{article.title}}</h2>
-		<h4 class="author">{{article.author}}</h4>
-		<h5 class="loc">{{article.publishedAt}}</h5>
-		<a href="{{article.url}}"><img class="image" src="{{article.urlToImage}}" alt=""></a>
+		<!-- <h4 class="author">{{article.author}}</h4> -->
+		<h5 class="loc" style="float:right;">{{article.publishedAt}}</h5>
+		<!-- <a href="{{article.url}}"><img class="image" src="{{article.urlToImage}}" alt=""></a> -->
 		<!-- <p class="content">{{article.content}}</p> -->
 	</div>
-	<hr style="height: 0px; border: solid black; margin-left: 15px;">
+	</div>
+	</a>
+	<!-- <hr style="height: 0px; border: solid black; margin-left: 15px;"> -->
+</li>
 	{%endfor%}
+</ul>
+</div>
+<div class="scrollnews" title = "scroll or press to view more">
+	<div class="scrollarrow"></div>
 </div>
 
 

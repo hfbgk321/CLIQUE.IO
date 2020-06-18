@@ -34,16 +34,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        print('1')
+        #print('1')
         self.room_name = self.scope['url_route']['kwargs']['room_name']
-        print('2', self.room_name)
+        #print('2', self.room_name)
         completed = await self.edit_text_log(int(self.room_name), text_data)
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message
+                'message': message + '\n'
             }
         )
 

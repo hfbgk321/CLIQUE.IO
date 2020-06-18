@@ -45,7 +45,8 @@ class Account(AbstractBaseUser):
   university = models.CharField(verbose_name="university",max_length=35,default ="")
   major = models.CharField(verbose_name="major",max_length=25,default="")
   school_year = models.CharField(choices = (("1", "Freshman"),("2", "Sophomore"),("3", "Junior"),("4", "Senior"), ("5", "Other")),default="",max_length=1)
-
+  chat_keys = ArrayField(models.BigIntegerField(), default=list, blank=True)
+  
   date_joined = models.DateTimeField(verbose_name="date joined",auto_now_add=True)
   last_login = models.DateTimeField(verbose_name="last login", auto_now_add=True)
   is_admin = models.BooleanField(default=False)

@@ -59,31 +59,27 @@
 
   <div onmouseleave="hideNotifications();"id="notification-box">
     <!-- class="hide1" -->
-    <br><br>
-    <a id="clear"  onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
+    <!-- <br><br> -->
+    <!-- <a id="clear"  onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a> -->
     <ul class = "notif">
+      
       {%if user.is_authenticated%}
+      <h1 style="color:#F8FFE5;text-align:center;">Notifications</h1>
         {%for notification in all_notifications%}
           <li>
-            <span style="
-                position:absolute; 
-                width:100%;
-                height:100%;
-                top:0;
-                left: 0;
-                z-index: 1;">
-                  <a href="https://google.com"></a>
-                </span>
+            <a class="notifBoxItem" href="https://google.com">
               <div class="notifBox">
-                <button onclick="saveURL();"class="closeNotifButton" type="button" name="button"><a 
-                class="closeNotif" href="{%url 'delete_notification' notification.id%}">&times;</a></button>
+                <form action="{%url 'delete_notification' notification.id%}">
+                <button onclick="notBubbleUp2(event);"class="closeNotifButton" type="submit" name="button">
+                &times;</button></form>
                 <h1 class="notifTitle">Message For {{notification.account.first_name}}</h1>
                 <div class="notifMsgBox">
-                  <h1 class="notifMsg" >{{notification.notified_message}}</h1>
+                  <h1 class="notifMsg">{{notification.notified_message}}</h1>
                 </div>
-                <h1>{{notification.date_created}}</h1>
-                
+                <hr style="height: 2px;">
+                <h1 style="color:#FFC43D;font-size:12px;position:absolute;">{{notification.date_created}}</h1>
               </div>
+            </a>
           </li>
         {%endfor%}
       {%endif%}
@@ -101,7 +97,52 @@ else if(document.cookie.indexOf("notificationClicked=off")!=-1){
     hideNotifications();
 }
   </script>
+ <button onclick='startChat();'>
+<div class="chatTab">
+    <h1 style="position:relative;top:25%;text-align: center;color:white;">Start Chatting!</h1>
+</div>
+</button>
+<div id="chatBox" style="display:none;" class="chatBox">
+  <button class="chatBoxName" onclick="endChat();">Jacky Chen USERID:231</button>
+  <div class="chatBoxText">
 
+  <div class="chatBoxMsgs">
+    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
+    <p>let metn ka katkbla bktak tbak tbwab tkjabjk at</p>
+    <h1 >01/01/2001</h1>
+  </div>
+  <div class="chatBoxUser">
+    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
+    <p>let metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk at</p>
+    
+    <h1>01/01/2001</h1>
+  </div>
+  <div class="chatBoxMsgs">
+    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
+    <p>let metn ka katkbla bktak tbak tbwab tkjabjk at</p>
+    <h1 >01/01/2001</h1>
+  </div>
+  <div class="chatBoxUser">
+    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
+    <p>let metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk at</p>
+    
+    <h1>01/01/2001</h1>
+  </div>
+  <div class="chatBoxMsgs">
+    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
+    <p>let metn ka katkbla bktak tbak tbwab tkjabjk at</p>
+    <h1 >01/01/2001</h1>
+  </div>
+  <div class="chatBoxUser">
+    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
+    <p>let metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk at</p>
+    
+    <h1>01/01/2001</h1>
+  </div>
+
+</div>
+<input placeholder="Type your message here"class="chatBoxInput"type="text">
+</div>
 {% block css %}{% endblock css %}
 {% block content %}{% endblock content %}
 {% block extra_js %}{% endblock extra_js %}

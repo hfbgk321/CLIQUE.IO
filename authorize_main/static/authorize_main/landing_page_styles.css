@@ -23,6 +23,58 @@
     }
 }
 
+.founders {
+    height: 800px;
+}
+
+.founders-title {
+    font-size: 50px;
+    margin-left: 20px;
+}
+
+.front, .back{
+    text-align: center;
+    font-size: 40px;
+}
+
+.frontEnd {
+    position: relative;
+    height:300px;
+}
+
+.pic {
+    text-align: center;
+    border-radius: 50%;
+}
+
+.yupeng, .jie, .isfar {
+    width: 200px;
+    height: 300px;
+}
+
+.name {
+    text-align: center;
+    font-size: 30px;
+}
+
+.yupeng {
+    position: relative;
+    left: 5%;
+}
+
+.jie {
+    position: absolute;
+    left: 40%;
+    top: 0;
+}
+
+.isfar {
+    position: absolute;
+    left: 75%;
+    top: 0;
+}
+
+
 
 .button {
     z-index:2;
