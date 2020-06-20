@@ -6,6 +6,8 @@ from posts_app.models import PostModel
 # Create your models here.
 class ChatModel(models.Model):
     users = ArrayField(models.IntegerField(), default=list,blank=True)
+    owner = models.IntegerField(default = -1) 
+    url = models.TextField(blank=True, max_length=50)
     key = models.BigIntegerField(blank=False, default=0)
     title = models.CharField(max_length=50, blank=False, default='Title')
     messages = ArrayField(models.TextField(), default=list, blank=True)

@@ -15,7 +15,7 @@ from authorize_main.models import Account
 from Notifications.models import NotificationModel
 from Notifications.views import Notifications
 from newsapi import NewsApiClient
-from chat.views import chat_key_seeder, create_private_chat, notify_chat
+from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler
 
 def getbookmarkinfo_allposts(request, post_id, page_number):
   return make_bookmark(request, post_id, page_number)
@@ -144,7 +144,7 @@ def MyPostList(request, post_id=None,page_number=1):
       
       #print(request.user.id)
       #print(accepted[x].id)
-      url = request.user.id * accepted[x].id + post_id
+      url = str(int(url_scrambler(request.user.id)) + int(url_scrambler(post_id)) + int(url_scrambler(accepted[x].id)))
       create_private_chat(request, url, accepted[x].id)
       chat_url.append(url)
       
@@ -213,7 +213,7 @@ def AllAppliedBookmarkedView(request,page_number=None):
     if application.accepted == True:
       poster_id = application.applied_post.post_made_by.id
       post_id = application.applied_post.id
-      url = poster_id * request.user.id + post_id 
+      url = str(int(url_scrambler(request.user.id)) + int(url_scrambler(post_id)) + int(url_scrambler(poster_id)))
       urls.append(url)
 
     else:

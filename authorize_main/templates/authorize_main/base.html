@@ -97,52 +97,48 @@ else if(document.cookie.indexOf("notificationClicked=off")!=-1){
     hideNotifications();
 }
   </script>
- <button onclick='startChat();'>
+ <button onclick='openFriendsList()'>
 <div class="chatTab">
     <h1 style="position:relative;top:25%;text-align: center;color:white;">Start Chatting!</h1>
 </div>
 </button>
+<div id="friendsList" style="display:none" class="chatBox">
+  <button onclick="closeFriendsList();"class="friendListButton">Colleagues</button>
+  <div class="allFriends">
+    <a style="display:block;margin-top:-5px;margin-left:-20px;width:120%;"id="friendsButtonAnchor" href ="javascript:;">
+    <div class="friendsButton">
+      <img  src="{% static 'authorize_main/linkedin_img.png' %}">
+      <h1>Jacky Chen</h1>
+    </div>
+  </a>
+</div>
+</div>
 <div id="chatBox" style="display:none;" class="chatBox">
-  <button class="chatBoxName" onclick="endChat();">Jacky Chen USERID:231</button>
+  <button class="chatBoxName" onclick="endChat();"><span title="Back to Colleagues"style="font-size:20px;" onclick = "backToFriendList();"class = "BackToFriend">&lt; </span>Jacky Chen USERID:231</button>
   <div class="chatBoxText">
-
+    <!-- other person -->
   <div class="chatBoxMsgs">
     <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-    <p>let metn ka katkbla bktak tbak tbwab tkjabjk at</p>
+    <p>bet</p>
     <h1 >01/01/2001</h1>
   </div>
+  <!-- user -->
   <div class="chatBoxUser">
     <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-    <p>let metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk at</p>
-    
-    <h1>01/01/2001</h1>
-  </div>
-  <div class="chatBoxMsgs">
-    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-    <p>let metn ka katkbla bktak tbak tbwab tkjabjk at</p>
-    <h1 >01/01/2001</h1>
-  </div>
-  <div class="chatBoxUser">
-    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-    <p>let metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk at</p>
-    
-    <h1>01/01/2001</h1>
-  </div>
-  <div class="chatBoxMsgs">
-    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-    <p>let metn ka katkbla bktak tbak tbwab tkjabjk at</p>
-    <h1 >01/01/2001</h1>
-  </div>
-  <div class="chatBoxUser">
-    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-    <p>let metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk atlet metn ka katkbla bktak tbak tbwab tkjabjk at</p>
-    
+    <p>i want some office hours daddy</p>
     <h1>01/01/2001</h1>
   </div>
 
 </div>
-<input placeholder="Type your message here"class="chatBoxInput"type="text">
+<input placeholder="Type your message here" class="chatBoxInput"type="text">
 </div>
+<script>
+  document.getElementById('friendsButtonAnchor').addEventListener('click', function () {
+  console.log('pressed');
+  startChat();
+  document.getElementById("friendsList").style.display="none";
+});
+</script>
 {% block css %}{% endblock css %}
 {% block content %}{% endblock content %}
 {% block extra_js %}{% endblock extra_js %}

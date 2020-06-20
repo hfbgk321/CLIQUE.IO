@@ -3,31 +3,44 @@
 // });
 // document.getElementById("acceptedPostID").value=currentPostID;
 // module.exports.notBubbleUp = notBubbleUp();
+// let backButton = document.querySelector(".BackToFriend")
+function backToFriendList() {
+  openFriendsList();
+}
 let profileSelect = document.querySelector('#img');
+// console.log(profileSelect);
 let custBut = document.querySelector('.selectImg');
 let filename = document.querySelector('.imgName');
 let scrollnews = document.querySelector('.scrollnews');
 let contentUL = document.querySelector('.news');
+function selectImgName() {
+  if (profileSelect.value) {
+    filename.style.display = 'block';
+    filename.innerHTML = '' + profileSelect.value.replace(/^.*[\\\/]/, '');
+    // console.log(filename.innerHTML);
+    // console.log('xx');
+    // filename.style.display = 'block';
+  }
+};
 // console.log(contentUL.scrollTop);
 // let Scrolltop = 0;
-scrollnews.addEventListener('click', function () {
-  // console.log(contentUL.scrollTop);
-    contentUL.scrollTop += 300;
+// console.log(1);
+function scrolldown() {
+  if (contentUL.scrollTop === 0) {
+    contentUL.scrollTop += 256;
+  } else {
+    contentUL.scrollTop += 182;
+  }
+}
+    
   // contentUL.scrollTop = contentUL.scrollTop + '100';
-    // console.log(Scrolltop);
-})
+  // console.log(Scrolltop);
+
 
 function active() {
   profileSelect.click();
 }
-profileSelect.addEventListener("change", function () {
-  if (this.value) {
-    filename.style.display = 'block';
-    filename.innerHTML = '' + this.value.replace(/^.*[\\\/]/, '');
-    console.log(filename.innerHTML);
-    // filename.style.display = 'block';
-  }
-})
+
 const email = document.querySelector("#emailBox");
 const universitySec = document.querySelector(".universitySec");
 const universityBox = document.querySelector("#universityBox");

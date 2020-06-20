@@ -3,6 +3,7 @@
 {%block content%}
 <link rel="stylesheet" href="{%static 'posts_app/pub_profile.css'%}">
 <div class = 'Profilebox'>
+  <button class = "AddFriend"> Send Friend Request</button>
   <img class = "profpic" src= {{profile_pic}} alt="Profile Picture Not Uploaded">
   <h1 class = "pubuname">{{applicant.first_name}} {{applicant.last_name}}</h1>
   <h3 class = "pubemail"><strong>Email: </strong><span>{{email}}</span></h3>

@@ -34,8 +34,15 @@ function navbarDrop(){
        }
     }
 }
-function startChat(){
+
+function closeFriendsList(){
+    document.getElementById('friendsList').style.display="none";
+}
+function startChat(userID){
     document.getElementById('chatBox').style.display="block";
+}
+function openFriendsList(){
+    document.getElementById('friendsList').style.display="block";
 }
 function endChat(){
     document.getElementById('chatBox').style.display="none";
