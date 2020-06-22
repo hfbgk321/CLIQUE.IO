@@ -4,7 +4,7 @@
 {%block content%}
 {% if messages %}
 {% for message in messages %}
-<div style = "background-color: #1B9AAA;position:relative;top:75px; z-index:99999;"class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+<div style = "background-color: #1B9AAA;position:relative;top:55px; z-index:99999;"class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
 {% endfor %}
 {% endif %}
 <div class = "box">
@@ -101,26 +101,38 @@
 <div class="filter">
 	<h1 style="margin-top: 15px;margin-left: 40%; font-size: 150%; font-weight:bold; color: white; ">Filter</h1>
 	<hr style="height: 100px; border-color: white;">
-
-		<a onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
-		<ul style="width: 200px; ">
-			<li class="filteritem"><button class="interest filter_options">Interests</button>
+	
+		<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
+		<ul style="width: 200px;">
+			<li class="filteritem"><button onclick="openInterestFilter();" class="interest filter_options">Interests</button>
 				<div id="interest" class="hide-section bar">
-					<label class="interestTypes" for="vehicle1">Computer Science
-						<input class="boxes" type="checkbox" id="vehicle1" name="" value="Bike">
+					<label class="interestTypes" for="interestHealth">Health
+						<input class="boxes" type="checkbox" id="interestHealth" name="" value="Bike">
 					</label><br>
 
-					<label class="interestTypes" for="vehicle2"> Business
-						<input class="boxes" type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+					<label class="interestTypes" for="interestBusiness"> Business
+						<input class="boxes" type="checkbox" id="interestBusiness" name="vehicle2" value="Car">
 					</label><br>
 
-					<label class="interestTypes" for="vehicle1">Math
-						<input class="boxes" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+					<label class="interestTypes" for="interestArt">Art
+						<input class="boxes" type="checkbox" id="interestArt" name="vehicle1" value="Bike">
+					</label><br>
+
+					<label class="interestTypes" for="interestSoftware">Software
+						<input class="boxes" type="checkbox" id="interestSoftware" name="vehicle1" value="Bike">
+					</label><br>
+
+					<label class="interestTypes" for="interestData">Data Analytics
+						<input class="boxes" type="checkbox" id="interestData" name="vehicle1" value="Bike">
+					</label><br>
+
+					<label class="interestTypes" for="interestWeb">Web App Development
+						<input class="boxes" type="checkbox" id="interestWeb" name="vehicle1" value="Bike">
 					</label><br>
 				</div>
 			</li>
 			<hr style="width: 200px;">
-			<li class="filteritem"><button class="location1 filter_options">Location</button>
+			<li class="filteritem"><button onclick="openLocationFilter();" class="location1 filter_options">Location</button>
 				<div id="location1" class="hide-section bar">
 
 					<label class="interestTypes" for="vehicle2">Albany
@@ -133,7 +145,7 @@
 				</div>
 			</li>
 			<hr style="width: 200px;">
-			<li class="filteritem"><button class="appdead filter_options">Application Deadline</button>
+			<li class="filteritem"><button onclick="openAppDeadline();" class="appdead filter_options">Application Deadline</button>
 				<div id="appdead" class="hide-section bar">
 
 					<label class="interestTypes" for="vehicle1">Upcoming Deadlines
@@ -142,7 +154,7 @@
 				</div>
 			</li>
 			<hr style="width: 200px;">
-			<li class="filteritem"><button class="college filter_options">College</button>
+			<li class="filteritem"><button onclick="openCollegeList();" class="college filter_options">College</button>
 				<div id="college" class="hide-section bar">
 					<input required list="schools" id="university" name="university" placeholder="College / University">
 					<datalist id="schools">
@@ -6886,7 +6898,7 @@
 				</div>
 			</li>
 		</ul>
-	
+
 </div>
 <!-- each of these collapse sections is a pop up window. may need to change
 	id in the future so that they're unique every time. -->
@@ -6943,6 +6955,15 @@
 			<h1 class="popuptext">Project Genres (Optional)</h1>
 			<h1 class="popuptext-note">This will help us find more suitable team members for your project</h1>
 			<input id="genres" class="popupinput" name="genres" placeholder="business, health, etc">
+			<select name="genreList" id="genreList">
+				<option>Health</option>
+				<option>Business</option>
+				<option>Art</option>
+				<option>Software</option>
+				<option>Data Analytics</option>
+				<option>Web App Development</option>
+			</select>
+			<a class="addGenreButton"onclick="addGenre();">Add</a>
 	</div>
 	<input id="button" onclick="submit();" class="submit" type="submit">
 	</form>

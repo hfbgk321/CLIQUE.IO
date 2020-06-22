@@ -1,151 +1,337 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- line below is new -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- line below is new -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
 
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="{%static 'posts_app/styles_reset.css'%}">
-  <link rel="stylesheet" href="{%static 'posts_app/styles_home.css'%}">
-  <link rel="stylesheet" href="{%static 'posts_app/styles_homepage.css'%}">
-  <link rel="stylesheet" href="{%static 'authorize_main/landing_page_styles.css'%}">
-  <link rel="stylesheet" href="{%static 'authorize_main/base.css'%}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script type="text/javascript"src="{% static 'posts_app/js/load.js' %}"></script>
-  <title>Clique.io</title>
-</head>
+    <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{%static 'posts_app/styles_reset.css'%}" />
+    <link rel="stylesheet" href="{%static 'posts_app/styles_home.css'%}" />
+    <link rel="stylesheet" href="{%static 'posts_app/styles_homepage.css'%}" />
+    <link
+      rel="stylesheet"
+      href="{%static 'authorize_main/landing_page_styles.css'%}"
+    />
+    <link rel="stylesheet" href="{%static 'authorize_main/base.css'%}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="{% static 'posts_app/js/load.js' %}"
+    ></script>
+    <title>Clique.io</title>
+  </head>
 
-<body style="background:#f8ffE5;">
-  <nav class="navbar navbar-expand-lg ">
-    <a class="navbar-brand" href="{%url 'landing_page'%}"><img class="homelogo" src="{%static 'authorize_main/clique_logo.png'%}"></a>
-    <button onclick="navbarDrop();" id="navbar-toggler"class="navbar-toggler" type="button"  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <!-- ^^^^^^^ data-toggle="collapse" -->
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <input style="display:none;"name="savePage" id="savePage"type="text">
+  <body style="background: #f8ffe5;">
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-brand" href="{%url 'landing_page'%}"
+        ><img
+          class="homelogo"
+          src="{%static 'authorize_main/clique_logo.png'%}"
+      /></a>
+      <button
+        onclick="navbarDrop();"
+        id="navbar-toggler"
+        class="navbar-toggler"
+        type="button"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <!-- ^^^^^^^ data-toggle="collapse" -->
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <input style="display: none;" name="savePage" id="savePage" type="text" />
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-        {%if user.is_authenticated%}
-        
-        <!-- {% comment %} <li class = "nav-item"><a class="nav-link"href="{%url 'see_favorite'%}"style = "color:white;">Favorites</a></li> {% endcomment %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          {%if user.is_authenticated%}
+
+          <!-- {% comment %} <li class = "nav-item"><a class="nav-link"href="{%url 'see_favorite'%}"style = "color:white;">Favorites</a></li> {% endcomment %}
         {% comment %} <li class = "nav-item"><a class="nav-link"href="{% url 'see_my_posts' %}"style = "color:white;">My Posts</a></li>{%endcomment%}-->
-        <!-- <li class = "nav-item"><a class="nav-link"href="{% url 'createposts'%}"style = "color:white;">Post an Idea</a></li> -->
-        <!-- {% comment %} <li class = "nav-item"><a class="nav-link"href="{%url 'see_all_posts'%}"style = "color:white;">All Posts</a></li> {% endcomment %}-->
-        <li class="nav-item"><a onclick="hideNotifications();"class="nav-link" href="{%url 'index'%}" style = "color:white;">Chat</a></li>
-        <li class ="nav-item"><a class="nav-link" href="" onclick="showNotifications();" style = "margin-right:50px;color:white;font-size:25px;"><i title = "Notification" class="fa fa-bell"></i></a></li>
-        <li class ="nav-item"><a onclick="hideNotifications();"class="nav-link"style = "margin-right:50px;color:white;font-size:25px;" href="{%url 'hometemplate' %}" class="nav-link"><i title = "Home" class="fa fa-home"></i></a></li>
-        <li class = "nav-item"><a onclick="hideNotifications();"class = "nav-link" href="{% url 'profile' %}" style = "margin-right:50px;color:white;font-size:25px;"><i title = "Profile" class="fa fa-user-circle"></i></a></li>
-        
-        
-        <li class ="nav-item"><a onclick="hideNotifications();"class="nav-link"href="{%url 'logout'%}"style = "color:white;font-size:25px;"><i title = "Sign out"class="fa fa-sign-out"></i></a></li>
-        {%else%}     
-        <script>
-          document.getElementById('notification-box').style.display=none;
-        </script>   
-        <li class="nav-item"><a onclick="hideNotifications();" class="nav-link" href="{%url 'landing_page'%}" style="color:white;">Home <span class="sr-only">(current)</span></a>  </li>
-        <li class ="nav-item"><a onclick="hideNotifications();" href="{%url 'login'%}" class="loginbutton" style="color:white;">Login</a></li>        
-        <li class="nav-item"><a onclick="hideNotifications();" class="nav-link" href="{%url 'signup'%}" style = "color:white;">Sign Up</a></li>
-        
-        {%endif%}
-      </ul>
-    </div>
-    
-  </nav>
-
-  <div onmouseleave="hideNotifications();"id="notification-box">
-    <!-- class="hide1" -->
-    <!-- <br><br> -->
-    <!-- <a id="clear"  onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a> -->
-    <ul class = "notif">
-      
-      {%if user.is_authenticated%}
-      <h1 style="color:#F8FFE5;text-align:center;">Notifications</h1>
-        {%for notification in all_notifications%}
-          <li>
-            <a class="notifBoxItem" href="https://google.com">
-              <div class="notifBox">
-                <form action="{%url 'delete_notification' notification.id%}">
-                <button onclick="notBubbleUp2(event);"class="closeNotifButton" type="submit" name="button">
-                &times;</button></form>
-                <h1 class="notifTitle">Message For {{notification.account.first_name}}</h1>
-                <div class="notifMsgBox">
-                  <h1 class="notifMsg">{{notification.notified_message}}</h1>
-                </div>
-                <hr style="height: 2px;">
-                <h1 style="color:#FFC43D;font-size:12px;position:absolute;">{{notification.date_created}}</h1>
-              </div>
-            </a>
+          <!-- <li class = "nav-item"><a class="nav-link"href="{% url 'createposts'%}"style = "color:white;">Post an Idea</a></li> -->
+          <!-- {% comment %} <li class = "nav-item"><a class="nav-link"href="{%url 'see_all_posts'%}"style = "color:white;">All Posts</a></li> {% endcomment %}-->
+          <li class="nav-item">
+            <a
+              onclick="hideNotifications();"
+              class="nav-link"
+              href="{%url 'index'%}"
+              style="color: white;"
+              >Chat</a
+            >
           </li>
-        {%endfor%}
-      {%endif%}
-    </ul>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href=""
+              onclick="showNotifications();"
+              style="margin-right: 50px; color: white; font-size: 25px;"
+              ><i title="Notification" class="fa fa-bell"></i
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a
+              onclick="hideNotifications();"
+              class="nav-link"
+              style="margin-right: 50px; color: white; font-size: 25px;"
+              href="{%url 'hometemplate' %}"
+              class="nav-link"
+              ><i title="Home" class="fa fa-home"></i
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a
+              onclick="hideNotifications();"
+              class="nav-link"
+              href="{% url 'profile' %}"
+              style="margin-right: 50px; color: white; font-size: 25px;"
+              ><i title="Profile" class="fa fa-user-circle"></i
+            ></a>
+          </li>
+
+          <li class="nav-item">
+            <a
+              onclick="hideNotifications();"
+              class="nav-link"
+              href="{%url 'logout'%}"
+              style="color: white; font-size: 25px;"
+              ><i title="Sign out" class="fa fa-sign-out"></i
+            ></a>
+          </li>
+          {%else%}
+          <script>
+            document.getElementById("notification-box").style.display = none;
+          </script>
+          <li class="nav-item">
+            <a
+              onclick="hideNotifications();"
+              class="nav-link"
+              href="{%url 'landing_page'%}"
+              style="color: white;"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              onclick="hideNotifications();"
+              href="{%url 'login'%}"
+              class="loginbutton"
+              style="color: white;"
+              >Login</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              onclick="hideNotifications();"
+              class="nav-link"
+              href="{%url 'signup'%}"
+              style="color: white;"
+              >Sign Up</a
+            >
+          </li>
+
+          {%endif%}
+        </ul>
+      </div>
+    </nav>
+
+    <div onmouseleave="hideNotifications();" id="notification-box">
+      <div class='row'></div>
+      <!-- class="hide1" -->
+      <!-- <br><br> -->
+      <!-- <a id="clear"  onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a> -->
+      <ul class="notif">
+        {%if user.is_authenticated%}
+        <h1 style="color: #f8ffe5; text-align: center;">Notifications</h1>
+        {%for notification in all_notifications%}
+        <li>
+          <a class="notifBoxItem" href="#">
+            <div class="notifBox">
+              <form action="{%url 'delete_notification' notification.id%}">
+                <button
+                  onclick="notBubbleUp2(event);"
+                  class="closeNotifButton"
+                  type="submit"
+                  name="button"
+                >
+                  &times;
+                </button>
+              </form>
+              <h1 class="notifTitle">
+                Message For {{notification.account.first_name}}
+              </h1>
+              <div class="notifMsgBox">
+                <h1 class="notifMsg">{{notification.notified_message}}</h1>
+              </div>
+              <hr style="height: 2px;" />
+              <h1 style="color: #ffc43d; font-size: 12px; position: absolute; bottom:0;">
+                {{notification.date_created}}
+              </h1>
+            </div>
+          </a>
+        </li>
+        {%endfor%} {%endif%}
+      </ul>
     
-  </div>
-  <input style="display:none;"name="savePage" id="savePage"type="text" >
-  <script>
-    
-    console.log(document.getElementById("savePage").value);
-if(document.cookie.indexOf('notificationClicked=on')!=-1){
-    showNotifications();
-}
-else if(document.cookie.indexOf("notificationClicked=off")!=-1){
-    hideNotifications();
-}
-  </script>
- <button onclick='openFriendsList()'>
-<div class="chatTab">
-    <h1 style="position:relative;top:25%;text-align: center;color:white;">Start Chatting!</h1>
-</div>
-</button>
-<div id="friendsList" style="display:none" class="chatBox">
-  <button onclick="closeFriendsList();"class="friendListButton">Colleagues</button>
-  <div class="allFriends">
-    <a style="display:block;margin-top:-5px;margin-left:-20px;width:120%;"id="friendsButtonAnchor" href ="javascript:;">
-    <div class="friendsButton">
-      <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-      <h1>Jacky Chen</h1>
     </div>
-  </a>
-</div>
-</div>
-<div id="chatBox" style="display:none;" class="chatBox">
-  <button class="chatBoxName" onclick="endChat();"><span title="Back to Colleagues"style="font-size:20px;" onclick = "backToFriendList();"class = "BackToFriend">&lt; </span>Jacky Chen USERID:231</button>
-  <div class="chatBoxText">
-    <!-- other person -->
-  <div class="chatBoxMsgs">
-    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-    <p>bet</p>
-    <h1 >01/01/2001</h1>
-  </div>
-  <!-- user -->
-  <div class="chatBoxUser">
-    <img  src="{% static 'authorize_main/linkedin_img.png' %}">
-    <p>i want some office hours daddy</p>
-    <h1>01/01/2001</h1>
-  </div>
+    <input style="display: none;" name="savePage" id="savePage" type="text" />
+    <script>
+      console.log(document.getElementById("savePage").value);
+      if (document.cookie.indexOf("notificationClicked=on") != -1) {
+        showNotifications();
+      } else if (document.cookie.indexOf("notificationClicked=off") != -1) {
+        hideNotifications();
+      }
+    </script>
+    <button onclick="openFriendsList()">
+      <div class="chatTab">
+        <h1
+          style="
+            position: relative;
+            top: 25%;
+            text-align: center;
+            color: white;
+          "
+        >
+          Start Chatting!
+        </h1>
+      </div>
+    </button>
+    <div id="friendsList" style="display: none;" class="chatBox">
+      <button onclick="closeFriendsList();" class="friendListButton">
+        Colleagues
+      </button>
+      <div class="allFriends">
+        <a
+          style="
+            display: block;
+            margin-top: -5px;
+            margin-left: -20px;
+            width: 120%;
+          "
+          id="friendsButtonAnchor"
+          href="javascript:;"
+        >
+          <div class="friendsButton">
+            <img src="{% static 'authorize_main/linkedin_img.png' %}" />
+            <h1>Jacky Chen</h1>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div id="chatBox" style="display: none;" class="chatBox">
+      <button class="chatBoxName" onclick="endChat();notBubbleUp2(event);">
+        <span
+          title="Back to Colleagues"
+          style="font-size: 20px;"
+          onclick="backToFriendList();"
+          class="BackToFriend"
+          >&nbsp;&lt;</span
+        >
+        &nbsp;Jacky Chen USERID:231
+      </button>
+      <!-- <textarea cols="100" rows="20" disabled>
+{%for line, align in message_combined%}{%if align == 'right'%}{{line}}{%else%}{{line}}{%endif%}{% endfor %}</textarea -->
+      <!-- > -->
+      <!-- <div class="chatBoxText">
+        <div class="chatBoxMsgs">
+          <img src="{% static 'authorize_main/linkedin_img.png' %}" />
+          <p>bet</p>
+          <h1>01/01/2001</h1>s
+        </div>
 
-</div>
-<input placeholder="Type your message here" class="chatBoxInput"type="text">
-</div>
-<script>
-  document.getElementById('friendsButtonAnchor').addEventListener('click', function () {
-  console.log('pressed');
-  startChat();
-  document.getElementById("friendsList").style.display="none";
-});
-</script>
-{% block css %}{% endblock css %}
-{% block content %}{% endblock content %}
-{% block extra_js %}{% endblock extra_js %}
+        <div class="chatBoxUser">
+          <img src="{% static 'authorize_main/linkedin_img.png' %}" />
+          <p>i want some office hours daddy</p>
+          <h1>01/01/2001</h1>
+        </div>
+      </div> -->
+      <input
+        placeholder="Type your message here"
+        class="chatBoxInput"
+        type="text"
+        
+      />
+    </div>
+    <script>
+      document
+        .getElementById("friendsButtonAnchor")
+        .addEventListener("click", function () {
+          console.log("pressed");
+          startChat();
+          document.getElementById("friendsList").style.display = "none";
+        });
+    </script>
+    {%comment%}<!-- {{ room_name|json_script:"room-name" }}
+    <script>
+      const roomName = JSON.parse(
+        document.getElementById("room-name").textContent
+      );
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      const chatSocket = new WebSocket(
+        "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
+      );
 
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-</body>
-</html>
+      chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        if (data.name == "{{user.first_name}}") {
+          document.querySelector("#chat-log").value +=
+            "                                          " + data.message + "\n";
+        } else {
+          document.querySelector("#chat-log").value += data.message + "\n";
+        }
+      };
+
+      chatSocket.onclose = function (e) {
+        console.error("Chat socket closed unexpectedly");
+      };
+
+      document.querySelector("#chat-message-input").focus();
+      document.querySelector("#chat-message-input").onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          // enter, return
+          document.querySelector("#chat-message-submit").click();
+        }
+      };
+
+      document.querySelector("#chat-message-submit").onclick = function (e) {
+        const messageInputDom = document.querySelector("#chat-message-input");
+        const message = "{{user.first_name}}: " + messageInputDom.value;
+        chatSocket.send(
+          JSON.stringify({
+            message: message,
+          })
+        );
+        messageInputDom.value = "";
+      };
+    </script> -->{%endcomment%}
+    {% block css %}{% endblock css %} {% block content %}{% endblock content%}
+    {% block extra_js %}{% endblock extra_js %}
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+  

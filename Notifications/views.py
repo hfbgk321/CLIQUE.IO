@@ -15,3 +15,12 @@ def delete_notification(request, notification_id):
   notification.delete()
   messages.success(request,'Notification successfully deleted')
   return redirect(request.META['HTTP_REFERER'], '/')
+
+#debug
+
+def delete_all_notifications(request):
+  notification = NotificationModel.objects.filter(account__id=request.user.id)
+  for notif in notification:
+    notif.delete()
+  return redirect('hometemplate')
+  

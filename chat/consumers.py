@@ -62,6 +62,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def edit_text_log(self, id, text_data):
         chat_model = ChatModel.objects.get(url=self.room_name)
+        #print(chat_model.messages)
         chat_model.messages.append(text_data)
         chat_model.save()
         return True

@@ -6,6 +6,9 @@ from authorize_main.models import Account
 from .models import ChatModel
 import random
 from django.http import HttpResponse
+from django import template
+
+register = template.Library()
 
 #from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler
 
@@ -14,26 +17,51 @@ def index(request):
     return render(request, 'chat/index.html', {'user': user})
 
 def room(request, room_name):
+    other_guy = ''
     user = Account.objects.get(id=request.user.id)#created_by
     user_name = user.first_name
     message_combined = ['']
     room_model = ChatModel.objects.filter(url=room_name)
     
-    if len(room_model) == 0:
-        #create new model
-        ChatModel.objects.create(url=room_name, users=[user.id], messages=[''])
     #verify
-    if verify_chat_member(request, room_name) == True:
-        message_combined = load_chat_log(request, room_name)  
+    if verify_chat_member(request, room_name) == True or True:
+        text_log, lr_arr, message_combined = load_chat_log(request, room_name)
+        #message_combined = zip(text_log,lr_arr)
+        #print(message_combined)
+        room_model = ChatModel.objects.get(url=room_name)
         
-    
+        id_arr = room_model.users
+        print(id_arr)
+        for x in id_arr:
+            person = Account.objects.get(id=x)
+            print(person.id)
+            print(user.id)
+            if person.id != user.id:
+                other_guy = person
+            #else:
+                #other_guy = person
+        
+        img_src = other_guy.profile_pic.url
+        user_img = user.profile_pic.url
+        
+        #print(room_model.chat_name)
         return render(request, 'chat/room.html', {
             'room_name': room_name,
             'user': user,
-            'message_combined': message_combined,
+            #'message_combined': message_combined,
+            'room_model': room_model,
+            #'text_log': text_log, 
+            #'lr_arr': lr_arr,
+            "message_combined":message_combined,
+            "img_src":img_src,
+            "user_img":user_img
         })
     else:
         return HttpResponse('Account Denied')
+
+@register.filter
+def zip_lists(a, b):
+  return zip(a, b)
 
 def notify_chat(request, user_id, applicant_id=0):
     notification = NotificationModel.objects.create(account=request.user,notified_message =f'{Account.objects.get(id=user_id).first_name} {Account.objects.get(id=user_id).last_name} wants to chat!')
@@ -51,7 +79,9 @@ def create_private_chat(request, room_name, second_person_id=None, id_arr=None):
         if len(room_model) == 0:
             #print(creator.chat_keys, second_person.chat_keys)
             
-            ChatModel.objects.create(users=[request.user.id, second_person_id], owner=creator.id, url=room_name, messages=[''], key=key)
+            ChatModel.objects.create(users=[request.user.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s Chat", messages=[''], key=key)
+            room_model = ChatModel.objects.get(url=room_name)
+            print(room_model.users)
             if key not in creator.chat_keys:
                 #print('creator', creator.first_name)
                 creator.chat_keys.append(key)
@@ -59,7 +89,7 @@ def create_private_chat(request, room_name, second_person_id=None, id_arr=None):
             if key not in second_person.chat_keys:
                 second_person.chat_keys.append(key)
                 second_person.save()
-            print(room_name)
+            #print(room_name)
             notify_chat(request, request.user.id)
             return ChatModel.objects.get(url=room_name)
             
@@ -79,7 +109,7 @@ def create_private_chat(request, room_name, second_person_id=None, id_arr=None):
 def verify_chat_member(request, room_name):
     model = ChatModel.objects.get(url=room_name)
     user = Account.objects.get(id=request.user.id)
-    print(model.key, user.chat_keys, user.first_name) 
+    #print(model.key, user.chat_keys, user.first_name) 
     if model.key not in user.chat_keys:
         #print('FLASEEEEEE1')
         return False
@@ -104,31 +134,40 @@ def load_chat_log(request, room_name):
     user_name = user.first_name
     text_log = []
     lr_arr = []
-    message_combined = ['']
+    message_combined = []
     room_model = ChatModel.objects.get(url=room_name)
     room_log = room_model.messages
     for line in room_log:
+        temp = []
         line = line.strip()
         line = line[12:-2]
         text_log.append(line + '\n\n')     
+        temp.append(line + '\n\n')
         
         line_spl = line.split(':')
         #print(line_spl, user_name)
         if line_spl[0] == user_name:
             lr_arr.append('right')
+            temp.append('right')
         else:
             lr_arr.append('left')
+            temp.append('left')
         
-        message_combined = zip(text_log, lr_arr)
+        message_combined.append(temp)
+    #print(text_log)
+    #print(lr_arr)
     
-    return message_combined
-
+    
+    return text_log, lr_arr, message_combined
 
 def url_scrambler(id):
     hashed = abs(hash(str(id)))
-    print(hashed, id, 'a')
+    #print(hashed, id, 'hashed url')
     
     return hashed
+
+def edit_chat_settings(request):
+    pass
 
 #debug
 def clear_all_chats(request):

@@ -9,7 +9,5 @@ class ChatModel(models.Model):
     owner = models.IntegerField(default = -1) 
     url = models.TextField(blank=True, max_length=50)
     key = models.BigIntegerField(blank=False, default=0)
-    title = models.CharField(max_length=50, blank=False, default='Title')
-    messages = ArrayField(models.TextField(), default=list, blank=True)
-
-
+    chat_name = models.CharField(max_length=50, blank=True, default='Chat')
+    messages = ArrayField(models.TextField(), default=[])

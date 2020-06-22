@@ -4,6 +4,80 @@
 // document.getElementById("acceptedPostID").value=currentPostID;
 // module.exports.notBubbleUp = notBubbleUp();
 // let backButton = document.querySelector(".BackToFriend")
+var condition = false;
+var condition1 = false;
+function openInterestFilter(){
+  if (condition == true) {
+    const interest2= document.getElementById("interest");
+    interest2.style.display = 'none';
+    interest2.style.visibility = 'hidden';
+    condition = false;
+  }
+  else {
+  const interest2= document.getElementById("interest");
+  interest2.style.display = 'block';
+  interest2.style.visibility = 'visible';
+  condition = true;
+  }
+}
+
+function openLocationFilter(){
+  if (condition1 == true)
+  {
+    const interest2= document.getElementById("location1");
+    interest2.style.display = 'none';
+    interest2.style.visibility = 'hidden';
+    condition1 = false;
+  }
+  else 
+  {
+  const interest2= document.getElementById("location1");
+  interest2.style.display = 'block';
+  interest2.style.visibility = 'visible';
+  condition1 = true;
+  }
+}
+function openAppDeadline(){
+  if (condition1 == true)
+  {
+    const interest2= document.getElementById("appdead");
+    interest2.style.display = 'none';
+    interest2.style.visibility = 'hidden';
+    condition1 = false;
+  }
+  else {
+  const interest2= document.getElementById("appdead");
+  interest2.style.display = 'block';
+  interest2.style.visibility = 'visible';
+  condition1 = true;
+
+  }
+}
+function openCollegeList(){
+  if (condition1 == true)
+  {
+    const interest2= document.getElementById("college");
+    interest2.style.display = 'none';
+    interest2.style.visibility = 'hidden';
+    condition1 = false;
+  }
+  else {
+  const interest2= document.getElementById("college");
+  interest2.style.display = 'block';
+  interest2.style.visibility = 'visible';
+  condition1 = true;
+  }
+}
+// filter_interest.addEventListener("click", function() {
+//   );
+
+
+function addGenre(){
+  if(!document.getElementById('genreList').value==''&&document.getElementById('genres').value.indexOf(document.getElementById('genreList').value)==-1){
+      document.getElementById('genres').value+=document.getElementById('genreList').value+",";
+  }
+}
+
 function backToFriendList() {
   openFriendsList();
 }
@@ -73,7 +147,6 @@ majorSec.onclick = function () {
 }
 BioSec.onclick = function(){
   BioBox.focus();
-
 }
 
 
@@ -109,13 +182,16 @@ console.log(lissss);
 const clear_button = document.querySelector(".hvr-underline-reveal")
 const lst = document.querySelectorAll(".boxes")
 const college = document.querySelector('#university')
-clear_button.addEventListener('click', function () {
+function clearAll() {
+  const lst = document.querySelectorAll(".boxes")
+  const college = document.querySelector('#university')
+  console.log(lst);
   for (let i = 0; i < lst.length; i++)
   {
     lst[i].checked = false;
   }
   college.value = '';
-})
+};
 
 // var lis = document.querySelector('.features');
 // var gallery = document.querySelectorAll('.gallery');
@@ -248,3 +324,4 @@ function all(){
   element.classList.remove("Applied-Gallery");
   element.classList.remove("Favorites-Gallery");
 }
+
