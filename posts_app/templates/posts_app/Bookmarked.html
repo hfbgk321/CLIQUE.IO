@@ -1,6 +1,6 @@
 {%extends 'authorize_main/base.html'%}
 {%load static%}
-
+<script src ="{%static 'posts_app/js/emoji-button-3.1.1.min.js'%}" ></script>
 {%block content%}
 {% if messages %}
 {% for message in messages %}
@@ -94,7 +94,10 @@
 <div class="filter">
 	<h1 style="margin-top: 15px;margin-left: 40%; font-size: 150%; font-weight:bold; color: white; ">Filter</h1>
 	<hr style="height: 100px; border-color: white;">
-	
+	<input type="search" name="search" class="searchBar" placeholder="Search By Title">
+		<a href="#"><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></a>
+		<br>
+		<br>
 		<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
 		<ul style="width: 200px;">
 			<li class="filteritem"><button onclick="openInterestFilter();" class="interest filter_options">Interests</button>
@@ -6972,8 +6975,8 @@
 <!-- skills, location/meeting link,
 number of team members -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- <script src="{% static 'authorize/js/jquery-2.1.1.js' %}"></script> -->
 <!-- <script src="{% static 'authorize/js/jquery.mixitup.min.js' %}"></script> -->
 <!-- <script src="{% static 'authorize/js/main.js' %}"></script>  -->

@@ -1,37 +1,47 @@
 {%extends 'authorize_main/base.html'%} {%load static%} {%block content%}
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>Chat Room</title>
-  
 </head>
 <body>
-  <br><br><br><br><br>
-  <!-- <img style ="height: auto;width: 100px;" class="profile_pic" src={{img_src}} alt="Custom Profile Picture Unable to Load">
-  <img src={{user_img}} class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt=""> -->
-  <h1>Chat Room: {{room_model.chat_name}}</h1>
-  
-  <!-- <div id='chat-log'>
-    {%for x in message_combined%}
-      {%if x.1 == 'right'%}
-      <img src={{user_img}} style ="height: auto;width: 100px;"class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">{{x.0}}
-      {%else %}
-      <img src={{img_src}} style ="height: auto;width: 100px;" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">{{x.0}}
-      {%endif%}
-    {%endfor%}
-  </div> -->
-  
-  <div style = "height: 400px; width: 100%; border-style:solid; overflow:scroll; border: 5px solid gray;" id = "chat-log">
-    {%for x in message_combined%}
-      {%if x.1 == 'right'%}
-        <img style ="width: 50px; height: 50px; border-radius:25px"src ={{user_img}} alt="">{{x.0}}
-      {%elif x.1 == 'left' %}
-        <img style ="width: 50px; height: 50px;margin-left:350px; border-radius:25px" src ={{img_src}} alt="">{{x.0}}
-      {%endif%}
-      <br>
+  <br /><br /><br /><br /><br />
+
+  <h1>Chat Rooms: {{room_model.chat_name}}</h1>
+
+  <div
+    style="
+      height: 400px;
+      width: 100%;
+      border-style: solid;
+      overflow: scroll;
+      border: 5px solid gray;
+    "
+    id="chat-log"
+  >
+    {%for x in message_combined%} {%if x.1 == 'left'%}
+    <img
+      style="width: 50px; height: 50px; border-radius: 25px;"
+      src="{{img_src}}"
+      alt=""
+    />
+    {{x.0}} {%elif x.1 == 'right' %}
+    <img
+      style="
+      width: 50px;
+      height: 50px;
+      margin-left: 350px;
+      border-radius: 25px;
+    "
+      src="{{user_img}}"
+      alt=""
+    />{{x.0}} 
+
+    {%endif%}
+    <br />
     {%endfor%}
   </div>
-    <!-- <textarea id="chat-log" cols="100" rows="20" contenteditable="true" disabled>
+  <!-- <textarea id="chat-log" cols="100" rows="20" contenteditable="true" disabled>
     {%for x in message_combined%}
       {%if x.1 == 'right'%}
         <p class = 'user_img'></p>
@@ -41,12 +51,13 @@
     {%endfor%}
   </textarea> -->
 
-  <br>
-  <input id="chat-message-input" type="text" size="100">
-  <input id="chat-message-submit" type="button" value="Send">
+  <br />
+  <input id="chat-message-input" type="text" size="100" />
+  <input id="chat-message-submit" type="button" value="Send" />
   {{ room_name|json_script:"room-name" }}
   <script>
-    document.getElementById("chat-log").scrollTop=document.getElementById("chat-log").scrollHeight;
+    const chatBox = document.querySelector('#chat-log');
+  
     const roomName = JSON.parse(
       document.getElementById("room-name").textContent
     );
@@ -55,35 +66,49 @@
       "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
     );
     // console.log(chatSocket.data);
-    //Its deleting again <-----
+    
     chatSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
-    //   console.log('message'); 
+      
+      //   console.log('message');
       if (data.name == "{{user.first_name}}") {
-        document.querySelector("#chat-log").innerHTML +=  
-        "<img src={{user_img}} style=\"height: 100px; width: 100px; border-radius:50px;\">" + data.message +"<br>";
-      } else {
         document.querySelector("#chat-log").innerHTML += 
-        "<img src={{img_src}} style=\"height: 100px; width: 100px; border-radius:50px;\">" + data.message +"<br>";
-        }
-      };
+          "<img src={{user_img}} style='width: 50px; height: 50px; margin-left: 350px; border-radius: 25px;'>" + data.message +
+          "<br>";
+      } else {
+        document.querySelector("#chat-log").innerHTML +=
+          "<img src={{img_src}} style='width: 50px; height: 50px; margin-left: 350px; border-radius: 25px;'>" +
+          data.message +
+          "<br>";
+      }
+    };
     document.querySelector("#chat-message-input").onkeyup = function (e) {
       if (e.keyCode === 13) {
         // enter, return
         document.querySelector("#chat-message-submit").click();
       }
     };
-
-    document.querySelector("#chat-message-submit").onclick = function (e) {
-      const messageInputDom = document.querySelector("#chat-message-input");
-      const message = "{{user.first_name}}: " + messageInputDom.value;
-      chatSocket.send(
-          JSON.stringify({
-            message: message,
-          })
-        );
+    document.querySelector("#chat-message-submit").addEventListener('click', function (e) { 
+    const messageInputDom = document.querySelector("#chat-message-input");
+    const message = "{{user.first_name}}: " + messageInputDom.value;
+    // element.scrollIntoView(false);
+    chatSocket.send(
+      JSON.stringify({
+        message: message,
+      })
+    );
     messageInputDom.value = "";
-        };
-</script> 
+    setTimeout(function() {
+      chatBox.scrollTop = chatBox.scrollHeight;
+    },250)
+  });
+  // document.querySelector("#chat-message-submit").addEventListener('click', function () {
+  //   setTimeout(function())
+  //   chatBox.scrollTop = chatBox.scrollHeight;
+  // });
+   
+    
+  </script>
 
-{%endblock%}
+  {%endblock%}
+</body>

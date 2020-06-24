@@ -14,7 +14,7 @@ register = template.Library()
 
 def index(request):
     user = Account.objects.get(id=request.user.id)
-    return render(request, 'chat/index.html', {'user': user})
+    return render(request, 'chat/index.html', {'user': user, 'friends':list_all_people()})
 
 def room(request, room_name):
     other_guy = ''
@@ -31,7 +31,7 @@ def room(request, room_name):
         room_model = ChatModel.objects.get(url=room_name)
         
         id_arr = room_model.users
-        print(id_arr)
+        #print(id_arr)
         for x in id_arr:
             person = Account.objects.get(id=x)
             print(person.id)
@@ -54,7 +54,8 @@ def room(request, room_name):
             #'lr_arr': lr_arr,
             "message_combined":message_combined,
             "img_src":img_src,
-            "user_img":user_img
+            "user_img":user_img,
+            "friends":list_all_people()
         })
     else:
         return HttpResponse('Account Denied')
@@ -154,6 +155,11 @@ def load_chat_log(request, room_name):
             temp.append('left')
         
         message_combined.append(temp)
+    
+    #print('pop1:',text_log.pop(0))
+    #print('pop2:',lr_arr.pop(0))
+    message_combined.pop(0)
+    #print(text_log, lr_arr)
     #print(text_log)
     #print(lr_arr)
     
@@ -182,3 +188,7 @@ def clear_user_keys(request):
         account.save()
         
     return redirect('index')     
+#from chat/views import list_all_people
+def list_all_people():
+    all_people = Account.objects.all()
+    return all_people

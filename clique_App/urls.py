@@ -12,6 +12,7 @@ urlpatterns = [
     path('posts/', include('posts_app.urls')),
     path('notifications/', include('Notifications.urls')),
     path('chat/', include('chat.urls')),
+    path('friends/', include('friends.urls')),
     #debug
     path('debug/delete_chat_model/', views.clear_all_chats, name='clearchat'),
     path('debug/delete_user_keys/', views.clear_user_keys, name='clearkeys'),

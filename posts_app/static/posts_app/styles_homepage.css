@@ -15,12 +15,69 @@
   }
 }
 
+.hideform {
+  display: none;
+}
+
+.showform {
+  position: relative;
+  display: block;
+  /* border: solid black;
+  height: 400px;
+  width: 600px; */
+  z-index: 99999999999999999999999;
+  visibility: visible;
+  overflow: auto;
+  overflow-x:hidden;
+  position: fixed;
+  background:#f8ffE5 ;
+  padding-top: 20px;
+  padding-left: 1% ;
+  padding-bottom: 40px;
+  border: 2px solid white;
+  border-radius: 10px;
+  height: 70vh;
+  /* box-shadow: 0px 0px 0px 10px #add8e6; */
+  width: 50%;
+  top: 50%;
+  right:50%;
+  transform: translateX(50%) translateY(-50%);
+  
+}
+
+.text-box {
+  width: 75%;
+  margin-left: 10%;
+}
+.question {
+  width: 100%;
+}
+
 .page_mover {
   position: relative;
   left: 52%;
   top: 700px;
 }
-
+#fa-search:hover {
+  cursor: pointer;
+  color: black;
+}
+.fa-search {
+  color: white;
+}
+.searchBox::-webkit-search-cancel-button {
+  color: White;
+}
+.searchBar {
+  margin-left: 20px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid white;
+  background: transparent;
+  color: white;
+  outline: none;
+}
 .projectProfImage {
   border: 1px solid #1b9aaa;
   width: 100px;
@@ -31,8 +88,8 @@
   right: 10%;
   border-radius: 50px;
 }
-.addGenreButton:hover{
-  cursor:pointer;
+.addGenreButton:hover {
+  cursor: pointer;
 }
 .applied,
 .bookmarked,
@@ -100,7 +157,7 @@ body .gallery .BookMarkButt {
 .applicantList {
   border-radius: 10px;
   position: absolute;
-  right:10px;
+  right: 10px;
   top: 20%;
   /* margin-right: 50px; */
   display: block;
@@ -240,7 +297,7 @@ body .gallery .BookMarkButt {
   transform: translateY(-40%);
   /* left:50%; */
   /* transform: translateY(-30%); */
-  min-height:70vh;
+  min-height: 70vh;
   height: auto;
   float: left;
   /* background-color: lightgray; */
@@ -359,9 +416,9 @@ body .filter {
   text-align: left;
 }
 .hvr-underline-reveal:hover {
-  color:white;
+  color: white;
   text-decoration: underline;
-  width:100%;
+  width: 100%;
 }
 .hvr-underline-reveal {
   font-weight: bold;

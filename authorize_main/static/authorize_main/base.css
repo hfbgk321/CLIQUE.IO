@@ -23,6 +23,23 @@ body {
   display: none;
   /* overflow-y:none; */
 }
+#fa-sortalpha{
+  position:absolute;
+    top:39px;;
+    right:30px;
+}
+.chatBox .fa-search{
+  margin-left:-20px;
+  color:black;
+}
+.searchBarFriends{
+ 
+  background:white;
+  width:70%;
+  border:1px solid gray;
+  padding:10px;
+  height:5%;
+}
 .hide1 {
   display: none;
   z-index: 5;

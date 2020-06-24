@@ -7,11 +7,12 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from authorize_main.models import Account
 from Notifications.views import Notifications
+from chat.views import list_all_people
 
 def landing_page_view(request):
   #print(request.user.is_authenticated)
   if request.user.is_authenticated:
-    return render(request,'authorize_main/landing_page.html',{"all_notifications":Notifications(request)})
+    return render(request,'authorize_main/landing_page.html',{"all_notifications":Notifications(request), 'friends': list_all_people()})
   else:
     return render(request,'authorize_main/landing_page.html',{})
    
@@ -39,11 +40,12 @@ def login_view(request):
         
       else:
         badform = True
+        messages.success(request,'Please fill out the fields correctly!')
         return render(request,"authorize_main/login_page.html", {"form":form,"badform":badform})
   
   else:
     form = LogInForm()
-    
+    messages.success(request,'Please fill out the fields correctly!') 
   return render(request,'authorize_main/login_page.html',{"form":form})
 
 def registration_view(request):
@@ -73,7 +75,7 @@ def profile_view(request):
   user = Account.objects.get(id=request.user.id)
   user_settings = user.show_to_public
   #[profile_pic, email, first_name, last_name, university, major, school_year, date_joined]
-  return render(request,'authorize_main/new_profile.html', {'profile_pic': user_settings[0], 'email': user_settings[1],'first_name': user_settings[2], 'last_name': user_settings[3],'university': user_settings[4], 'major': user_settings[5],'school_year': user_settings[6], 'date_joined': user_settings[7],"all_notifications":Notifications(request)})
+  return render(request,'authorize_main/new_profile.html', {'profile_pic': user_settings[0], 'email': user_settings[1],'first_name': user_settings[2], 'last_name': user_settings[3],'university': user_settings[4], 'major': user_settings[5],'school_year': user_settings[6], 'date_joined': user_settings[7],"all_notifications":Notifications(request), 'friends': list_all_people()})
  
 @login_required
 def edit_profile(request):
@@ -133,3 +135,11 @@ def edit_profile(request):
     messages.success(request,'Error')
     print('error')
     return redirect('profile')  
+
+def list_all_people():
+    all_people = Account.objects.all()
+    return all_people
+
+def mini_chat(request):
+
+  pass

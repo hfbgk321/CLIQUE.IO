@@ -15,7 +15,7 @@ from authorize_main.models import Account
 from Notifications.models import NotificationModel
 from Notifications.views import Notifications
 from newsapi import NewsApiClient
-from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler
+from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler, list_all_people
 
 def getbookmarkinfo_allposts(request, post_id, page_number):
   return make_bookmark(request, post_id, page_number)
@@ -72,7 +72,7 @@ def PostApplyList(request): #for poster to see which users applied
     if application.account.id == request.user.id:
       users_applications.append(apply_list)
   
-  return render(request,'posts_app/Applied.html',{"users_applications":users_applications, 'all_notifications': Notifications(request)})
+  return render(request,'posts_app/Applied.html',{"users_applications":users_applications, 'all_notifications': Notifications(request), 'friends':list_all_people()})
 
 def PostList(request):
   postlist =AllAppliedBookmarkedView(request)[0]
@@ -107,16 +107,16 @@ def PostList(request):
     # print(time[11:len(time)-1])
     # article['publishedAt'] = time[0:10]+" "+time[11:len(time)-1]
     # time = time[0,10] +" "+time[11,int(len(time))]
-  return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request),"all_articles":all_articles})
+  return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request),"all_articles":all_articles, 'friends':list_all_people()})
 
 def ApplyList(request): #for user to see which posts they applied to
   appliedposts_obj = AllAppliedBookmarkedView(request)[1]
   applied_posts_urls = AllAppliedBookmarkedView(request)[4]
-  return render(request, 'posts_app/Applied.html', {'pag_appliedposts': appliedposts_obj, 'applied_posts_urls': applied_posts_urls, 'all_notifications': Notifications(request)})
+  return render(request, 'posts_app/Applied.html', {'pag_appliedposts': appliedposts_obj, 'applied_posts_urls': applied_posts_urls, 'all_notifications': Notifications(request), 'friends':list_all_people()})
 
 def BookmarkList(request):
   bookmarks_obj = AllAppliedBookmarkedView(request)[2]
-  return render(request,'posts_app/Bookmarked.html',{"pag_bookmarks":bookmarks_obj, 'all_notifications': Notifications(request)})
+  return render(request,'posts_app/Bookmarked.html',{"pag_bookmarks":bookmarks_obj, 'all_notifications': Notifications(request), 'friends':list_all_people()})
 
 def MyPostList(request, post_id=None,page_number=1):
   mypost_obj = AllAppliedBookmarkedView(request,page_number)[3]
@@ -156,11 +156,10 @@ def MyPostList(request, post_id=None,page_number=1):
 
   return render(request, 'posts_app/My_Post.html', {"pag_mypost":mypost_obj, 'users': users,"current_post":current_post,
   "num":len(users),"post_id":post_id,"accepted":accepted,"num_accepted":len(accepted), 'all_notifications': Notifications(request),
-  'user_url_combined': user_url_combined})
+  'user_url_combined': user_url_combined, 'friends':list_all_people()})
   
 def AllAppliedBookmarkedView(request,page_number=None):
   all_posts = PostModel.objects.all()
-  
   all_posts_filtered = []
   user_posts = []
   user_bookmarks = []
@@ -203,7 +202,8 @@ def AllAppliedBookmarkedView(request,page_number=None):
     else:
       if post.application_deadline > datetime.date.today() and post.current_num_of_accepted_applicants < post.num_of_positions:
         all_posts_filtered.append(post)
-  
+       
+
   for app_post in all_apps:
     if app_post.account.id == request.user.id:
       applied_posts.append(app_post)
@@ -218,7 +218,7 @@ def AllAppliedBookmarkedView(request,page_number=None):
 
     else:
       urls.append(0)
-    
+  
   applied_posts_urls = zip(applied_posts, urls)
       
   #print(applied_posts)
@@ -265,7 +265,7 @@ def create_post_view(request):
       messages.warning(request,'Invalid post')
       return redirect('mypostlist')
   form = PostForm()
-  return render(request,'posts_app/post_page.html',{"form":form, 'all_notifications': Notifications(request)}) 
+  return render(request,'posts_app/post_page.html',{"form":form, 'all_notifications': Notifications(request), 'friends':list_all_people()}) 
 
 def make_bookmark(request, post_id, page_number):
   try:
@@ -330,7 +330,7 @@ def applicant_profile(request, user_id):
     email = 'Not Visible To Public. Please Contact Through Chat.'
   #print(settings)
   #[profile_pic, email, first_name, last_name, university, major, school_year, date_joined]
-  return render(request, 'posts_app/pub_profile.html', {'applicant':applicant, 'profile_pic': profile_pic, 'email': email, 'all_notifications': Notifications(request)})
+  return render(request, 'posts_app/pub_profile.html', {'applicant':applicant, 'profile_pic': profile_pic, 'email': email, 'all_notifications': Notifications(request), 'friends':list_all_people()})
 
 
 def accept_applicant(request, page_num=1):

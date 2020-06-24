@@ -24,3 +24,7 @@ def delete_all_notifications(request):
     notif.delete()
   return redirect('hometemplate')
   
+def list_all_people():
+    all_people = Account.objects.all()
+    return all_people
+  

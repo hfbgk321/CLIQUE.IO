@@ -157,7 +157,7 @@
     </nav>
 
     <div onmouseleave="hideNotifications();" id="notification-box">
-      <div class='row'></div>
+      <div class="row"></div>
       <!-- class="hide1" -->
       <!-- <br><br> -->
       <!-- <a id="clear"  onclick="clear();" href="javascript:;" class="hvr-underline-reveal">Clear All</a> -->
@@ -185,7 +185,14 @@
                 <h1 class="notifMsg">{{notification.notified_message}}</h1>
               </div>
               <hr style="height: 2px;" />
-              <h1 style="color: #ffc43d; font-size: 12px; position: absolute; bottom:0;">
+              <h1
+                style="
+                  color: #ffc43d;
+                  font-size: 12px;
+                  position: absolute;
+                  bottom: 0;
+                "
+              >
                 {{notification.date_created}}
               </h1>
             </div>
@@ -193,7 +200,6 @@
         </li>
         {%endfor%} {%endif%}
       </ul>
-    
     </div>
     <input style="display: none;" name="savePage" id="savePage" type="text" />
     <script>
@@ -222,25 +228,69 @@
       <button onclick="closeFriendsList();" class="friendListButton">
         Colleagues
       </button>
+      <input type="search" name="search" class="searchBarFriends" placeholder="Search By Title">
+    <a href="#"><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></a>
+    <a href='#'><i id="fa-sortalpha"class="fa fa-sort-alpha-asc" aria-hidden="true"></i></a>
+		<br>
       <div class="allFriends">
-        <a
-          style="
-            display: block;
-            margin-top: -5px;
-            margin-left: -20px;
-            width: 120%;
-          "
-          id="friendsButtonAnchor"
-          href="javascript:;"
-        >
+       
+        <form>
+          {%csrf_token%}
+          <input id="friendID" name="friendID" style="display:none">
+        </form>
+        {%for friend in friends %}
+        <a href="#"onclick="passFriendsIDToInput('{{friend.id}}');startChat();">
           <div class="friendsButton">
-            <img src="{% static 'authorize_main/linkedin_img.png' %}" />
-            <h1>Jacky Chen</h1>
+            <img src="{{friend.profile_pic.url}}" />
+            <h1 id="fr_firstName">{{friend.first_name}}</h1>
+            <!-- <input id="friendID"class="friendID" type="text" value="{{friend.id}}"style="display:none;"> -->
+          </div>
+        </a>
+        {%endfor%}
+        <a href="#"onclick="passFriendsIDToInput('{{friend.id}}');startChat();">
+          <div class="friendsButton">
+            <img src="{{friend.profile_pic.url}}" />
+            <h1 id="fr_firstName">a</h1>
+            <!-- <input id="friendID"class="friendID" type="text" value="{{friend.id}}"style="display:none;"> -->
+          </div>
+        </a><a href="#"onclick="passFriendsIDToInput('{{friend.id}}');startChat();">
+          <div class="friendsButton">
+            <img src="{{friend.profile_pic.url}}" />
+            <h1 id="fr_firstName">b</h1>
+            <!-- <input id="friendID"class="friendID" type="text" value="{{friend.id}}"style="display:none;"> -->
           </div>
         </a>
       </div>
     </div>
+    
+    <!-- <script>
+      var colleagues=document.querySelectorAll('.friendsButton');
+var colleaguesUnsorted=[]
+var colleaguesSortedAZ;
+for(var i in colleagues){
+  colleaguesUnsorted.push(colleagues[i]);
+}
+
+
+function sortColleaguesAZ(){
+  for(var i =0;i<colleaguesUnsorted.length-1;i++){
+      for(var j=0;j<colleaguesUnsorted.length-i-1;j++){
+        // if(colleaguesUnsorted[j].getElementsByTagName('h1')[0].innerHTML.localeCompare(colleaguesUnsorted[j+1].getElementsByTagName('h1')[0].innerHTML)>0){
+          if(Number(colleaguesUnsorted[j].getElementsByTagName('h1')[0].innerHTML)>Number(colleaguesUnsorted[j+1].getElementsByTagName('h1')[0].innerHTML)){
+            var temp=colleaguesUnsorted[j];
+            colleaguesUnsorted[j]=colleaguesUnsorted[j+1];
+            colleaguesUnsorted[j+1]=temp;
+        }
+      }
+  }
+  for(var i =0;i<colleaguesUnsorted.length;i++){
+    console.log(colleaguesUnsorted[i]);
+}
+}
+sortColleaguesAZ();
+    </script> -->
     <div id="chatBox" style="display: none;" class="chatBox">
+      
       <button class="chatBoxName" onclick="endChat();notBubbleUp2(event);">
         <span
           title="Back to Colleagues"
@@ -249,8 +299,9 @@
           class="BackToFriend"
           >&nbsp;&lt;</span
         >
-        &nbsp;Jacky Chen USERID:231
+        &nbsp;{{friend.first_name}}
       </button>
+        
       <!-- <textarea cols="100" rows="20" disabled>
 {%for line, align in message_combined%}{%if align == 'right'%}{{line}}{%else%}{{line}}{%endif%}{% endfor %}</textarea -->
       <!-- > -->
@@ -271,19 +322,10 @@
         placeholder="Type your message here"
         class="chatBoxInput"
         type="text"
-        
       />
     </div>
-    <script>
-      document
-        .getElementById("friendsButtonAnchor")
-        .addEventListener("click", function () {
-          console.log("pressed");
-          startChat();
-          document.getElementById("friendsList").style.display = "none";
-        });
-    </script>
-    {%comment%}<!-- {{ room_name|json_script:"room-name" }}
+  
+    <!-- {{ room_name|json_script:"room-name" }}
     <script>
       const roomName = JSON.parse(
         document.getElementById("room-name").textContent
@@ -325,13 +367,13 @@
         );
         messageInputDom.value = "";
       };
-    </script> -->{%endcomment%}
-    {% block css %}{% endblock css %} {% block content %}{% endblock content%}
-    {% block extra_js %}{% endblock extra_js %}
-
+    </script> -->
+    {%block content%} {%endblock content%} {%block js%}{%endblock js%}
+    <script type="text/javascript"src="{% static 'posts_app/js/extra.js' %}"></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
       crossorigin="anonymous"
     ></script>
-  
+  </body>
+</html>
