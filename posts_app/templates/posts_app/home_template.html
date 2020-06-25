@@ -4,6 +4,7 @@
 <link href="https://fonts.googleapis.com/css2?family=News+Cycle&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
 {%block content%}
 {% if messages %}
 {% for message in messages %}
@@ -91,7 +92,7 @@
 <div class="filter">
 	<h1 style="margin-top: 15px;margin-left: 40%; font-size: 150%; font-weight:bold; color: white; ">Filter</h1>
 	<hr style="height: 100px; border-color: white;">
-		<input type="search" name="search" class="searchBar" placeholder="Search By Title">
+		<input type="search" name="search" class="searchBar" placeholder="Search By Keyboard">
 		<a href="#"><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></a>
 		<br>
 		<br>
@@ -6921,11 +6922,11 @@
 	<div id="show" class="popupposthidden">
 		<h1 style="left:29%;font-size:30px;margin-bottom:2%;">CREATE NEW PROJECT</h1>
 	
-		<div class="projects">
+		<div  class="projects">
 	
 			<h1 class="popuptext">Project Title</h1>
 	
-			<button class="close-button" onclick="close1();" type="button" name="button">&times;</button>
+			<button class="close-button" onclick="closeProjInfo();" type="button" name="button">&times;</button>
 			<!-- <input id="button" onclick="close();" class="close-button" type="submit" value="Close"> -->
 			<form action="{%url 'createposts'%}" method="post">
 				{% csrf_token %}
@@ -6959,22 +6960,29 @@
 					<option>Web App Development</option>
 				</select>
 				<a class="addGenreButton"onclick="addGenre();">Add</a>
+				<hr class="">
+				<h1 class="popuptext">Questions for Appliers</h1>
+				<input id="qforapp" class="popupinput" name="genres" placeholder="business, health, etc">
+				
+				<a class="addGenreButton"onclick="addGenre();">Add</a>
 		</div>
 		<input id="button" onclick="submit();" class="submit" type="submit">
 		</form>
 	</div>
 <div id="application-form" class="hideform">
+	<h1 style="font-family: 'Inter', sans-serif; font-size:40px;padding-left: 10px; padding-top: 10px; padding-bottom: 10px;background-color: #06D6A0; color: white;">Application</h1>
 	<button class="close-button" onclick="closeAppForm();" type="button" name="button">&times;</button>
-    <label for="question">Why do you want to be a part of this project?</label>
-    <textarea name="" id="" cols="30" rows="10" maxlength="200"></textarea>
+    <label class="question" for="question">Why do you want to be a part of this project?</label>
+    <textarea class="text-box" name="" id="" cols="30" rows="10" maxlength="200" ></textarea>
  
-    <label for="question">What skills do you think you can bring to this position?</label>
-    <textarea name="" id="" cols="30" rows="10" maxlength="200"></textarea>
+    <label class="question" for="question">What skills do you think you can bring to this position?</label>
+    <textarea class="text-box" name="" id="" cols="30" rows="10" maxlength="200"></textarea>
  
-    <label for="question">What past experience or course have you taken that can be beneficial to this project?</label>
-    <textarea name="" id="" cols="30" rows="10" maxlength="200"></textarea>
- 
-    <button>Submit</button>
+    <label class="question" for="question">What past experience or course have you taken that can be beneficial to this project?</label>
+    <textarea class="text-box" name="" id="" cols="30" rows="10" maxlength="200"></textarea>
+	<div class="bottom-space">
+		<button class="app-submit">Submit</button>
+	</div>
 </div>
 
 
@@ -6987,7 +6995,7 @@
 
  <div class="scrollnewsup" title = "scroll or press to view more">
 	<div class="scrollarrowup"></div>
-</div> -->
+</div> 
 <div class="news">
 	<h1 style="font-size: 20px;height:50px; line-height:50px;background-color: #1B9AAA; color:#fff; font-weight:900;">News</h1>
 	<!-- <hr style="color: black;height:5px;"> -->

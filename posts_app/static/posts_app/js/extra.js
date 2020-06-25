@@ -20,7 +20,19 @@ console.log(1);
 // console.log(friendsList[10].index);
 
 
+// function viewApp(){
+//   alert("hey");
+  
+// }
 
+
+function verifyFriend(){
+  document.getElementById("veryifyFR").style.display="block";
+  var element2 = document.getElementById("overlay");
+  element2.classList.remove("hidden");
+  element2.classList.add("show1");
+  element2.style.display = "block";
+}
 function openInterestFilter() {
   if (condition == true) {
     const interest2 = document.getElementById("interest");
@@ -281,14 +293,20 @@ function notBubbleUp(e) {
 }
 
 function closeProjInfo() {
+  // console.log('oressed');
   let x = document.getElementById("projectInfo");
   x.style.display = "none";
+  document.getElementById('show').style.display='none';
   var element = document.getElementById("projectInfo");
   element.classList.add("popupposthidden");
   element.classList.remove("popuppostshown");
+  document.getElementById("overlay").classList.add('hidden');
+  document.getElementById("overlay").classList.remove('show1');
   var element2 = document.getElementById("overlay2");
   element2.classList.add("hidden");
   element2.classList.remove("show1");
 }
+
+
 
 

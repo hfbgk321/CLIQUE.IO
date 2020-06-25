@@ -73,9 +73,15 @@ def registration_view(request):
 @login_required
 def profile_view(request):
   user = Account.objects.get(id=request.user.id)
+  friend_list = []
   user_settings = user.show_to_public
+  
+  for friend_id in user.friends:
+    friend = Account.objects.get(id=friend_id)
+    friend_list.append(friend)
+  
   #[profile_pic, email, first_name, last_name, university, major, school_year, date_joined]
-  return render(request,'authorize_main/new_profile.html', {'profile_pic': user_settings[0], 'email': user_settings[1],'first_name': user_settings[2], 'last_name': user_settings[3],'university': user_settings[4], 'major': user_settings[5],'school_year': user_settings[6], 'date_joined': user_settings[7],"all_notifications":Notifications(request), 'friends': list_all_people()})
+  return render(request,'authorize_main/new_profile.html', {'friend_list': friend_list,'profile_pic': user_settings[0], 'email': user_settings[1],'first_name': user_settings[2], 'last_name': user_settings[3],'university': user_settings[4], 'major': user_settings[5],'school_year': user_settings[6], 'date_joined': user_settings[7],"all_notifications":Notifications(request), 'friends': list_all_people()})
  
 @login_required
 def edit_profile(request):

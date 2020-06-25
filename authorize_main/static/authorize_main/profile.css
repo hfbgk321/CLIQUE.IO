@@ -6,10 +6,12 @@
 
 .wrap{
    /* background-color: green; */
-   position:relative;
+   position:absolute;
    overflow:hidden;
    top:125px;
-   width:1200px;;
+   left:30px;
+   width:70%;
+   min-width:800px;
    margin: auto;
    /* border-radius:25px; */
    border:1px solid #f5f5f5;
@@ -25,6 +27,53 @@
     padding:10px;
     border-radius:25px;
     border:5px solid white; */
+}
+.profilefriendsList{
+   position:absolute;
+   top:125px;
+   border-radius:10px;
+   left:75%;
+   width:350px;
+   height:800px;
+   right:50px;
+   
+   background:#1B9AAA;
+}
+.profilefriendsButton img{
+   border-radius:50%;
+   width:40px;
+   height:40px
+}
+.profilefriendsButton h1{
+   position:relative;
+   left:65px;
+   bottom:40px;
+   color:White;
+}
+
+.profilefriendsList input{
+   margin-left:48px;
+   border:1px solid white;
+   height:20px;
+   font-size:15px;
+   padding:10px;
+   color:white;
+}
+.profilefriendsBox{
+   overflow:scroll;
+   overflow-x:hidden;
+   max-height:700px;
+   height:700px;
+}
+.profilefriendsButton a:hover{
+   text-decoration:none;
+}
+.profilefriendsButton:hover{
+   background:#06D6A0;
+   
+}
+.profilefriendsButton{
+   max-height:50px;
 }
 input{
    font-size:22px;
@@ -60,7 +109,7 @@ input{
    position:absolute;
    left:50%;
    transform:translateX(-50%);
-   z-index:40;
+   /* z-index:40; */
    width:90%;
    height:1px;
    bottom:0;

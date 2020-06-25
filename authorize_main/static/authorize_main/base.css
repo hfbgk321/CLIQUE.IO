@@ -130,6 +130,41 @@ body #notification-box .notif {
   -o-animation: fadeIn ease 1s;
   -ms-animation: fadeIn ease 1s;
 }
+#friends-box{
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); 
+  border: 1px solid rgba(0, 0, 0, 0.15);
+   transition: box-shadow 83ms;
+  position:absolute;
+  top:7%;
+  right:13.3%;
+  height:400px;
+  width:250px;
+  z-index:98;
+  background:#06d6a0;
+  border-radius:10px;
+}
+.friendsBoxButton img{
+  position:relative;
+  margin-left:20px;
+  border-radius:50%;
+  width:40px;
+  height:auto;
+}
+.frRequest{
+  color:red;
+  font-size:15px;
+}
+.verifyFR{
+  display:none;
+  position:absolute;
+  background:red;
+  height:80px;
+  width:200px;
+  left:45%;
+  top:45%;
+  z-index:999;
+  border-radius:10px;
+}
 @keyframes fadeIn {
   0% {
     opacity: 0;

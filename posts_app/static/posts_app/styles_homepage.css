@@ -31,9 +31,8 @@
   overflow-x:hidden;
   position: fixed;
   background:#f8ffE5 ;
-  padding-top: 20px;
-  padding-left: 1% ;
-  padding-bottom: 40px;
+  /* padding-left: 1% ; */
+  /* padding-bottom: 20px; */
   border: 2px solid white;
   border-radius: 10px;
   height: 70vh;
@@ -45,12 +44,47 @@
   
 }
 
+.app-submit {
+  /* position: relative; 
+  top:25px;
+  right: 40%; */
+  margin-top: 20px;
+  padding:10px;
+  border-radius:10%;
+
+  /* margin-top: 5%; */
+  height: 40px;
+  border-radius: 25px;
+  width: 100px;
+  cursor: pointer;
+  background-color: #1B9AAA;
+  color: white;
+  border: 1px solid white;
+  outline: none;
+}
+
+.app-submit:hover{
+  cursor: pointer;
+    background: #FFF;
+    color: rgb(226,105,91);
+    border-bottom: 0px;
+}
+
 .text-box {
   width: 75%;
   margin-left: 10%;
+  resize: none;
+  padding:10px;
 }
 .question {
   width: 100%;
+  padding: 5%;
+}
+
+.bottom-space {
+  text-align: center;
+  height: 100px;
+  width:95%;
 }
 
 .page_mover {
@@ -170,7 +204,8 @@ body .gallery .BookMarkButt {
 }
 .acceptApplicants {
   position: absolute;
-  margin-left: 42%;
+  /* margin-top: 0; */
+  margin-left: 35%;
   color: white;
   background: #1b9aaa;
   border-radius: 10px;
@@ -183,6 +218,65 @@ body .gallery .BookMarkButt {
   background: white;
   color: #1b9aaa;
 }
+
+.viewApp {
+  position: absolute;
+  margin-left: 30%;
+  margin-top: 40px;
+  color: white;
+  background: #1b9aaa;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  height: 50px;
+  width: 100px;
+}
+
+.viewApp:hover {
+  background: white;
+  color: #1b9aaa;
+}
+
+.viewAppHide {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+.viewAppShow{
+  visibility: visible;
+  /* position: relative; */
+  display: block;
+  /* border: solid black;
+  height: 400px;
+  width: 600px; */
+  z-index: 99999999999999999999999;
+  visibility: visible;
+  overflow: auto;
+  overflow-x:hidden;
+  position: fixed;
+  background:#f8ffE5 ;
+  /* padding-left: 1% ; */
+  /* padding-bottom: 20px; */
+  border-radius: 10px;
+  height: 70vh;
+  /* box-shadow: 0px 0px 0px 10px #add8e6; */
+  width: 50%;
+  top: 50%;
+  right:50%;
+  transform: translateX(50%) translateY(-50%);
+}
+
+.appHeading {
+  font-family: 'Inter', sans-serif; 
+  font-size:40px;
+  padding-left: 10px; 
+  padding-top: 10px; 
+  padding-bottom: 10px;
+  background-color: #06D6A0; 
+  color: white;
+}
+
 .listNames {
   min-height: 190px;
   max-width: 470px;

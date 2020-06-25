@@ -8,7 +8,13 @@
     <title>Chat Rooms</title>
 </head>
 <body>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
+    <h1 style='color:black;'>Applied post Chats:</h1>
+    {% for chat in chats %}
+    <a href='/chat/{{chat.url}}'> {{chat.chat_name}}</a>
+    <br>
+    {% endfor %}
+    <br><br><br><br><br><br><br><br><br>
     What chat room would you like to enter?<br>
     <input id="room-name-input" type="text" size="100"><br>
     <input id="room-name-submit" type="button" value="Enter">

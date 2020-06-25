@@ -1,0 +1,9 @@
+{%extends 'authorize_main/base.html'%}
+{%load static%}
+
+{%block content%}
+<br><br><br><br><br><br><br><br><br>
+    {%for friend in friends_names%}
+    <h1 style='color:black;'>{{friend}}</h1>
+    {%endfor%}
+{%endblock%}

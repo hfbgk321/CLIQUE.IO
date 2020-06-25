@@ -1,41 +1,33 @@
 {%extends 'authorize_main/base.html'%} {%load static%} {%block content%}
 
 <head>
+  <link rel="stylesheet" href="{%static 'chat/chat.css'%}" />
   <meta charset="utf-8" />
   <title>Chat Room</title>
 </head>
 <body>
-  <br /><br /><br /><br /><br />
+  <h1 class = "chatName">Chat Rooms: {{room_model.chat_name}}</h1>
+  <div class="chatting">
+    <div class="friends">
 
-  <h1>Chat Rooms: {{room_model.chat_name}}</h1>
-
+    </div>
   <div
-    style="
-      height: 400px;
-      width: 100%;
-      border-style: solid;
-      overflow: scroll;
-      border: 5px solid gray;
-    "
     id="chat-log"
   >
     {%for x in message_combined%} {%if x.1 == 'left'%}
-    <img
-      style="width: 50px; height: 50px; border-radius: 25px;"
+    <img class = 'user1'
       src="{{img_src}}"
       alt=""
     />
     {{x.0}} {%elif x.1 == 'right' %}
-    <img
-      style="
-      width: 50px;
-      height: 50px;
-      margin-left: 350px;
-      border-radius: 25px;
-    "
+    <div class="user2Box">
+      <span class = "user2message">{{x.0}}</span> 
+    <img class = 'user2'
+  
       src="{{user_img}}"
       alt=""
-    />{{x.0}} 
+    />
+  </div>
 
     {%endif%}
     <br />
@@ -52,12 +44,16 @@
   </textarea> -->
 
   <br />
+  <div class="sending">
   <input id="chat-message-input" type="text" size="100" />
   <input id="chat-message-submit" type="button" value="Send" />
+</div>
   {{ room_name|json_script:"room-name" }}
+</div>
   <script>
+
     const chatBox = document.querySelector('#chat-log');
-  
+    chatBox.scrollTop = chatBox.scrollHeight;
     const roomName = JSON.parse(
       document.getElementById("room-name").textContent
     );
@@ -88,19 +84,23 @@
         document.querySelector("#chat-message-submit").click();
       }
     };
-    document.querySelector("#chat-message-submit").addEventListener('click', function (e) { 
-    const messageInputDom = document.querySelector("#chat-message-input");
-    const message = "{{user.first_name}}: " + messageInputDom.value;
+    document.querySelector("#chat-message-submit").addEventListener('click',  function (e) { 
+      var d = new Date();
+     const messageInputDom = document.querySelector("#chat-message-input");
+   const message =  "{{user.first_name}}: " + messageInputDom.value;
     // element.scrollIntoView(false);
-    chatSocket.send(
-      JSON.stringify({
+     chatSocket.send(
+       JSON.stringify({
         message: message,
       })
-    );
-    messageInputDom.value = "";
-    setTimeout(function() {
+     )
+    
+     messageInputDom.value = "";
+    setTimeout(function(){
       chatBox.scrollTop = chatBox.scrollHeight;
-    },250)
+    },200);
+   
+   
   });
   // document.querySelector("#chat-message-submit").addEventListener('click', function () {
   //   setTimeout(function())

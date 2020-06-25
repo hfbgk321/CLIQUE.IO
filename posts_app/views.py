@@ -16,6 +16,8 @@ from Notifications.models import NotificationModel
 from Notifications.views import Notifications
 from newsapi import NewsApiClient
 from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler, list_all_people
+from django.db.models.functions import Trunc
+import urllib
 
 def getbookmarkinfo_allposts(request, post_id, page_number):
   return make_bookmark(request, post_id, page_number)
@@ -144,7 +146,7 @@ def MyPostList(request, post_id=None,page_number=1):
       
       #print(request.user.id)
       #print(accepted[x].id)
-      url = str(int(url_scrambler(request.user.id)) + int(url_scrambler(post_id)) + int(url_scrambler(accepted[x].id)))
+      url = url_scrambler(request.user.id) + url_scrambler(post_id) + url_scrambler(accepted[x].id)
       create_private_chat(request, url, accepted[x].id)
       chat_url.append(url)
       
@@ -159,13 +161,13 @@ def MyPostList(request, post_id=None,page_number=1):
   'user_url_combined': user_url_combined, 'friends':list_all_people()})
   
 def AllAppliedBookmarkedView(request,page_number=None):
-  all_posts = PostModel.objects.all()
+  all_posts = PostModel.objects.all().order_by('id')
   all_posts_filtered = []
   user_posts = []
   user_bookmarks = []
   applied_posts = []
-  all_bookmarks = BookmarkedModel.objects.all()
-  all_apps = AppliedPostsModel.objects.all()
+  all_bookmarks = BookmarkedModel.objects.all().order_by('id') 
+  all_apps = AppliedPostsModel.objects.all().order_by('id')
   
   for book_mark in all_bookmarks:
     if book_mark.account.id == request.user.id:
@@ -213,7 +215,7 @@ def AllAppliedBookmarkedView(request,page_number=None):
     if application.accepted == True:
       poster_id = application.applied_post.post_made_by.id
       post_id = application.applied_post.id
-      url = str(int(url_scrambler(request.user.id)) + int(url_scrambler(post_id)) + int(url_scrambler(poster_id)))
+      url =  url_scrambler(poster_id) + url_scrambler(post_id) + url_scrambler(request.user.id)
       urls.append(url)
 
     else:

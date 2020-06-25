@@ -7,14 +7,22 @@ from .models import ChatModel
 import random
 from django.http import HttpResponse
 from django import template
+import urllib
 
 register = template.Library()
 
 #from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler
 
-def index(request):
+def main_chat_room(request):
     user = Account.objects.get(id=request.user.id)
-    return render(request, 'chat/index.html', {'user': user, 'friends':list_all_people()})
+    chats = []
+    for key in user.chat_keys:
+        check = ChatModel.objects.filter(key=key)
+        
+        for x in check:
+            chats.append(x)
+    
+    return render(request, 'chat/index.html', {'user': user, 'friends':user.friends, 'chats':chats})
 
 def room(request, room_name):
     other_guy = ''
@@ -167,7 +175,9 @@ def load_chat_log(request, room_name):
     return text_log, lr_arr, message_combined
 
 def url_scrambler(id):
-    hashed = abs(hash(str(id)))
+    hashed = urllib.parse.quote(chr(id))
+    print(hashed)
+    #hashed = abs(hash(str(id)))
     #print(hashed, id, 'hashed url')
     
     return hashed
@@ -180,15 +190,17 @@ def clear_all_chats(request):
     for chat in ChatModel.objects.all():
         chat.delete()
         
-    return redirect('index')      
+    return redirect('hometemplate')      
         
 def clear_user_keys(request):
     for account in Account.objects.all():
         account.chat_keys = []
         account.save()
         
-    return redirect('index')     
+    return redirect('hometemplate')     
 #from chat/views import list_all_people
 def list_all_people():
     all_people = Account.objects.all()
     return all_people
+
+

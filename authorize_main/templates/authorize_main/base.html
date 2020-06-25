@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- line below is new -->
+    
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -35,6 +36,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    
     <script
       type="text/javascript"
       src="{% static 'posts_app/js/load.js' %}"
@@ -76,7 +78,7 @@
             <a
               onclick="hideNotifications();"
               class="nav-link"
-              href="{%url 'index'%}"
+              href="{%url 'main_chat_room' %}"
               style="color: white;"
               >Chat</a
             >
@@ -85,7 +87,15 @@
             <a
               class="nav-link"
               href=""
-              onclick="showNotifications();"
+              onclick="hideNotifications();"
+              style="margin-right: 50px; color: white; font-size: 25px;"
+              ><i class="fa fa-users" title="Friends"></i></a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href=""
+              onclick="showNotifications(event);"
               style="margin-right: 50px; color: white; font-size: 25px;"
               ><i title="Notification" class="fa fa-bell"></i
             ></a>
@@ -166,6 +176,8 @@
         <h1 style="color: #f8ffe5; text-align: center;">Notifications</h1>
         {%for notification in all_notifications%}
         <li>
+          {%comment%}{%if notification.url == 'verify_friend'%}yes or no{%endif%}{%endcomment%}
+          {%if notification.url == "#" %}
           <a class="notifBoxItem" href="#">
             <div class="notifBox">
               <form action="{%url 'delete_notification' notification.id%}">
@@ -184,6 +196,42 @@
               <div class="notifMsgBox">
                 <h1 class="notifMsg">{{notification.notified_message}}</h1>
               </div>
+              
+              <hr style="height: 2px;" />
+              <h1
+                style="
+                  color: #ffc43d;
+                  font-size: 12px;
+                  position: absolute;
+                  bottom: 0;
+                "
+              >
+                {{notification.date_created}}
+              </h1>
+              
+            </div>
+          </a>
+          {%else%}
+          <a class="notifBoxItem" onclick="verifyFriend();"href="{%url notification.url notification.data.0%}">
+            <div class="notifBox">
+              <form action="{%url 'delete_notification' notification.id%}">
+                <button
+                  onclick="notBubbleUp2(event);"
+                  class="closeNotifButton"
+                  type="submit"
+                  name="button"
+                >
+                  &times;
+                </button>
+              </form>
+              <h1 class="notifTitle">
+                Message For {{notification.account.first_name}}
+              </h1>
+             
+              <div class="notifMsgBox">
+                <h1 class="notifMsg">{{notification.notified_message}}</h1>
+                
+              </div>
               <hr style="height: 2px;" />
               <h1
                 style="
@@ -197,15 +245,33 @@
               </h1>
             </div>
           </a>
+          {%endif%}
+          
         </li>
         {%endfor%} {%endif%}
       </ul>
     </div>
+    <div id="verifyFR" class="verifyFR">
+      
+    </div>
+    <!-- <div onmouseleave="hideFriendsList();" id="friends-box">
+        <ul class="friendsList">
+          <li>
+            <a>
+            <div class="friendsBoxButton">
+              <img src="{% static 'authorize_main/linkedin_img.png' %}" />
+              <h1 class="firstName">Jacky Chen</h1>
+             
+            </div>
+            <a>
+            </a>
+          </li>
+    </div> -->
     <input style="display: none;" name="savePage" id="savePage" type="text" />
     <script>
       console.log(document.getElementById("savePage").value);
       if (document.cookie.indexOf("notificationClicked=on") != -1) {
-        showNotifications();
+        showNotifications(event);
       } else if (document.cookie.indexOf("notificationClicked=off") != -1) {
         hideNotifications();
       }
@@ -230,7 +296,6 @@
       </button>
       <input type="search" name="search" class="searchBarFriends" placeholder="Search By Title">
     <a href="#"><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></a>
-    <a href='#'><i id="fa-sortalpha"class="fa fa-sort-alpha-asc" aria-hidden="true"></i></a>
 		<br>
       <div class="allFriends">
        
@@ -247,48 +312,10 @@
           </div>
         </a>
         {%endfor%}
-        <a href="#"onclick="passFriendsIDToInput('{{friend.id}}');startChat();">
-          <div class="friendsButton">
-            <img src="{{friend.profile_pic.url}}" />
-            <h1 id="fr_firstName">a</h1>
-            <!-- <input id="friendID"class="friendID" type="text" value="{{friend.id}}"style="display:none;"> -->
-          </div>
-        </a><a href="#"onclick="passFriendsIDToInput('{{friend.id}}');startChat();">
-          <div class="friendsButton">
-            <img src="{{friend.profile_pic.url}}" />
-            <h1 id="fr_firstName">b</h1>
-            <!-- <input id="friendID"class="friendID" type="text" value="{{friend.id}}"style="display:none;"> -->
-          </div>
-        </a>
       </div>
     </div>
     
-    <!-- <script>
-      var colleagues=document.querySelectorAll('.friendsButton');
-var colleaguesUnsorted=[]
-var colleaguesSortedAZ;
-for(var i in colleagues){
-  colleaguesUnsorted.push(colleagues[i]);
-}
-
-
-function sortColleaguesAZ(){
-  for(var i =0;i<colleaguesUnsorted.length-1;i++){
-      for(var j=0;j<colleaguesUnsorted.length-i-1;j++){
-        // if(colleaguesUnsorted[j].getElementsByTagName('h1')[0].innerHTML.localeCompare(colleaguesUnsorted[j+1].getElementsByTagName('h1')[0].innerHTML)>0){
-          if(Number(colleaguesUnsorted[j].getElementsByTagName('h1')[0].innerHTML)>Number(colleaguesUnsorted[j+1].getElementsByTagName('h1')[0].innerHTML)){
-            var temp=colleaguesUnsorted[j];
-            colleaguesUnsorted[j]=colleaguesUnsorted[j+1];
-            colleaguesUnsorted[j+1]=temp;
-        }
-      }
-  }
-  for(var i =0;i<colleaguesUnsorted.length;i++){
-    console.log(colleaguesUnsorted[i]);
-}
-}
-sortColleaguesAZ();
-    </script> -->
+    
     <div id="chatBox" style="display: none;" class="chatBox">
       
       <button class="chatBoxName" onclick="endChat();notBubbleUp2(event);">

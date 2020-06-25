@@ -39,6 +39,25 @@ function navbarDrop() {
     }
   }
 }
+
+function viewApp(){
+  console.log(document.querySelector("#viewAppBox"));
+  document.querySelector("#viewAppBox").classList.remove("viewAppHide");
+  document.querySelector("#viewAppBox").classList.add("viewAppShow");
+  var element2 = document.getElementById("overlay2");
+  element2.classList.add("show1");
+  element2.classList.remove("hidden");
+}
+
+function closeApp(){
+  console.log("hey");
+  document.querySelector("#viewAppBox").classList.remove("viewAppShow");
+  document.querySelector("#viewAppBox").classList.add("viewAppHide");
+  var element2 = document.getElementById("overlay2");
+  element2.classList.add("hidden");
+  element2.classList.remove("show1");
+}
+
 function passFriendsIDToInput(friendID){
     document.getElementById("friendID").value=friendID;
     console.log(document.getElementById("friendID").value);
@@ -96,6 +115,7 @@ function setSavedPage() {
   }
 }
 function showNotifications() {
+  // event.preventDefault();
   document.cookie = "notificationClicked=on";
 
   var box = document.getElementById("notification-box");
@@ -113,11 +133,17 @@ function showNotifications() {
   box.classList.add("show2");
 }
 function hideNotifications() {
+  // event.preventDefault();
   var box = document.getElementById("notification-box");
   document.cookie = "notificationClicked=off";
-
   if (box.classList.contains("show2")) {
     box.classList.remove("show2");
   }
   box.classList.add("hide1");
+}
+function showFriendsList(){
+  
+}
+function hideFriendsList(){
+
 }

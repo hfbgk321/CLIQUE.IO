@@ -7,6 +7,7 @@ from .models import NotificationModel
 
 def Notifications(request):
   all_notifications = NotificationModel.objects.filter(account=request.user)
+  print('notiiiiiiiiiii')
   return all_notifications
   #return render(request,'authorize_main/base.html',{"all_notifications":all_notifications})
 
@@ -19,11 +20,12 @@ def delete_notification(request, notification_id):
 #debug
 
 def delete_all_notifications(request):
+  #notification = NotificationModel.objects.all()
   notification = NotificationModel.objects.filter(account__id=request.user.id)
   for notif in notification:
     notif.delete()
   return redirect('hometemplate')
-  
+
 def list_all_people():
     all_people = Account.objects.all()
     return all_people

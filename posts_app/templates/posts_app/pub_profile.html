@@ -8,15 +8,9 @@
 <script src= "{%static 'posts_app/js/emojionearea.js'%}"></script>
 <link rel="stylesheet" href="{%static 'posts_app/emojionearea.css'%}"> -->
 
-<!-- <script>
-  function addFriend(){
-    return "{% url 'add_friend' %}";
-  }
-</script> -->
-
  
 <div class="Profilebox">
-<a class="AddFriend" href="{% url 'add_friend' applicant.id %}">Send Friend Request</a>
+<a class="AddFriend" href="{% url 'send_friend_request' applicant.id %}">Send Friend Request</a>
 
   <img
     class="profpic"

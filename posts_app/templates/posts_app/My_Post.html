@@ -6971,7 +6971,7 @@ function setWindowID(ID){
 	<div class="projects">
 
 		<h1 class="popuptext">Project Title</h1> 
-		<button class="close-button" onclick="close1();" type="button" name="button">&times;</button>
+		<button class="close-button" onclick="closeProjInfo();" type="button" name="button">&times;</button>
 		<!-- <input id="button" onclick="close();" class="close-button" type="submit" value="Close"> -->
 		<form action="{%url 'createposts'%}" method="post">
 			{% csrf_token %}
@@ -7041,6 +7041,7 @@ function setWindowID(ID){
 			<label class="appCheckBox"id="checkBox" for="applicant"><a href="{% url 'applicant_profile' user.id %}">{{user.first_name}} {{user.last_name}}</a></label> 
 			<label style="display:none;"class="hiddenID" id="hiddenID" for="applicant">{{user.id}}</label>
 		<br><br>
+		
 		<script>
 			document.getElementById("hiddenID").id="hiddenID"+index;
 			document.getElementById("applicant").id="applicant"+index;
@@ -7052,6 +7053,12 @@ function setWindowID(ID){
 		{% endfor %}
 		
 		</form>
+		<button id="viewApp" class="viewApp" onclick="viewApp();">View Application</button>
+		<div id="viewAppBox" class="viewAppHide">
+			<button class="close-button" onclick="closeApp();" type="button" name="button">&times;</button>
+			<h1 class="appHeading">YuPeng's Application</h1>
+
+		</div>
 	<script>
 		function checkedApplicants(){
 			document.getElementById("postIDapplicantID").value="";

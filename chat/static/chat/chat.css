@@ -1,0 +1,61 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.friends {
+    /* position:relative; */
+    /* float:left; */
+    /* top:0;
+    left:0; */
+    /* width:20%; */
+    flex:2;
+    height:95%;
+    background:rgba(0,0,0,0.5);
+}
+#chat-log {
+    overflow:scroll;
+    flex:8;
+    /* position:relative; */
+    top:0;
+    left:0;
+    /* width:80%; */
+    height:95%;
+    background-color: white;
+}
+.sending{
+    align-self: flex-end;
+    position:absolute;
+   left:25%;
+    background-color: purple;
+}
+
+.chatting {
+    display:flex;
+    overflow:hidden;
+    width:100%;
+    height:85vh;
+    flex-wrap: wrap;
+    /* height:85vh; */
+    /* background-color:pink; */
+}
+.chatName {
+    margin-top:70px;
+    margin-left:40px;
+    margin-bottom:10px;
+    font-weight:700;
+}    
+/* .user2message {
+    max-width:200px;
+}
+.user1message {
+    max-width:200px;
+}
+.user1,
+.user2{
+    width:50px;
+    height:50px;
+    border-radius:25px;
+
+} */

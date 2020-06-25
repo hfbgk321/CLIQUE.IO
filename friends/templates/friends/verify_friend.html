@@ -1,0 +1,12 @@
+{%extends 'authorize_main/base.html'%}
+
+{%load static%}
+
+{%block content%}
+<br><br><br><br><br><br>
+    <h3>Do you want to be {{friend.first_name}}'s friend?</h3>
+    <br><br>
+    <a href="{% url 'accept_friend' friend.id %}">Yes</a>
+    <a href="{% url 'reject_friend' friend.id %}">No</a>
+
+{% endblock %}
