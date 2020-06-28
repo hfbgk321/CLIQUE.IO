@@ -76,8 +76,16 @@ def PostApplyList(request): #for poster to see which users applied
   
   return render(request,'posts_app/Applied.html',{"users_applications":users_applications, 'all_notifications': Notifications(request), 'friends':list_all_people()})
 
-def PostList(request):
-  postlist =AllAppliedBookmarkedView(request)[0]
+def PostList(request, searched=False, results=None, title=''):
+  print('title: ', title, "searched: ", searched)
+  if searched == False:
+    postlist = AllAppliedBookmarkedView(request)[0]
+  elif searched == True:
+    print('pretitle3:----------->>', title)
+    paginator_allposts = Paginator(results, 3)
+    allposts_number = request.GET.get('page1',1)
+    postlist = paginator_allposts.get_page(allposts_number)
+    
   newsapi = NewsApiClient(api_key='2d6d2823f99f42aaa163e76c3dbb20fa')
   top_headlines = newsapi.get_top_headlines(language='en',sources='techcrunch')
   all_articles = top_headlines['articles']
@@ -103,13 +111,15 @@ def PostList(request):
     
     article['publishedAt'] = rearranged+" "+ hours+":"+minutes+" "+am_or_pm
     
-
+    
     # print(type(time))
     # print(time[0:10])
     # print(time[11:len(time)-1])
     # article['publishedAt'] = time[0:10]+" "+time[11:len(time)-1]
     # time = time[0,10] +" "+time[11,int(len(time))]
-  return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request),"all_articles":all_articles, 'friends':list_all_people()})
+  print('results:',results)
+  print('pretitle2:----------->>', title)
+  return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request),"all_articles":all_articles, 'friends':list_all_people(), 'title': title, 'searched': searched})
 
 def ApplyList(request): #for user to see which posts they applied to
   appliedposts_obj = AllAppliedBookmarkedView(request)[1]
@@ -371,4 +381,47 @@ def accept_applicant(request, page_num=1):
   messages.warning(request, 'Failed to accept applicants')
   return redirect(f'/posts/my_posts/{post_id}/{page_num}/?page4={page_num}')
   #return HttpResponse('Failure')
+
+def filter_keyword(request, title=''):
+  print('url=========>', request.build_absolute_uri())
+  pre_url = request.build_absolute_uri().strip().split('&')
+  print(pre_url)
+  print(request.POST.get('page1'), 'hasbdnadms')
+  print('pretitle:----------->>', pre_url)
+  if len(pre_url) == 1:
+    title = request.POST.get('search')
+  else:
+    pre_url = pre_url[-1]
+    title = pre_url
+  relevant_lst = []
+  print('trueeeeeeeeeeeeeeeeeeeee: ', title is not None, title == '', title)
+  if title is not None or title == '':
+    all_posts = PostModel.objects.all()
+    keywords = title.strip().split(',')
+    for word in keywords:
+      word = word.strip()
+      
+      for post in all_posts:
+        if word in post.title_of_post:
+          if post not in relevant_lst:
+            relevant_lst.append(post)
         
+        if word in post.description_of_post:
+          if post not in relevant_lst:
+            relevant_lst.append(post)
+        
+        if word in post.skills_needed:
+          if post not in relevant_lst:
+            relevant_lst.append(post)
+        
+        if word in post.genres:
+          if post not in relevant_lst:
+            relevant_lst.append(post)
+        
+    print('filter_keyword: ', [post.title_of_post for post in relevant_lst])
+    print('lengthoflist--------------------------:', len(relevant_lst))
+
+  if len(relevant_lst) == 0:
+    return HttpResponse('No results found')
+    #return PostList(request)
+  return PostList(request, True, relevant_lst, title)

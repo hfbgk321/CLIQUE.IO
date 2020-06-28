@@ -1,5 +1,6 @@
 {%extends 'authorize_main/base.html'%}
 {%load static%}
+{%load tz%}
 <script src ="{%static 'posts_app/js/emoji-button-3.1.1.min.js'%}" ></script>
 {%block content%}
 {% if messages %}
@@ -56,11 +57,11 @@
 				{%else%}
 				<img  class="projectProfImage"src="{{bookmark.bookmarked_post.post_made_by.profile_pic.url}}" alt="">
 				{%endif%}
-			<h4 style="color: rgb(27, 14, 211);" id = "date_created" class='date_posted'>Date Posted: {{bookmark.bookmarked_post.date_created}}</h4>
+			<h4 style="color: rgb(27, 14, 211);" id = "date_created" class='date_posted'>Date Posted: {{bookmark.bookmarked_post.date_created|timezone:'America/New_York'}}</h4>
 			<h4 style="color: aquamarine;">Application Deadline: {{bookmark.bookmarked_post.application_deadline}}</h4>
 			<a onclick = "notBubbleUp(event);" href = "{%url 'applicant_profile' bookmark.bookmarked_post.post_made_by.id%}"><h4 style="color: rgb(32, 104, 10);">Posted By: {{bookmark.bookmarked_post.post_made_by.first_name}} {{bookmark.bookmarked_post.post_made_by.last_name}}</h4></a>
 			<h1 class="projname"style="font-size:15px;">Start Up Idea: {{bookmark.bookmarked_post.title_of_post}}</h1>
-			<h1 class="projpeople"style="font-size:15px;">Number of Positions: {{bookmark.bookmarked_post.num_of_positions}}</h1>
+			<h1 class="projpeople"style="font-size:15px;">Number of Open Positions: X/{{bookmark.bookmarked_post.num_of_positions}}</h1>
 			<h1 class="projdesc"style="font-size:15px;"> Description: {{bookmark.bookmarked_post.description_of_post}}</h1>
 			{% if bookmark.bookmarked_post.application_completed %}
 				<h1 class = "expired">Expired Post</h1>
@@ -91,11 +92,16 @@
 </div>
 
 
+
 <div class="filter">
 	<h1 style="margin-top: 15px;margin-left: 40%; font-size: 150%; font-weight:bold; color: white; ">Filter</h1>
 	<hr style="height: 100px; border-color: white;">
-	<input type="search" name="search" class="searchBar" placeholder="Search By Title">
-		<a href="#"><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></a>
+		<form name='filter_form' id = "filter_form" method="post" action="{%url 'submit_filter'%}">
+		{% csrf_token%}
+		<input type="search" id='search' name="search" class="searchBar" placeholder="Search By Keyword">
+		<!--<button type ="submit">Submit</button>-->
+		<button style="background:transparent;border:none;"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
+		</form>
 		<br>
 		<br>
 		<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
@@ -103,56 +109,53 @@
 			<li class="filteritem"><button onclick="openInterestFilter();" class="interest filter_options">Interests</button>
 				<div id="interest" class="hide-section bar">
 					<label class="interestTypes" for="interestHealth">Health
-						<input class="boxes" type="checkbox" id="interestHealth" name="" value="Bike">
+						<input class="boxes" type="checkbox" id="interestHealth" name="" value="Health">
 					</label><br>
 
 					<label class="interestTypes" for="interestBusiness"> Business
-						<input class="boxes" type="checkbox" id="interestBusiness" name="vehicle2" value="Car">
+						<input class="boxes" type="checkbox" id="interestBusiness" name="" value="Business">
 					</label><br>
 
 					<label class="interestTypes" for="interestArt">Art
-						<input class="boxes" type="checkbox" id="interestArt" name="vehicle1" value="Bike">
+						<input class="boxes" type="checkbox" id="interestArt" name="" value="Art">
 					</label><br>
 
 					<label class="interestTypes" for="interestSoftware">Software
-						<input class="boxes" type="checkbox" id="interestSoftware" name="vehicle1" value="Bike">
+						<input class="boxes" type="checkbox" id="interestSoftware" name="" value="Software">
 					</label><br>
 
 					<label class="interestTypes" for="interestData">Data Analytics
-						<input class="boxes" type="checkbox" id="interestData" name="vehicle1" value="Bike">
+						<input class="boxes" type="checkbox" id="interestData" name="" value="Data Analytics">
 					</label><br>
 
 					<label class="interestTypes" for="interestWeb">Web App Development
-						<input class="boxes" type="checkbox" id="interestWeb" name="vehicle1" value="Bike">
+						<input class="boxes" type="checkbox" id="interestWeb" name="" value="Web App Development">
 					</label><br>
+					<input class="interestText"type="text" placeholder="Economics,Business,etc">
+					<br>
+					<br>
+					<button class="filterByButton"type="submit">Filter By Interests</button>
 				</div>
+				
 			</li>
 			<hr style="width: 200px;">
-			<li class="filteritem"><button onclick="openLocationFilter();" class="location1 filter_options">Location</button>
-				<div id="location1" class="hide-section bar">
-
-					<label class="interestTypes" for="vehicle2">Albany
-						<input class="boxes" type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-					</label><br>
-
-					<label class="interestTypes" for="vehicle1">Buffalo
-						<input class="boxes" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-					</label><br>
-				</div>
-			</li>
-			<hr style="width: 200px;">
-			<li class="filteritem"><button onclick="openAppDeadline();" class="appdead filter_options">Application Deadline</button>
+			<li class="filteritem"><button onclick="openAppDeadline();" class="appdead filter_options">Sort By</button>
 				<div id="appdead" class="hide-section bar">
 
-					<label class="interestTypes" for="vehicle1">Upcoming Deadlines
-						<input class="boxes" type="checkbox" id="vehicle1" name="" value="Bike">
+					<label class="interestTypes" for="upcomingDeadlines">Upcoming Deadlines
+						<input class="boxes" type="checkbox" id="upcomingDeadlines" name="sortBy" value="Bike">
 					</label><br>
+					<label class="interestTypes" for="mostRecent">Most Recent
+						<input class="boxes" type="checkbox" id="mostRecent" name="sortBy" value="Bike">
+					</label><br>
+					<br>
+					<button class="filterByButton"type="submit">Sort</button>
 				</div>
 			</li>
 			<hr style="width: 200px;">
 			<li class="filteritem"><button onclick="openCollegeList();" class="college filter_options">College</button>
 				<div id="college" class="hide-section bar">
-					<input required list="schools" id="university" name="university" placeholder="College / University">
+					<input  list="schools" id="university" name="university" placeholder="College / University">
 					<datalist id="schools">
 
 						<option value="Educational Technical College-Recinto de Bayamon">
@@ -6891,11 +6894,15 @@
 						<option value="Zaytuna College">
 						<option value="ZMS The Academy">
 					</datalist>
+					<br>
+					<br>
+					<button class="filterByButton"type="submit">Filter By University</button>
 				</div>
 			</li>
 		</ul>
-
+	
 </div>
+
 <!-- each of these collapse sections is a pop up window. may need to change
 	id in the future so that they're unique every time. -->
 <div id="projectInfo" class="popupposthidden">
@@ -6915,6 +6922,7 @@
 			<button id="button" onclick="submit();" class="submit" type="submit" value="Apply" name='app'>Apply</button>
 		</form>
 	</div>
+	<button class="contactLeader">Contact Project Leader</button>
 </div>
 <div id="overlay2" class="hidden"></div>
 
@@ -6957,6 +6965,7 @@
 			<h1 class="popuptext-note">This will help us find more suitable team members for your project</h1>
 			<input id="genres" class="popupinput" name="genres" placeholder="business, health, etc">
 			<select name="genreList" id="genreList">
+				<option selected="selected"disabled>Suggested Genres</option>
 				<option>Health</option>
 				<option>Business</option>
 				<option>Art</option>
@@ -6965,9 +6974,17 @@
 				<option>Web App Development</option>
 			</select>
 			<a class="addGenreButton"onclick="addGenre();">Add</a>
+			<hr class="">
+			<h1 class="popuptext">Questions for Appliers</h1>
+			<div id="q-div">
+				<div class="child">
+					<input id="qforapp" class="popupquestion" name="genres" placeholder="Ex: What skills can you bring to this project?">
+					<a class="addGenreButton" onclick="addQuestion();">Add</a>
+				</div>
+			</div>
+			
 	</div>
 	<input id="button" onclick="submit();" class="submit" type="submit">
-	</form>
 </div>
 
 <div id="overlay" class="hidden"></div>

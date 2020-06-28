@@ -1,7 +1,72 @@
 // const notBubbleUp = require("extra").notBubbleUp;
 // console.log('1');
 
-console.log(closeNotifButt);
+// function addQuestion(){
+//   var input = document.createElement("INPUT");
+//   input.setAttribute('class','popupquestion');
+//   input.setAttribute("placeholder", "Ex: What skills can you bring to this project?");
+//   document.querySelector("#q-div").appendChild(document.createElement("BR"));
+//   document.querySelector("#q-div").appendChild(document.createElement("BR"));
+//   document.querySelector("#q-div").appendChild(document.createElement("BR"));
+//   document.querySelector("#q-div").appendChild(document.createElement("BR"));
+//   document.querySelector("#q-div").appendChild(document.createElement("BR"));
+//   document.querySelector("#q-div").appendChild(input);
+//   var delbtn = document.createElement("BUTTON");
+//   delbtn.setAttribute("class", "close-button-q");
+//   delbtn.innerHTML = "&times";
+//   delbtn.setAttribute("onclick", "removeQuestion();");
+//   document.querySelector("#q-div").appendChild(delbtn);
+// }
+var additionalQuestionIndex;
+function addQuestion() {
+  var newdiv = document.createElement("div");
+  var input = document.createElement("INPUT");
+  newdiv.setAttribute('id','additionalQuestion'+additionalQuestionIndex);
+ 
+  input.setAttribute('class','popupquestion');
+  input.setAttribute("placeholder", "Ex: What skills can you bring to this project?");
+  newdiv.appendChild(input);
+
+  // var delbtn = document.createElement("a");
+  // delbtn.setAttribute("class", "close-button-q");
+  // delbtn.innerHTML = "&times";
+ 
+  // delbtn.setAttribute("onclick", "removeQuestion();");
+
+  // newdiv.appendChild(delbtn);
+  newdiv.setAttribute("class", "child");
+
+  var deleteButton=(document.createElement('a'));
+  deleteButton.setAttribute("class","close-button-q");
+  deleteButton.innerHTML="&times";
+  deleteButton.setAttribute('id','additionalQ'+additionalQuestionIndex);
+  deleteButton.setAttribute("onclick","removeQ(this.id)");
+  additionalQuestionIndex++;
+  newdiv.appendChild(deleteButton);
+
+  document.querySelector("#q-div").appendChild(newdiv);
+ 
+ 
+}
+
+// function removeQuestion(){
+//   var q_div = document.querySelector(".q-div");
+//   var lst = document.querySelectorAll(".child");
+//   console.log(lst);
+//   console.log(lst.length-1);
+//   var node = lst[lst.length-1];
+//   console.log(node);
+//   q_div.removeChild(node);
+//   q_div.removeChild(q_div.lastChild);
+  
+// }
+
+function removeQ(questID){
+  var id=questID.substring(11);
+  console.log(id);
+  console.log(document.getElementById('additionalQuestion'+id));
+  document.getElementById('additionalQuestion'+id).remove();
+}
 function notBubbleUp2(e) {
   // window.location = "{%url 'delete_notification' notification.id%}";
   e.stopImmediatePropagation();

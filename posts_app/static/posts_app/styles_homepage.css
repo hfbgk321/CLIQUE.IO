@@ -15,6 +15,44 @@
   }
 }
 
+.addGenreButton{
+  padding: 5px 20px;
+  margin-left:5px;
+  background-color: #1B9AAA;
+  border-radius: 25px;
+  text-align: center;
+}
+
+.popupquestion {
+  resize: none;
+  color: #1B9AAA;
+  background: transparent;
+  border-radius: 10px;
+  text-decoration-color: #ef476f;
+  width: 60%;
+  border: .7px solid #1B9AAA;
+  outline: none;
+  padding: 10px;
+}
+.popupquestion::placeholder{
+  color:gray;
+}
+
+.close-button-q {
+  /* position: fixed; */
+  border: none;
+  background: transparent;
+  border: none;
+  color: #1B9AAA;
+  font-size: 40px;
+  outline: none;
+}
+
+.close-button-q:hover {
+  color: red;
+  cursor:pointer;
+}
+
 .hideform {
   display: none;
 }
@@ -856,5 +894,48 @@ background-color:pink
   font-family: "News Cycle", sans-serif;
   text-align: left;
 }
-
+.interestText{
+  background:transparent;
+  color:White;
+  border-bottom:1px solid white;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}
+.interestText::placeholder{
+  color:#F8FFE5;
+}
+#university{
+  background:transparent;
+  color:white;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+  border-bottom:1px solid white;
+}
+.filterByButton{
+  padding:5px;
+  background:#EF476F;
+  color:white;
+  border:none;
+  border-radius:3px
+}
+.filterByButton:hover{
+  color:#EF476F;
+  background:white;
+}
+.contactLeader{
+  position:absolute;
+  left:10px;
+  bottom:10px;
+  padding:5px;
+  background:#EF476F;
+  color:white;
+  border:none;
+  border-radius:3px
+}
+.contactLeader:hover{
+  color:#EF476F;
+  background:white;
+}
 /* ########################## */

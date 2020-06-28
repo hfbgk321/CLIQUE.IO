@@ -42,8 +42,8 @@ def room(request, room_name):
         #print(id_arr)
         for x in id_arr:
             person = Account.objects.get(id=x)
-            print(person.id)
-            print(user.id)
+            #print(person.id)
+            #print(user.id)
             if person.id != user.id:
                 other_guy = person
             #else:
@@ -90,7 +90,7 @@ def create_private_chat(request, room_name, second_person_id=None, id_arr=None):
             
             ChatModel.objects.create(users=[request.user.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s Chat", messages=[''], key=key)
             room_model = ChatModel.objects.get(url=room_name)
-            print(room_model.users)
+            #print(room_model.users)
             if key not in creator.chat_keys:
                 #print('creator', creator.first_name)
                 creator.chat_keys.append(key)
@@ -176,7 +176,7 @@ def load_chat_log(request, room_name):
 
 def url_scrambler(id):
     hashed = urllib.parse.quote(chr(id))
-    print(hashed)
+    #print(hashed)
     #hashed = abs(hash(str(id)))
     #print(hashed, id, 'hashed url')
     

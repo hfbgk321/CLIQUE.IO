@@ -25,6 +25,11 @@ console.log(1);
   
 // }
 
+// function addQuestion(){
+//   console.log("hey");
+//   var input = document.createElement("INPUT");
+//   document.querySelector("#q-div").appendChild(input);
+// }
 
 function verifyFriend(){
   document.getElementById("veryifyFR").style.display="block";
@@ -102,7 +107,10 @@ function openCollegeList() {
 //   );
 
 function addGenre() {
-  if (
+  if(document.getElementById("genreList").value=="Suggested Genres"){
+
+  }
+  else if (
     !document.getElementById("genreList").value == "" &&
     document
       .getElementById("genres")
@@ -267,6 +275,7 @@ function closeApplicantList() {
   document.getElementById("applicantList").style.display = "none";
 }
 function myFunction() {
+  additionalQuestionIndex=0;
   var element = document.getElementById("show");
   element.classList.add("popuppostshown");
   element.classList.remove("popupposthidden");

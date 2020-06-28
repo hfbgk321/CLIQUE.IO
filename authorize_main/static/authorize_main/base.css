@@ -23,6 +23,24 @@ body {
   display: none;
   /* overflow-y:none; */
 }
+.verifyFriend{
+  position:relative;
+  font-size:12px;
+  color: #EF476F;
+  background:#F8FFE5;
+  border-radius:3px;
+  padding:2px;
+  outline:none;
+  border:none;
+  z-index:99;
+  margin-left:10px;
+  bottom:20px;
+}
+.verifyFriend:hover{
+  
+  color:#F8FFE5;
+  background:#EF476F;
+}
 #fa-sortalpha{
   position:absolute;
     top:39px;;
@@ -154,17 +172,7 @@ body #notification-box .notif {
   color:red;
   font-size:15px;
 }
-.verifyFR{
-  display:none;
-  position:absolute;
-  background:red;
-  height:80px;
-  width:200px;
-  left:45%;
-  top:45%;
-  z-index:999;
-  border-radius:10px;
-}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -342,6 +350,7 @@ body #notification-box .notif {
   width: 70%;
 }
 .chatTab {
+  display:none!important;
   position: fixed;
   bottom: 0;
   right: 23.5%;

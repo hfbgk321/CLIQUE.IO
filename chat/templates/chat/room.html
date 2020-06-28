@@ -9,7 +9,21 @@
   <h1 class = "chatName">Chat Rooms: {{room_model.chat_name}}</h1>
   <div class="chatting">
     <div class="friends">
-
+      <ul class = 'friendslist'>
+        <li class = 'friendsbox'><a  href = 'javascript:;' class="singularfriend selected"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+      </ul>
+        
     </div>
   <div
     id="chat-log"
@@ -18,14 +32,15 @@
     <img class = 'user1'
       src="{{img_src}}"
       alt=""
-    />
-    {{x.0}} {%elif x.1 == 'right' %}
+      style = "height: 50px; width:50px;"
+    />{{x.0}} 
+    {%elif x.1 == 'right' %}
     <div class="user2Box">
-      <span class = "user2message">{{x.0}}</span> 
+      {{x.0}}
     <img class = 'user2'
-  
       src="{{user_img}}"
       alt=""
+      style = "height: 50px; width:50px;"
     />
   </div>
 
@@ -42,13 +57,12 @@
       {%endif%}
     {%endfor%}
   </textarea> -->
-
-  <br />
-  <div class="sending">
+  {{ room_name|json_script:"room-name" }}
+</div>
+<div class="sending">
   <input id="chat-message-input" type="text" size="100" />
   <input id="chat-message-submit" type="button" value="Send" />
-</div>
-  {{ room_name|json_script:"room-name" }}
+  <span id = "emoji-button">&#128540;</span>
 </div>
   <script>
 
@@ -84,6 +98,7 @@
         document.querySelector("#chat-message-submit").click();
       }
     };
+    
     document.querySelector("#chat-message-submit").addEventListener('click',  function (e) { 
       var d = new Date();
      const messageInputDom = document.querySelector("#chat-message-input");
@@ -109,6 +124,8 @@
    
     
   </script>
+  <script src ="{%static 'chat/emoji-button-3.1.1.min.js'%}" ></script>
+  <script type="text/javascript"src="{% static 'chat/chat.js' %}"></script>
 
   {%endblock%}
 </body>

@@ -204,6 +204,7 @@
                   font-size: 12px;
                   position: absolute;
                   bottom: 0;
+                  left:140px;
                 "
               >
                 {{notification.date_created}}
@@ -214,6 +215,7 @@
           {%else%}
           <a class="notifBoxItem" onclick="verifyFriend();"href="{%url notification.url notification.data.0%}">
             <div class="notifBox">
+              
               <form action="{%url 'delete_notification' notification.id%}">
                 <button
                   onclick="notBubbleUp2(event);"
@@ -227,22 +229,23 @@
               <h1 class="notifTitle">
                 Message For {{notification.account.first_name}}
               </h1>
-             
               <div class="notifMsgBox">
                 <h1 class="notifMsg">{{notification.notified_message}}</h1>
-                
               </div>
               <hr style="height: 2px;" />
+              <button onclick="notBubbleUp2(event);"class="verifyFriend">Accept</button>
+              <button onclick="notBubbleUp2(event);" class="verifyFriend">Reject</button>
               <h1
                 style="
                   color: #ffc43d;
                   font-size: 12px;
                   position: absolute;
                   bottom: 0;
+                  left:140px;
                 "
               >
                 {{notification.date_created}}
-              </h1>
+              </h1>         
             </div>
           </a>
           {%endif%}
