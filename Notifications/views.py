@@ -7,7 +7,7 @@ from .models import NotificationModel
 
 def Notifications(request):
   all_notifications = NotificationModel.objects.filter(account=request.user)
-  print('notiiiiiiiiiii')
+ 
   return all_notifications
   #return render(request,'authorize_main/base.html',{"all_notifications":all_notifications})
 

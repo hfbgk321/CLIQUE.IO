@@ -17,11 +17,12 @@
 //   delbtn.setAttribute("onclick", "removeQuestion();");
 //   document.querySelector("#q-div").appendChild(delbtn);
 // }
-var additionalQuestionIndex;
+
+
 function addQuestion() {
   var newdiv = document.createElement("div");
   var input = document.createElement("INPUT");
-  newdiv.setAttribute('id','additionalQuestion'+additionalQuestionIndex);
+  newdiv.setAttribute('id','additionalQuestion');
  
   input.setAttribute('class','popupquestion');
   input.setAttribute("placeholder", "Ex: What skills can you bring to this project?");
@@ -39,8 +40,9 @@ function addQuestion() {
   var deleteButton=(document.createElement('a'));
   deleteButton.setAttribute("class","close-button-q");
   deleteButton.innerHTML="&times";
-  deleteButton.setAttribute('id','additionalQ'+additionalQuestionIndex);
-  deleteButton.setAttribute("onclick","removeQ(this.id)");
+  deleteButton.setAttribute('id','additionalQ');
+  // deleteButton.setAttribute("onclick","removeQ(this.id)");
+  deleteButton.setAttribute("onclick","removethis(this)");
   additionalQuestionIndex++;
   newdiv.appendChild(deleteButton);
 
@@ -48,7 +50,45 @@ function addQuestion() {
  
  
 }
-
+function removethis(input){
+  input.parentNode.remove();
+}
+function saveFilters(){
+  var keyWord=document.getElementById('search').value;
+  document.cookie='filterSearch='+keyWord;
+  // var interests=document.querySelectorAll('input[type="checkbox"]:not([checked=false])');
+  var interests=document.querySelectorAll('#interest');
+  var checkedInterests="";
+  for(var i =0;i<interests.length;i++){
+      if(interests[i].checked){
+        checkedInterests+=interests[i].value+",";
+      }
+  }
+  var sortByChecks=''
+  document.cookie='checkedInterests='+checkedInterests;
+  var sortBy=document.querySelectorAll('#sortBy');
+  for(var i=0;i<sortBy.length;i++){
+    if(sortBy[i].checked){
+        sortByChecks+=sortBy[i].value;
+    }
+  }
+  document.cookie='sortByChecks='+sortByChecks;
+}
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 // function removeQuestion(){
 //   var q_div = document.querySelector(".q-div");
 //   var lst = document.querySelectorAll(".child");
@@ -61,12 +101,22 @@ function addQuestion() {
   
 // }
 
-function removeQ(questID){
-  var id=questID.substring(11);
-  console.log(id);
-  console.log(document.getElementById('additionalQuestion'+id));
-  document.getElementById('additionalQuestion'+id).remove();
-}
+// function removeQ(questID){
+//   var id=questID.substring(11);
+//   console.log(id);
+//   console.log(document.getElementById('additionalQuestion'+id));
+//   document.getElementById('additionalQuestion'+id).remove();
+// }
+// function selectSortBy(input) {
+//   console.log('pressed');
+//   var boxes=document.querySelectorAll('#sortBy');
+//   for(var i=0;i<boxes.length;i++){
+//     boxes[i].checked=false;
+//   }
+//   if(!input.checked){
+//     input.checked=true;
+//   }
+// }
 function notBubbleUp2(e) {
   // window.location = "{%url 'delete_notification' notification.id%}";
   e.stopImmediatePropagation();

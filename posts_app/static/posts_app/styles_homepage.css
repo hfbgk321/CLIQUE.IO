@@ -14,7 +14,9 @@
     /* overflow-y:none; */
   }
 }
-
+.filter a:hover{
+  cursor:pointer;
+}
 .addGenreButton{
   padding: 5px 20px;
   margin-left:5px;
@@ -170,13 +172,14 @@
 }
 .gallery {
   width: 52%;
-  height: 60%;
+  height: 65%;
+  /* background-color: pink; */
   position: absolute;
   color: white;
   /* margin: 200px; */
   /* margin-left:25%; */
   /* top:200px; */
-  top: 50%;
+  top: 55%;
   left: 51%;
   transform: translate(-50%, -45%);
   overflow: scroll;
@@ -425,11 +428,11 @@ body .gallery .BookMarkButt {
 .filter {
   position: absolute;
   width: 20%;
-  top: 50%;
+  top: 40%;
   transform: translateY(-40%);
   /* left:50%; */
   /* transform: translateY(-30%); */
-  min-height: 70vh;
+  min-height: 40vh;
   height: auto;
   float: left;
   /* background-color: lightgray; */

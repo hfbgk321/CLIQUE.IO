@@ -7,7 +7,11 @@
 var condition = false;
 var condition1 = false;
 console.log(1);
-
+if(getCookie('checkedInterests')!=""||getCookie('sortByChecks')!=""){
+  openAppDeadline();
+  openInterestFilter();
+}
+document.getElementById('search').value=getCookie('filterSearch');
 // console.log(document.querySelectorAll('.friendID'));
 // var friendsList=document.querySelectorAll('.friendID');
 // for(var i =0;i<friendsList.length;i++){
@@ -30,6 +34,21 @@ console.log(1);
 //   var input = document.createElement("INPUT");
 //   document.querySelector("#q-div").appendChild(input);
 // }
+
+var checkedInterestArr=getCookie('checkedInterests').split(',');
+var interestsList=document.querySelectorAll('#interest');
+for(var i =0;i<interestsList.length;i++){
+    if(checkedInterestArr.indexOf(interestsList[i].value)!=-1){
+      interestsList[i].checked=true;
+    }
+}
+var savedSortBy=getCookie('sortByChecks');
+var sortByList=document.querySelectorAll('#sortBy');
+for(var i=0;i<sortByList.length;i++){
+  if(sortByList[i].value==savedSortBy){
+    sortByList[i].checked=true;
+  }
+}
 
 function verifyFriend(){
   document.getElementById("veryifyFR").style.display="block";
@@ -124,6 +143,7 @@ function addGenre() {
 function backToFriendList() {
   openFriendsList();
 }
+
 let profileSelect = document.querySelector("#img");
 // console.log(profileSelect);
 let custBut = document.querySelector(".selectImg");
@@ -221,6 +241,9 @@ const college = document.querySelector("#university");
 function clearAll() {
   const lst = document.querySelectorAll(".boxes");
   const college = document.querySelector("#university");
+  var keysearch = document.querySelector("#search");
+  keysearch.value = "";
+  const moreInterests=document.getElementById('moreInterests').value='';
   console.log(lst);
   for (let i = 0; i < lst.length; i++) {
     lst[i].checked = false;
@@ -271,6 +294,7 @@ for (var i = 0; i < option.length; i++) {
     }
   });
 }
+
 function closeApplicantList() {
   document.getElementById("applicantList").style.display = "none";
 }

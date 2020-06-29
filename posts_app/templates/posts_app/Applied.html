@@ -76,8 +76,8 @@
 <div class="pagination"  type='pagination'>
 	<span class="step-links">
 		{% if pag_appliedposts.has_previous %}
-			<a href="?page2=1">&laquo; first</a>
-			<a href="?page2={{ pag_appliedposts.previous_page_number }}">previous</a>
+			<a href="?page2=1&{{title}}&{{sorted_option}}">&laquo; first</a>
+			<a href="?page2={{ pag_appliedposts.previous_page_number }}&{{title}}&{{sorted_option}}">previous</a>
 		{% endif %}
 
 		<span class="current">
@@ -85,8 +85,8 @@
 		</span>
 
 		{% if pag_appliedposts.has_next %}
-			<a href="?page2={{ pag_appliedposts.next_page_number }}">next</a>
-			<a href="?page2={{ pag_appliedposts.paginator.num_pages }}">last &raquo;</a>
+			<a href="?page2={{ pag_appliedposts.next_page_number }}&{{title}}&{{sorted_option}}">next</a>
+			<a href="?page2={{ pag_appliedposts.paginator.num_pages }}&{{title}}&{{sorted_option}}">last &raquo;</a>
 		{% endif %}
 	</span>
 </div>	
@@ -100,8 +100,8 @@
 
 <div class="filter">
 	<h1 style="margin-top: 15px;margin-left: 40%; font-size: 150%; font-weight:bold; color: white; ">Filter</h1>
-	<hr style="height: 100px; border-color: white;">
-		<form name='filter_form' id = "filter_form" method="post" action="{%url 'submit_filter'%}">
+	<hr style="height: 20px; border-color: white;">
+		<form name='filter_form' id = "filter_form" method="post" action="{%url 'submit_filter_applied'%}">
 		{% csrf_token%}
 		<input type="search" id='search' name="search" class="searchBar" placeholder="Search By Keyword">
 		<!--<button type ="submit">Submit</button>-->
@@ -136,10 +136,8 @@
 					<label class="interestTypes" for="interestWeb">Web App Development
 						<input class="boxes" type="checkbox" id="interestWeb" name="" value="Web App Development">
 					</label><br>
-					<input class="interestText"type="text" placeholder="Economics,Business,etc">
+					<input id="moreInterests"class="interestText"type="text" placeholder="Economics,Business,etc">
 					<br>
-					<br>
-					<button class="filterByButton"type="submit">Filter By Interests</button>
 				</div>
 				
 			</li>
@@ -148,13 +146,13 @@
 				<div id="appdead" class="hide-section bar">
 
 					<label class="interestTypes" for="upcomingDeadlines">Upcoming Deadlines
-						<input class="boxes" type="checkbox" id="upcomingDeadlines" name="sortBy" value="Bike">
+						<input class="boxes sortBy" onclick='selectSortBy(this);'type="checkbox" id="sortBy" name="sortBy" value="upcomingDeadlines">
 					</label><br>
 					<label class="interestTypes" for="mostRecent">Most Recent
-						<input class="boxes" type="checkbox" id="mostRecent" name="sortBy" value="Bike">
+						<input class="boxes sortBy" onclick='selectSortBy(this)'type="checkbox" id="sortBy" name="sortBy" value="mostRecent">
 					</label><br>
 					<br>
-					<button class="filterByButton"type="submit">Sort</button>
+
 				</div>
 			</li>
 			<hr style="width: 200px;">
@@ -6900,13 +6898,16 @@
 						<option value="ZMS The Academy">
 					</datalist>
 					<br>
-					<br>
-					<button class="filterByButton"type="submit">Filter By University</button>
+					
 				</div>
+				<br>
+				<br><br><br>
+					<button class="filterByButton"type="submit">Filter</button>
 			</li>
 		</ul>
 	
 </div>
+
 
 <!-- each of these collapse sections is a pop up window. may need to change
 	id in the future so that they're unique every time. -->

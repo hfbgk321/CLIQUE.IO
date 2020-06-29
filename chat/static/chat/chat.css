@@ -15,6 +15,7 @@
     overflow:scroll;
     flex:2;
     height:100vh;
+    min-width: 300px;
     border-right: 1px solid #ccc;
 }
 

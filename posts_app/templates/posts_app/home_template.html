@@ -77,8 +77,8 @@
 <div class="pagination"  type='pagination'>
 	<span class="step-links">
 		{% if pag_allposts.has_previous %}
-			<a href="?page1=1&{{title}}" >&laquo; first</a>
-			<a href="?page1={{ pag_allposts.previous_page_number }}&{{title}}" >previous</a>
+			<a href="?page1=1&{{title}}&{{sorted_option}}" >&laquo; first</a>
+			<a href="?page1={{ pag_allposts.previous_page_number }}&{{title}}&{{sorted_option}}" >previous</a>
 		{% endif %}
 
 		<span class="current">
@@ -86,8 +86,8 @@
 		</span>
 
 		{% if pag_allposts.has_next %}
-			<a href="?page1={{ pag_allposts.next_page_number }}&{{title}}">next</a>
-			<a href="?page1={{ pag_allposts.paginator.num_pages }}&{{title}}">last &raquo;</a>
+			<a href="?page1={{ pag_allposts.next_page_number }}&{{title}}&{{sorted_option}}">next</a>
+			<a href="?page1={{ pag_allposts.paginator.num_pages }}&{{title}}&{{sorted_option}}">last &raquo;</a>
 		{% endif %}
 	</span>
 </div>	
@@ -115,65 +115,72 @@
 
 <div class="filter">
 	<h1 style="margin-top: 15px;margin-left: 40%; font-size: 150%; font-weight:bold; color: white; ">Filter</h1>
-	<hr style="height: 100px; border-color: white;">
-		<form name='filter_form' id = "filter_form" method="post" action="{%url 'submit_filter'%}">
+	<hr style="height: 20px; border-color: white;">
+		<form name='filter_form' id = "filter_form" method="post" action="{%url 'submit_filter_all' %}">
 		{% csrf_token%}
 		<input type="search" id='search' name="search" class="searchBar" placeholder="Search By Keyword">
 		<!--<button type ="submit">Submit</button>-->
 		<button style="background:transparent;border:none;"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
-		</form>
 		<br>
 		<br>
 		<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
 		<ul style="width: 200px;">
-			<li class="filteritem"><button onclick="openInterestFilter();" class="interest filter_options">Interests</button>
+			<li class="filteritem"><a onclick="openInterestFilter();" class="interest filter_options">Interests</a>
 				<div id="interest" class="hide-section bar">
 					<label class="interestTypes" for="interestHealth">Health
-						<input class="boxes" type="checkbox" id="interestHealth" name="" value="Health">
+						<input class="boxes" type="checkbox" id="interest" name="interestHealth" value="Health">
 					</label><br>
 
 					<label class="interestTypes" for="interestBusiness"> Business
-						<input class="boxes" type="checkbox" id="interestBusiness" name="" value="Business">
+						<input class="boxes" type="checkbox" id="interest" name="interestBusiness" value="Business">
 					</label><br>
 
 					<label class="interestTypes" for="interestArt">Art
-						<input class="boxes" type="checkbox" id="interestArt" name="" value="Art">
+						<input class="boxes" type="checkbox" id="interest" name="interestArt" value="Art">
 					</label><br>
 
 					<label class="interestTypes" for="interestSoftware">Software
-						<input class="boxes" type="checkbox" id="interestSoftware" name="" value="Software">
+						<input class="boxes" type="checkbox" id="interest" name="interestSoftware" value="Software">
 					</label><br>
 
 					<label class="interestTypes" for="interestData">Data Analytics
-						<input class="boxes" type="checkbox" id="interestData" name="" value="Data Analytics">
+						<input class="boxes" type="checkbox" id="interest" name="interestData" value="Data Analytics">
 					</label><br>
 
 					<label class="interestTypes" for="interestWeb">Web App Development
-						<input class="boxes" type="checkbox" id="interestWeb" name="" value="Web App Development">
+						<input class="boxes" type="checkbox" id="interestWeb" name="interestWeb" value="Web App Development">
 					</label><br>
-					<input class="interestText"type="text" placeholder="Economics,Business,etc">
+				
+					<input id="moreInterests" name="moreInterests" class="interestText" type="moreInterests" placeholder="Economics, Business, etc">
 					<br>
-					<br>
-					<button class="filterByButton"type="submit">Filter By Interests</button>
-				</div>
+				</div> 
 				
 			</li>
+			<script>
+			function selectSortBy(input) {
+  				var boxes=document.querySelectorAll('#sortBy');
+  				for(var i=0;i<boxes.length;i++){
+   				 boxes[i].checked=false;
+  				}
+  				input.checked=true;
+			}
+			</script>
 			<hr style="width: 200px;">
-			<li class="filteritem"><button onclick="openAppDeadline();" class="appdead filter_options">Sort By</button>
+			<li class="filteritem"><a onclick="openAppDeadline();" class="appdead filter_options">Sort By</a>
 				<div id="appdead" class="hide-section bar">
 
 					<label class="interestTypes" for="upcomingDeadlines">Upcoming Deadlines
-						<input class="boxes" type="checkbox" id="upcomingDeadlines" name="sortBy" value="Bike">
+						<input class="boxes sortBy" onclick='selectSortBy(this);'type="checkbox" id="sortBy" name="upcomingDeadlines" value="upcomingDeadlines">
 					</label><br>
 					<label class="interestTypes" for="mostRecent">Most Recent
-						<input class="boxes" type="checkbox" id="mostRecent" name="sortBy" value="Bike">
+						<input class="boxes sortBy" onclick='selectSortBy(this)'type="checkbox" id="sortBy" name="mostRecent" value="mostRecent">
 					</label><br>
 					<br>
-					<button class="filterByButton"type="submit">Sort</button>
+
 				</div>
 			</li>
 			<hr style="width: 200px;">
-			<li class="filteritem"><button onclick="openCollegeList();" class="college filter_options">College</button>
+			<!-- <li class="filteritem"><a onclick="openCollegeList();" class="college filter_options">College</a>
 				<div id="college" class="hide-section bar">
 					<input  list="schools" id="university" name="university" placeholder="College / University">
 					<datalist id="schools">
@@ -6915,12 +6922,15 @@
 						<option value="ZMS The Academy">
 					</datalist>
 					<br>
-					<br>
-					<button class="filterByButton"type="submit">Filter By University</button>
+					
 				</div>
-			</li>
+				<br>
+				<br><br><br>
+					
+			</li> -->
+			<button onclick="saveFilters();"class="filterByButton"type="submit">Filter</button>
 		</ul>
-	
+	</form>
 </div>
 
 <!-- each of these collapse sections is a pop up window. may need to change

@@ -31,8 +31,8 @@ urlpatterns = [
       path('applicant_profile/<int:user_id>/', views.applicant_profile, name='applicant_profile'),
       path('accept_applicant/', views.accept_applicant, name='accept_applicant'),
       path('accept_applicant/<int:page_num>/', views.accept_applicant, name='accept_applicant'),     
-      path('submit_filter/', views.filter_keyword, name='submit_filter'),
-      path('submit_filter/<str:title>/', views.filter_keyword, name='submit_filter'),
+      path('submit_filter_all', views.filter_keyword_all, name='submit_filter_all'),
+      path('submit_filter_applied/', views.filter_keyword_applied, name='submit_filter_applied'),
 
 ]
 if settings.DEBUG:
