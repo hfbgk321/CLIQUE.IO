@@ -73,6 +73,8 @@ function saveFilters(){
     }
   }
   document.cookie='sortByChecks='+sortByChecks;
+  var moreInterests=document.getElementById('moreInterests').value;
+  document.cookie='moreInterestsInput='+moreInterests;
 }
 function getCookie(cname) {
   var name = cname + "=";

@@ -4,14 +4,7 @@
 // document.getElementById("acceptedPostID").value=currentPostID;
 // module.exports.notBubbleUp = notBubbleUp();
 // let backButton = document.querySelector(".BackToFriend")
-var condition = false;
-var condition1 = false;
-console.log(1);
-if(getCookie('checkedInterests')!=""||getCookie('sortByChecks')!=""){
-  openAppDeadline();
-  openInterestFilter();
-}
-document.getElementById('search').value=getCookie('filterSearch');
+
 // console.log(document.querySelectorAll('.friendID'));
 // var friendsList=document.querySelectorAll('.friendID');
 // for(var i =0;i<friendsList.length;i++){
@@ -35,6 +28,15 @@ document.getElementById('search').value=getCookie('filterSearch');
 //   document.querySelector("#q-div").appendChild(input);
 // }
 
+var condition = false;
+var condition1 = false;
+console.log(1);
+if(getCookie('checkedInterests')!=""||getCookie('sortByChecks')!=""){
+  openAppDeadline();
+  openInterestFilter();
+}
+document.getElementById('search').value=getCookie('filterSearch');
+
 var checkedInterestArr=getCookie('checkedInterests').split(',');
 var interestsList=document.querySelectorAll('#interest');
 for(var i =0;i<interestsList.length;i++){
@@ -49,7 +51,7 @@ for(var i=0;i<sortByList.length;i++){
     sortByList[i].checked=true;
   }
 }
-
+document.getElementById('moreInterests').value=getCookie('moreInterestsInput');
 function verifyFriend(){
   document.getElementById("veryifyFR").style.display="block";
   var element2 = document.getElementById("overlay");

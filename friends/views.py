@@ -12,7 +12,7 @@ def send_friend_request(request, applicant_id):
     user = Account.objects.get(id=request.user.id)
     friend = Account.objects.get(id= applicant_id)
     
-    check = NotificationModel.objects.filter(account=friend, url='verify_friend', data = [str(user.id)], notified_message =f'{user.first_name} {user.last_name} wants to be your friend!')
+    check = NotificationModel.objects.filter(account=friend, url='verify_friend', data = [user.id], notified_message =f'{user.first_name} {user.last_name} wants to be your friend!')
     if len(check) == 0:
         notification = NotificationModel.objects.create(account=friend, url='verify_friend', data = [str(user.id)], notified_message =f'{user.first_name} {user.last_name} wants to be your friend!')
     messages.success(request, 'Friend Request Sucessfully Sent')

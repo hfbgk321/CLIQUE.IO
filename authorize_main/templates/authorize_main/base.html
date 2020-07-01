@@ -233,8 +233,8 @@
                 <h1 class="notifMsg">{{notification.notified_message}}</h1>
               </div>
               <hr style="height: 2px;" />
-              <button onclick="notBubbleUp2(event);"class="verifyFriend">Accept</button>
-              <button onclick="notBubbleUp2(event);" class="verifyFriend">Reject</button>
+              <a href= "{% url 'accept_friend' notification.data.0 %}"onclick="notBubbleUp2(event);"class="verifyFriend">Accept</a>
+              <a href = "{% url 'reject_friend' notification.data.0 %}" onclick="notBubbleUp2(event);" class="verifyFriend">Reject</a>
               <h1
                 style="
                   color: #ffc43d;

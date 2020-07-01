@@ -4,7 +4,7 @@ from .models import PostModel, BookmarkedModel, AppliedPostsModel
 # Register your models here.
 
 class PostModelAdmin(admin.ModelAdmin):
-  list_display = ('title_of_post','post_made_by','date_created','genres','post_made_by_id','id','applicants','accepted_applicants')
+  list_display = ('title_of_post','post_made_by','date_created','genres','post_made_by_id','id','applicants','accepted_applicants', 'application_deadline')
   search_fields = ('title_of_post','post_made_by','date_created','genres',)
   readonly_fields = ('date_created',)
 

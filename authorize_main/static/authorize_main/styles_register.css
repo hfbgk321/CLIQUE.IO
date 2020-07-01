@@ -81,8 +81,8 @@ body {
     border:none;
 }
 .form .info ul li select option{
-    color:white;
-    background-color:rgb(226,105,91);
+    color:#1B9AAA;
+    background-color:#F8FFE5;
 }
 .form .info ul li{
     margin-bottom: 10px;

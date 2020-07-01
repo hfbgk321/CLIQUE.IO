@@ -29,10 +29,13 @@ urlpatterns = [
       path('edit_my_post/', views.edit_my_post, name ='edit_post'),
       
       path('applicant_profile/<int:user_id>/', views.applicant_profile, name='applicant_profile'),
+      path('applicant_profile/', views.applicant_profile, name='applicant_profile'),
       path('accept_applicant/', views.accept_applicant, name='accept_applicant'),
       path('accept_applicant/<int:page_num>/', views.accept_applicant, name='accept_applicant'),     
-      path('submit_filter_all', views.filter_keyword_all, name='submit_filter_all'),
+      path('submit_filter_all/', views.filter_keyword_all, name='submit_filter_all'),
       path('submit_filter_applied/', views.filter_keyword_applied, name='submit_filter_applied'),
+      path('submit_filter_bookmarked/', views.filter_keyword_bookmarked, name='submit_filter_bookmarked'),
+      path('submit_filter_mypost/', views.filter_keyword_mypost, name='filter_keyword_mypost')
 
 ]
 if settings.DEBUG:

@@ -72,7 +72,7 @@
 	{%endfor%}
 </div>
 
-{% if searched == True %}
+
 
 <div class="pagination"  type='pagination'>
 	<span class="step-links">
@@ -92,26 +92,6 @@
 	</span>
 </div>	
 
-{% else %}
-
-<div class="pagination"  type='pagination'>
-	<span class="step-links">
-		{% if pag_allposts.has_previous %}
-			<a href="?page1=1" >&laquo; first</a>
-			<a href="?page1={{ pag_allposts.previous_page_number }}" >previous</a>
-		{% endif %}
-
-		<span class="current">
-			Page {{ pag_allposts.number }} of {{ pag_allposts.paginator.num_pages }}.
-		</span>
-
-		{% if pag_allposts.has_next %}
-			<a href="?page1={{ pag_allposts.next_page_number }}">next</a>
-			<a href="?page1={{ pag_allposts.paginator.num_pages }}">last &raquo;</a>
-		{% endif %}
-	</span>
-</div>	
-{% endif %}
 
 <div class="filter">
 	<h1 style="margin-top: 15px;margin-left: 40%; font-size: 150%; font-weight:bold; color: white; ">Filter</h1>
@@ -120,7 +100,7 @@
 		{% csrf_token%}
 		<input type="search" id='search' name="search" class="searchBar" placeholder="Search By Keyword">
 		<!--<button type ="submit">Submit</button>-->
-		<button style="background:transparent;border:none;"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
+		<button style="background:transparent;border:none;"onclick="saveFilters();"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
 		<br>
 		<br>
 		<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
@@ -148,7 +128,7 @@
 					</label><br>
 
 					<label class="interestTypes" for="interestWeb">Web App Development
-						<input class="boxes" type="checkbox" id="interestWeb" name="interestWeb" value="Web App Development">
+						<input class="boxes" type="checkbox" id="interest" name="interestWeb" value="Web App Development">
 					</label><br>
 				
 					<input id="moreInterests" name="moreInterests" class="interestText" type="moreInterests" placeholder="Economics, Business, etc">
@@ -7000,13 +6980,13 @@
 					<option>Data Analytics</option>
 					<option>Web App Development</option>
 				</select>
-				<a class="addGenreButton"onclick="addGenre();">Add</a>
+				<a id="addGenreButton"class="addGenreButton"onclick="addGenre();">Add</a>
 				<hr class="">
 				<h1 class="popuptext">Questions for Appliers</h1>
 				<div id="q-div">
 					<div class="child">
 						<input id="qforapp" class="popupquestion" name="genres" placeholder="Ex: What skills can you bring to this project?">
-						<a class="addGenreButton" onclick="addQuestion();">Add</a>
+						<a id="addGenreButton"class="addGenreButton" onclick="addQuestion();">Add</a>
 					</div>
 				</div>
 				

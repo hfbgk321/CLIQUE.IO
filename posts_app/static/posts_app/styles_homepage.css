@@ -20,11 +20,19 @@
 .addGenreButton{
   padding: 5px 20px;
   margin-left:5px;
-  background-color: #1B9AAA;
+  
   border-radius: 25px;
   text-align: center;
+  
 }
-
+#addGenreButton{
+  color:#F8FFE5;
+  background-color: #1B9AAA;
+}
+#addGenreButton:hover{
+  background-color:#F8FFE5;
+  color: #1B9AAA;
+}
 .popupquestion {
   resize: none;
   color: #1B9AAA;
