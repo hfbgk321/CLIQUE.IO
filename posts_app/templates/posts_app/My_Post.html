@@ -79,9 +79,9 @@ function setWindowID(ID){
 			<!-- <div class="projectSec" onclick="openProjectmyPost('Jacky&#x27;s New Post','10','Python,Java','lolll','Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;','59');"> -->
 			<div class="project">
 				{%if post.post_made_by.profile_pic == 'None'%}
-				<img  class="projectProfImage"src = '/media/media/default_profile.png' alt = "">
+					<img  class="projectProfImage"src = '/media/media/default_profile.png' alt = "Default Profile Pic">
 				{%else%}
-				<img class="projectProfImage" src="{{post.post_made_by.profile_pic.url}}" alt="">
+					<img class="projectProfImage" src="{{post.post_made_by.profile_pic.url}}" alt="Upoaded Profile Pic">
 				{%endif%}
 				<h4 style= "color: brown;"id = "date_created" class='date_posted'>Date Posted: {{post.date_created|timezone:'America/New_York'}}</h4>
 				<h4 style="color: aquamarine;">Application Deadline: {{post.application_deadline}}</h4>

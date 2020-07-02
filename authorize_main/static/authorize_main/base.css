@@ -139,6 +139,8 @@ body #notification-box .notif {
   margin-bottom: -30px;
 }
 .notifBoxItem {
+  position:relative;
+  top:-40px;
   margin: 0;
 }
 .notifAnimation {
@@ -221,6 +223,7 @@ body #notification-box .notif {
   color: #1b9aaa;
 }
 .notifTitle {
+ 
   font-size: 15px;
   color: gray;
 }

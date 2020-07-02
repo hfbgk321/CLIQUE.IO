@@ -226,15 +226,17 @@
                   &times;
                 </button>
               </form>
-              <h1 class="notifTitle">
+              
+              <h1 style="position:relative;top:-20px;"class="notifTitle">
                 Message For {{notification.account.first_name}}
               </h1>
-              <div class="notifMsgBox">
+              <div style="position:relative;top:-20px;"class="notifMsgBox">
                 <h1 class="notifMsg">{{notification.notified_message}}</h1>
               </div>
-              <hr style="height: 2px;" />
+              <div style="position:relative;top:-15px;left:-30px;">
               <a href= "{% url 'accept_friend' notification.data.0 %}"onclick="notBubbleUp2(event);"class="verifyFriend">Accept</a>
               <a href = "{% url 'reject_friend' notification.data.0 %}" onclick="notBubbleUp2(event);" class="verifyFriend">Reject</a>
+              </div>
               <h1
                 style="
                   color: #ffc43d;
@@ -254,9 +256,7 @@
         {%endfor%} {%endif%}
       </ul>
     </div>
-    <div id="verifyFR" class="verifyFR">
-      
-    </div>
+    
     <!-- <div onmouseleave="hideFriendsList();" id="friends-box">
         <ul class="friendsList">
           <li>

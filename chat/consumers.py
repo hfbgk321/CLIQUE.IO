@@ -40,6 +40,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         #print('2', self.room_name)
         completed = await self.edit_text_log(int(self.room_name), text_data)
         # Send message to room group
+        print(message)
         await self.channel_layer.group_send(
             self.room_group_name,
             {
