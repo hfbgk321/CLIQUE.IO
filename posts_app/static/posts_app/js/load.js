@@ -23,8 +23,9 @@ function addQuestion() {
   var newdiv = document.createElement("div");
   var input = document.createElement("INPUT");
   newdiv.setAttribute('id','additionalQuestion');
- 
-  input.setAttribute('class','popupquestion');
+  input.setAttribute('id','qforapp');
+  input.setAttribute('class','popupinput');
+  input.setAttribute('name','questions');
   input.setAttribute("placeholder", "Ex: What skills can you bring to this project?");
   newdiv.appendChild(input);
 

@@ -1,3 +1,4 @@
+
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .models import ChatModel
@@ -38,9 +39,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         #print('1')
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         #print('2', self.room_name)
-        completed = await self.edit_text_log(int(self.room_name), text_data)
+        completed = await self.edit_text_log(str(self.room_name), text_data)
         # Send message to room group
-        print(message)
         await self.channel_layer.group_send(
             self.room_group_name,
             {
@@ -61,7 +61,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }))
 
     @database_sync_to_async
-    def edit_text_log(self, id, text_data):
+    def edit_text_log(self, url, text_data):
         chat_model = ChatModel.objects.get(url=self.room_name)
         #print(chat_model.messages)
         chat_model.messages.append(text_data)

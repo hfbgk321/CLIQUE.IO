@@ -290,6 +290,16 @@ def create_post_view(request):
   if request.method == 'POST':
     form =PostForm(request.POST)
     if form.is_valid():
+      print("responses----->", request.POST)
+      for part in request.POST: 
+        print(part)
+        print(request.POST[part])
+      print('...........................')
+      
+      for value in request.POST.values():
+        print(value)
+      print("printing questions:")
+      print("questions----->", request.POST.getlist('questions'), type(request.POST['questions']))
       title = request.POST['title_of_post']
       title = title.replace('\'','`')
       description = request.POST['description_of_post']

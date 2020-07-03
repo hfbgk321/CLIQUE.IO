@@ -1,50 +1,266 @@
-<!-- chat/templates/chat/room.html -->
-<!DOCTYPE html>
-<html>
+{%extends 'authorize_main/base.html'%} {%load static%} {%block content%}
+
 <head>
-    <meta charset="utf-8"/>
-    <title>Chat Room</title>
+  <link rel="stylesheet" href="{%static 'chat/chat.css'%}" />
+  <meta charset="utf-8" />
+  <title>Chat Room</title>
 </head>
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-    {{ room_name|json_script:"room-name" }}
-    <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+  <h1 class = "chatName">Chat Rooms: {{room_model.chat_name}}</h1>
+  <div class="chatting">
+    <div class="friends">
+      <ul class = 'friendslist'>
+        <li class = 'friendsbox'><a  href = 'javascript:;' class="singularfriend selected"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+      </ul>
+        
+    </div>
+  <div
+    id="chat-log"
+  >
+    {%for x in message_combined%} {%if x.1 == 'left'%}
+    <img class = 'user1'
+      src="{{img_src}}"
+      alt=""
+      style = "height: 50px; width:50px;"
+    />{{x.0}} 
+    {%elif x.1 == 'right' %}
+    <div class="user2Box">
+      {{x.0}}
+    <img class = 'user2'
+      src="{{user_img}}"
+      alt=""
+      style = "height: 50px; width:50px;"
+    />
+  </div>
 
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
-        );
+    {%endif%}
+    <br />
+    {%endfor%}
+  </div>
+  <!-- <textarea id="chat-log" cols="100" rows="20" contenteditable="true" disabled>
+    {%for x in message_combined%}
+      {%if x.1 == 'right'%}
+        <p class = 'user_img'></p>
+      {%else %}
+      <p class = "user_img"></p>
+      {%endif%}
+    {%endfor%}
+  </textarea> -->
+  {{ room_name|json_script:"room-name" }}
+</div>
+<div class="sending">
+  <input id="chat-message-input" type="text" size="100" />
+  <input id="chat-message-submit" type="button" value="Send" />
+  <span id = "emoji-button">&#128540;</span>
+</div>
 
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
-        };
+  <script>
 
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
+    const chatBox = document.querySelector('#chat-log');
+    chatBox.scrollTop = chatBox.scrollHeight;
+    
+    const roomName = JSON.parse(
+      document.getElementById("room-name").textContent
+    );
 
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
+    const chatSocket = new WebSocket(
+      "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
+    );
+    // console.log(chatSocket.data);
+    
+    chatSocket.onmessage = function (e) {
+      const data = JSON.parse(e.data);
+      
+      //   console.log('message');
+      if (data.name == "{{user.first_name}}") {
+        document.querySelector("#chat-log").innerHTML += 
+          "<img src={{user_img}} style='width: 50px; height: 50px; margin-left: 350px; border-radius: 25px;'>" + data.message +
+          "<br>";
+      } else {
+        document.querySelector("#chat-log").innerHTML +=
+          "<img src={{img_src}} style='width: 50px; height: 50px; margin-left: 350px; border-radius: 25px;'>" +
+          data.message +
+          "<br>";
+      }
+    };
+    document.querySelector("#chat-message-input").onkeyup = function (e) {
+      if (e.keyCode === 13) {
+        // enter, return
+        document.querySelector("#chat-message-submit").click();
+      }
+    };
+    
+    document.querySelector("#chat-message-submit").addEventListener('click',  function (e) { 
+      var d = new Date();
+     const messageInputDom = document.querySelector("#chat-message-input");
+   const message =  "{{user.first_name}}: " + messageInputDom.value;
+    // element.scrollIntoView(false);
+     chatSocket.send(
+       JSON.stringify({
+        message: message,
+      })
+     )
+    
+     messageInputDom.value = "";
+    setTimeout(function(){
+      chatBox.scrollTop = chatBox.scrollHeight;
+    },200);
+   
+   
+  });
+  // document.querySelector("#chat-message-submit").addEventListener('click', function () {
+  //   setTimeout(function())
+  //   chatBox.scrollTop = chatBox.scrollHeight;
+  // });
+   
+    
+  </script>
 
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
-        };
-    </script>
+  <script src ="{%static 'chat/emoji-button-3.1.1.min.js'%}" ></script>
+  <script type="text/javascript"src="{% static 'chat/chat.js' %}"></script>
+
+  {%endblock%}
 </body>
-</html>
+
+
+
+
+
+
+{%extends 'authorize_main/base.html'%} {%load static%} {%block content%}
+
+<head>
+  <link rel="stylesheet" href="{%static 'chat/chat.css'%}" />
+  <meta charset="utf-8" />
+  <title>Chat Room</title>
+</head>
+<body>
+  <h1 class = "chatName">Chat Rooms: {{room_model.chat_name}}</h1>
+  <div class="chatting">
+    <div class="friends">
+      <ul class = 'friendslist'>
+        <li class = 'friendsbox'><a  href = 'javascript:;' class="singularfriend selected"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+      </ul>
+        
+    </div>
+  <div
+    id="chat-log"
+  >
+    {%for x in message_combined%} {%if x.1 == 'left'%}
+    <div class="user1Box">
+    <img class = 'user1'
+      src="{{img_src}}"
+      alt=""
+    />{{x.0}} </div>
+    {%elif x.1 == 'right' %}
+    <div class="user2Box">
+      {{x.0}}
+    <img class = 'user2'
+      src="{{user_img}}"
+      alt=""
+    />
+  </div>
+
+    {%endif%}
+    <br />
+    {%endfor%}
+  </div>
+  
+  {{ room_name|json_script:"room-name" }}
+</div>
+<div class="sending">
+  <input id="chat-message-input" type="text" size="100" />
+  <input id="chat-message-submit" type="button" value="Send" />
+  <span id = "emoji-button">&#128540;</span>
+</div>
+
+  <script>
+
+    const chatBox = document.querySelector('#chat-log');
+    chatBox.scrollTop = chatBox.scrollHeight;
+    
+    const roomName = JSON.parse(
+      document.getElementById("room-name").textContent
+    );
+
+    const chatSocket = new WebSocket(
+      "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
+    );
+    // console.log(chatSocket.data);
+    
+    chatSocket.onmessage = function (e) {
+      const data = JSON.parse(e.data);
+      
+      console.log('message');
+      
+      if (data.name == "{{user.first_name}}") {
+        document.querySelector("#chat-log").innerHTML += 
+          "stringstringstringstringstringstringstringstringstringstringstringstring>>>"+"<img src={{user_img}} style='width: 50px; height: 50px; margin-left: 350px; border-radius: 25px;'>" + data.message +
+          "<br>";
+      } else {
+        document.querySelector("#chat-log").innerHTML +=
+          "<img src={{img_src}} style='width: 50px; height: 50px; margin-left: 350px; border-radius: 25px;'>" +
+          data.message +
+          "<br>";
+      }
+    };
+    document.querySelector("#chat-message-input").onkeyup = function (e) {
+      if (e.keyCode === 13) {
+        // enter, return
+        document.querySelector("#chat-message-submit").click();
+      }
+    };
+    
+    document.querySelector("#chat-message-submit").addEventListener('click',  function (e) { 
+      var d = new Date();
+     const messageInputDom = document.querySelector("#chat-message-input");
+   const message =  "{{user.first_name}}: " + messageInputDom.value;
+    // element.scrollIntoView(false);
+     chatSocket.send(
+       JSON.stringify({
+        message: message,
+      })
+     )
+    
+     messageInputDom.value = "";
+    setTimeout(function(){
+      chatBox.scrollTop = chatBox.scrollHeight;
+    },200);
+   
+   
+  });
+  // document.querySelector("#chat-message-submit").addEventListener('click', function () {
+  //   setTimeout(function())
+  //   chatBox.scrollTop = chatBox.scrollHeight;
+  // });
+   
+    
+  </script>
+
+  <script src ="{%static 'chat/emoji-button-3.1.1.min.js'%}" ></script>
+  <script type="text/javascript"src="{% static 'chat/chat.js' %}"></script>
+
+  {%endblock%}
+</body>

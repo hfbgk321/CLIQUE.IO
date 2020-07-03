@@ -25,27 +25,25 @@
       </ul>
         
     </div>
-  <div
-    id="chat-log"
-  >
+  <div id="chat-log">
     {%for x in message_combined%} {%if x.1 == 'left'%}
+    <div class="user1Box">
     <img class = 'user1'
       src="{{img_src}}"
       alt=""
-      style = "height: 50px; width:50px;"
-    />{{x.0}} 
+    
+    />{{x.0}} </div>
     {%elif x.1 == 'right' %}
     <div class="user2Box">
       {{x.0}}
     <img class = 'user2'
       src="{{user_img}}"
       alt=""
-      style = "height: 50px; width:50px;"
     />
   </div>
 
     {%endif%}
-    <br />
+    <br/>
     {%endfor%}
   </div>
   <!-- <textarea id="chat-log" cols="100" rows="20" contenteditable="true" disabled>
@@ -64,10 +62,12 @@
   <input id="chat-message-submit" type="button" value="Send" />
   <span id = "emoji-button">&#128540;</span>
 </div>
+
   <script>
 
     const chatBox = document.querySelector('#chat-log');
     chatBox.scrollTop = chatBox.scrollHeight;
+    
     const roomName = JSON.parse(
       document.getElementById("room-name").textContent
     );
@@ -80,16 +80,15 @@
     chatSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
       
-      //   console.log('message');
+     
       if (data.name == "{{user.first_name}}") {
-        document.querySelector("#chat-log").innerHTML += 
-          "<img src={{user_img}} style='width: 50px; height: 50px; margin-left: 350px; border-radius: 25px;'>" + data.message +
-          "<br>";
+        document.querySelector("#chat-log").innerHTML += "<div class='user2Box'>"+  data.message + 
+          "<img src={{user_img}} class = 'user2'></div>";
       } else {
         document.querySelector("#chat-log").innerHTML +=
-          "<img src={{img_src}} style='width: 50px; height: 50px; margin-left: 350px; border-radius: 25px;'>" +
+          "<div class='user1Box'><img src={{img_src}} class = 'user1'>" +
           data.message +
-          "<br>";
+          "</div>";
       }
     };
     document.querySelector("#chat-message-input").onkeyup = function (e) {
@@ -124,6 +123,7 @@
    
     
   </script>
+
   <script src ="{%static 'chat/emoji-button-3.1.1.min.js'%}" ></script>
   <script type="text/javascript"src="{% static 'chat/chat.js' %}"></script>
 

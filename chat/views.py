@@ -13,6 +13,11 @@ register = template.Library()
 
 #from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler
 
+def roomtest(request, room_name):
+    return render(request, 'chat/roomtest.html', {
+        'room_name': room_name
+    })
+
 def main_chat_room(request):
     user = Account.objects.get(id=request.user.id)
     chats = []
@@ -179,10 +184,17 @@ def url_scrambler(id):
     #print(hashed)
     #hashed = abs(hash(str(id)))
     #print(hashed, id, 'hashed url')
+    hashstr = ''
+    hashed = hashed.split('%')
     
-    return hashed
+    for letter in hashed:
+        hashstr += letter
+    return hashstr
 
 def edit_chat_settings(request):
+    pass
+
+def route_to_chat(request, second_id):
     pass
 
 #debug

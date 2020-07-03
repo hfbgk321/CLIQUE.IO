@@ -178,8 +178,8 @@
         <li>
           {%comment%}{%if notification.url == 'verify_friend'%}yes or no{%endif%}{%endcomment%}
           {%if notification.url == "#" %}
-          <a class="notifBoxItem" href="#">
-            <div class="notifBox">
+          <a style="margin-bottom: -30px;"class="notifBoxItem" href="#">
+            <div style="position: relative;margin-bottom:-30px;"class="notifBox">
               <form action="{%url 'delete_notification' notification.id%}">
                 <button
                   onclick="notBubbleUp2(event);"
@@ -213,8 +213,9 @@
             </div>
           </a>
           {%else%}
-          <a class="notifBoxItem" onclick="verifyFriend();"href="{%url notification.url notification.data.0%}">
-            <div class="notifBox">
+        <div>
+          <a  class="notifBoxItem" onclick="verifyFriend();"href="{%url notification.url notification.data.0%}">
+            <div style="position: relative;bottom:-5px"class="notifBox">
               
               <form action="{%url 'delete_notification' notification.id%}">
                 <button
@@ -230,15 +231,16 @@
               <h1 style="position:relative;top:-20px;"class="notifTitle">
                 Message For {{notification.account.first_name}}
               </h1>
-              <div style="position:relative;top:-20px;"class="notifMsgBox">
+              <div style="position:relative;bottom:20px;"class="notifMsgBox">
                 <h1 class="notifMsg">{{notification.notified_message}}</h1>
               </div>
-              <div style="position:relative;top:-15px;left:-30px;">
+              <div style="position:absolute;bottom:5px;left:-30px;">
               <a href= "{% url 'accept_friend' notification.data.0 %}"onclick="notBubbleUp2(event);"class="verifyFriend">Accept</a>
               <a href = "{% url 'reject_friend' notification.data.0 %}" onclick="notBubbleUp2(event);" class="verifyFriend">Reject</a>
               </div>
               <h1
                 style="
+
                   color: #ffc43d;
                   font-size: 12px;
                   position: absolute;
@@ -250,6 +252,8 @@
               </h1>         
             </div>
           </a>
+        </div>
+       
           {%endif%}
           
         </li>
