@@ -3,7 +3,19 @@
    padding:0;
    box-sizing: border-box;
 }
-
+#fa-search:hover{
+   color:#06D6A0;
+}
+.deleteFriendButton{
+   color:white;
+   position:relative;
+   left:235px;
+   bottom:65px;
+   font-size:15px;
+}
+.deleteFriendButton:hover{
+   cursor:pointer;
+}
 .wrap{
    /* background-color: green; */
    position:absolute;
@@ -46,7 +58,7 @@
 }
 .profilefriendsButton h1{
    position:relative;
-   left:65px;
+   left:130px;
    bottom:40px;
    color:White;
 }

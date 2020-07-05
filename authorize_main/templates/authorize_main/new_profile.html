@@ -132,21 +132,25 @@ style = "background-color: #1B9AAA; position:relative;top:55px; z-index:99999;" 
 <div class="profilefriendsList">
   <h1 style="text-align:center;margin-top:20px;color:white;font-weight:bold;">Colleagues List</h1>
   <br>
-  <input type="text" placeholder="Search By Name">
-  <a href="#"><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></a>
+  <form name='friend_search' id = "friend_search" method="post" action="{%url 'friend_search' %}">
+        {%csrf_token%}
+        <input type="text" placeholder="Search By Name" name='search_friend_name' id='search_friend_name'>
+    <button style="background:transparent;outline:none;border:none;"type ='submit' id="fa-search"class="fa fa-search" aria-hidden="true">  </button>
+  </form>
   <div class="profilefriendsBox">
     {%for friend in friend_list %}
     <br>
     <div class="profilefriendsButton">
       <a href ='/posts/applicant_profile/{{friend.id}}'>
-        <img style='width:100px;' src="{{ friend.profile_pic.url }}"/>
+        <img style='min-width:50px;max-width:50px;min-height:50px;max-height:50px;' src="{{ friend.profile_pic.url }}"/>
         <h1>{{friend.first_name}} {{friends.last_name}}</h1>
         <h1>{{friend.id}}</h1>
+        
       </a>
-      
+      <a class="deleteFriendButton"onclick="notBubbleUp(event);" href="{% url 'delete_friend' friend.id %}">X</a>
+      <br><br><br>
     </div>
     {%endfor%}
-
 </div>
 </div>
 

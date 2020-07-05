@@ -21,6 +21,8 @@ urlpatterns = [
       path('apply_all_post/<int:page_number>/', views.redir_2_all_post, name='applyall'),
       path('apply_bookmarks/<int:page_number>/', views.redir_2_bookmarked, name='applybookmark'),
       path('apply_bookmarks/', views.redir_2_bookmarked, name='applybookmark'),
+      path('apply_form/<int:post_id>/', views.apply_form, name='applyform'),
+      path('apply_form/', views.apply_form, name='applyform'),
       
       path('delete_bookmark/<int:bookmark_id>/<int:page_number>/', views.delete_my_bookmark, name='delete_my_bookmark'),
       #path('delete_my_post/<int:post_id>/', views.delete_my_post, name='delete_my_post'),
@@ -35,8 +37,8 @@ urlpatterns = [
       path('submit_filter_all/', views.filter_keyword_all, name='submit_filter_all'),
       path('submit_filter_applied/', views.filter_keyword_applied, name='submit_filter_applied'),
       path('submit_filter_bookmarked/', views.filter_keyword_bookmarked, name='submit_filter_bookmarked'),
-      path('submit_filter_mypost/', views.filter_keyword_mypost, name='filter_keyword_mypost')
-
+      path('submit_filter_mypost/', views.filter_keyword_mypost, name='filter_keyword_mypost'),
+      
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -20,9 +20,16 @@ class PostModel(models.Model):
   application_completed = models.BooleanField(default=False)
   applicants = ArrayField(models.IntegerField(),default=list,blank=True)
   accepted_applicants = ArrayField(models.IntegerField(), default=list,blank=True)
+  application_questions = ArrayField(models.TextField(max_length=None, blank=True), default=list, blank=True)
   
   def __str__(self):
     return self.title_of_post
+
+class AnswerModel(models.Model):
+  applicant = models.ForeignKey(Account, on_delete = models.CASCADE)
+  post = models.ForeignKey(PostModel, on_delete = models.CASCADE)
+  answers = ArrayField(models.TextField(blank=True, default=""), default = list, blank=True)
+
 
 class BookmarkedModel(models.Model):
   account = models.ForeignKey(Account,on_delete = models.CASCADE)

@@ -10,21 +10,16 @@
 <div class="profilefriendsList">
   <h1 style="text-align:center;margin-top:20px;color:white;font-weight:bold;">Mutual Colleagues</h1>
   <br>
-  <input type="text" placeholder="Search By Name">
-  <a href="#"><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></a>
   <div class="profilefriendsBox">
-  
+    {% for friend in common_friends %}
     <br>
     <div class="profilefriendsButton">
-      <a href =''>
-        <img style='width:50px;max-height:auto;' src="{% static 'authorize_main/monkey.jpg' %}"/>
-        <h1 style='margin-left:50px;'>Jacky Chen</h1>
-        <h1 style='margin-left:50px;'>UserID:2223</h1>
+      <a href ="{% url 'applicant_profile' friend.id %}">
+        <img style='min-width:50px;max-width:50px;min-height:50px;max-height:50px;' src="{{friend.profile_pic.url}}"/>
+        <h1 style='margin-left:50px;'>{{ friend.first_name }} {{friend.last_name}}</h1>
       </a>
-      
     </div>
-    
-
+  {% endfor %}
 </div>
 </div>
  

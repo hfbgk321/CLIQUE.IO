@@ -25,10 +25,7 @@
 </div>
 <!-- List of ALL projects BACKEND: just need to set the arguments inside openProject(name,skills,location,description)
 		Make sure to set the h1's under it as well. -->
-<div id="galleries" class="gallery" class="infinite-container">
-	{%for post in pag_allposts %}
-	<div id="projectitem" class="infinite-item">
-		<script>function openProject1(projectName,memberCount,skills,location,description,postID){
+		<script>function openProject1(projectName,memberCount,skills,location,description,postID,appTabURL){
 			var element=document.getElementById("projectInfo");
 			var projects=document.querySelectorAll('.projects');
 			document.getElementById("projectName").innerHTML=projectName;
@@ -44,12 +41,20 @@
 			element2.classList.remove("hidden");
 			element2.classList.add("show1");
 			element2.style.display="block";
+			document.getElementById('openAppTab').action=appTabURL;
 		  }
+		  
 		  </script>
+<div id="galleries" class="gallery" class="infinite-container">
+	{%for post in pag_allposts %}
+	
+	<div id="projectitem" class="infinite-item">
+		
 		  
 		  <!-- <a class = "bookmarkButt" href="{%url 'bookmark' post.id %}">Bookmark</a> -->
-		<div  class = "projectSec" id="clickPost" onclick="openProject1('{{post.title_of_post}}','{{post.num_of_positions}}','{{post.skills_needed}}','lolol','{{post.description_of_post}}','{{post.id}}');" >
-			<div id="project"  class="project" >
+		<div  class = "projectSec" id="clickPost" onclick= "openProject1('{{post.title_of_post}}','{{post.num_of_positions}}','{{post.skills_needed}}','lolol',
+		'{{post.description_of_post}}','{{post.id}}');">
+			<div id='project'  class='project'>
 				{%if post.post_made_by.profile_pic == 'None'%}
 				<img class="projectProfImage" src = '/media/media/default_profile.png' alt = "">
 				{%else%}
@@ -6929,11 +6934,12 @@
 		<form action = "{%url 'applyall' pag_allposts.number%}" method = "post">
 			{% csrf_token %}
 			<input type="text" name="postID" id="postID" style="display:none;">
-			<button id="button" onclick="submit();" class="submit" type="submit" value="Apply" name='app'>Apply</button>
+			<!-- <button id="button" onclick="submit();" class="submit" type="submit" value="Apply" name='app'>Apply</button> -->
 		</form>
-		
-		<!-- <button id="button" onclick="submit1();" class="submit" type="submit" value="Apply" name='app'>Apply</button> -->
-	</div>
+		<form id="openAppTab">
+			<button href="{% url 'applyform' %}" id="button"  class="submit" type="submit" value="Apply" name='app'>Apply</button>
+		<form>
+		</div>
 	<button class="contactLeader">Contact Project Leader</button>
 </div>
 <div id="overlay2" class="hidden"></div>
@@ -6998,14 +7004,12 @@
 <div id="application-form" class="hideform">
 	<h1 style="font-family: 'Inter', sans-serif; font-size:40px;padding-left: 10px; padding-top: 10px; padding-bottom: 10px;background-color: #06D6A0; color: white;">Application</h1>
 	<button class="close-button" onclick="closeAppForm();" type="button" name="button">&times;</button>
+	<!-- for loop -->
+	
     <label class="question" for="question">Why do you want to be a part of this project?</label>
-    <textarea class="text-box" name="" id="" cols="30" rows="10" maxlength="200" ></textarea>
- 
-    <label class="question" for="question">What skills do you think you can bring to this position?</label>
-    <textarea class="text-box" name="" id="" cols="30" rows="10" maxlength="200"></textarea>
- 
-    <label class="question" for="question">What past experience or course have you taken that can be beneficial to this project?</label>
-    <textarea class="text-box" name="" id="" cols="30" rows="10" maxlength="200"></textarea>
+	<textarea class="text-box" name="" id="" cols="30" rows="10" maxlength="200" ></textarea>
+	
+	<!-- end for -->
 	<div class="bottom-space">
 		<button class="app-submit">Submit</button>
 	</div>

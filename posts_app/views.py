@@ -17,6 +17,8 @@ from Notifications.views import Notifications
 from newsapi import NewsApiClient
 from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler, list_all_people
 from django.db.models.functions import Trunc
+from friends.views import get_mutual_friends
+import json
 import urllib
 
 def getbookmarkinfo_allposts(request, post_id, page_number):
@@ -33,6 +35,14 @@ def redir_2_bookmarked(request, page_number=1):
   ret = apply_view(request)
   
   return redirect(f'/posts/bookmarked_posts/?page3={page_number}')
+
+def apply_page(request, post_id):
+  post = PostModel.objects.get(id=post_id)
+  
+  questions = post.application_questions
+  return HttpResponse(post.id)
+  return render(request, "", {"questions": questions})
+
 
 def apply_view(request):
   if request.POST:
@@ -112,12 +122,20 @@ def PostList(request, searched=False, results=None, title='', sorted_option=''):
     article['publishedAt'] = rearranged+" "+ hours+":"+minutes+" "+am_or_pm
     
     
+    
     # print(type(time))
     # print(time[0:10])
     # print(time[11:len(time)-1])
     # article['publishedAt'] = time[0:10]+" "+time[11:len(time)-1]
     # time = time[0,10] +" "+time[11,int(len(time))]
   
+  
+  
+  for post in PostModel.objects.all():
+  
+    print("post:", post.title_of_post, "Questions --->", post.application_questions)
+  
+    
   return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request),"all_articles":all_articles, 'friends':list_all_people(), 'title': title, 'sorted_option':sorted_option})
 
 def ApplyList(request, searched=False, results=None, title='', sorted_option=''): #for user to see which posts they applied to
@@ -279,6 +297,7 @@ def AllAppliedBookmarkedView(request,page_number=None):
   paginator_mypost = Paginator(user_posts, 3)
   mypost_number = request.GET.get('page4',page_number)
   mypost_obj = paginator_mypost.get_page(mypost_number)
+
   
   return [allposts_obj, appliedposts_obj, bookmarks_obj, mypost_obj, applied_posts_urls]
   
@@ -288,18 +307,13 @@ def AllAppliedBookmarkedView(request,page_number=None):
 @login_required
 def create_post_view(request):
   if request.method == 'POST':
-    form =PostForm(request.POST)
+    form = PostForm(request.POST)
     if form.is_valid():
-      print("responses----->", request.POST)
-      for part in request.POST: 
-        print(part)
-        print(request.POST[part])
-      print('...........................')
       
-      for value in request.POST.values():
-        print(value)
+      print("responses----->", request.POST)
       print("printing questions:")
       print("questions----->", request.POST.getlist('questions'), type(request.POST['questions']))
+      
       title = request.POST['title_of_post']
       title = title.replace('\'','`')
       description = request.POST['description_of_post']
@@ -309,7 +323,9 @@ def create_post_view(request):
       post.post_made_by = request.user
       post.title_of_post = title
       post.description_of_post = description
+      post.application_questions = request.POST.getlist('questions')
       post.save()
+      print("questions:::::::", post.application_questions)
       messages.success(request,'Successfully created post.')
       return redirect('mypostlist')
     else:
@@ -371,6 +387,8 @@ def applicant_profile(request, user_id):
   applicant_first_name = applicant.first_name
   settings = applicant.show_to_public
   is_friend = False
+  mutual_friends = get_mutual_friends(request)
+  
   if user_id in Account.objects.get(id = request.user.id).friends:
     is_friend = True
   if settings[0] == True and applicant.profile_pic != 'None':
@@ -384,7 +402,7 @@ def applicant_profile(request, user_id):
     email = 'Not Visible To Public. Please Contact Through Chat.'
   #print(settings)
   #[profile_pic, email, first_name, last_name, university, major, school_year, date_joined]
-  return render(request, 'posts_app/pub_profile.html', {'applicant':applicant, 'profile_pic': profile_pic, 'email': email, 'all_notifications': Notifications(request), 'friends':list_all_people(), 'is_friend': is_friend})
+  return render(request, 'posts_app/pub_profile.html', {'applicant':applicant, 'profile_pic': profile_pic, 'email': email, 'all_notifications': Notifications(request), 'friends':list_all_people(), 'is_friend': is_friend, 'common_friends':mutual_friends})
 
 
 def accept_applicant(request, page_num=1):

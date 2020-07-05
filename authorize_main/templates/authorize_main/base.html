@@ -1,4 +1,5 @@
 {%load static%}
+{%load tz%}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -74,7 +75,7 @@
         {% comment %} <li class = "nav-item"><a class="nav-link"href="{% url 'see_my_posts' %}"style = "color:white;">My Posts</a></li>{%endcomment%}-->
           <!-- <li class = "nav-item"><a class="nav-link"href="{% url 'createposts'%}"style = "color:white;">Post an Idea</a></li> -->
           <!-- {% comment %} <li class = "nav-item"><a class="nav-link"href="{%url 'see_all_posts'%}"style = "color:white;">All Posts</a></li> {% endcomment %}-->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a
               onclick="hideNotifications();"
               class="nav-link"
@@ -90,7 +91,7 @@
               onclick="hideNotifications();"
               style="margin-right: 50px; color: white; font-size: 25px;"
               ><i class="fa fa-users" title="Friends"></i></a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a
               class="nav-link"
@@ -207,7 +208,7 @@
                   left:140px;
                 "
               >
-                {{notification.date_created}}
+              {{notification.date_created|timezone:'America/New_York'}}
               </h1>
               
             </div>
@@ -248,7 +249,7 @@
                   left:140px;
                 "
               >
-                {{notification.date_created}}
+                {{notification.date_created|timezone:'America/New_York'}}
               </h1>         
             </div>
           </a>

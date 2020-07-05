@@ -2,6 +2,7 @@
 {%load static%}
 {%block content%}
 <link rel="stylesheet" href="{%static 'authorize_main/landing_page_styles.css'%}">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 {% if messages %}
         {% for message in messages %}
             <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
@@ -40,11 +41,24 @@
 </div>
 </section>
 <section>
+    <div class="circle xxlarge shade1"></div>
+    <div class="circle xlarge shade2"></div>
+    <div class="circle large shade3"></div>
+    <div class="circle medium shade4"></div>
+    <div class="circle small shade5"></div>
     <div style="background:transparent;" id="landingPageBlock1">
     <div id="landingText" class="landingText">
         <h1>What we do</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sem nulla, porta a bibendum vitae, egestas ac lectus. Donec ut erat dapibus, accumsan purus viverra, porta massa. Suspendisse potenti. Integer eget augue sit amet turpis tincidunt maximus. Nulla maximus dui sit amet turpis varius gravida. Aliquam et cursus diam. Ut euismod libero id ante eleifend varius. Mauris tellus massa, molestie id urna pharetra, facilisis consectetur lectus. Morbi malesuada eros nec faucibus ultricies. Aliquam dignissim sem et sapien sagittis ornare. Suspendisse at nisl porttitor dolor pharetra sagittis nec non est. Aliquam iaculis, enim eu suscipit commodo, nisi libero efficitur turpis, vitae rhoncus tortor nunc non dui.
-            Integer blandit porta eleifend. Sed tincidunt risus vitae libero euismod scelerisque. Phasellus vitae ligula elementum, ultrices tellus id, efficitur turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla fringilla pellentesque arcu, eu volutpat augue laoreet ut. Maecenas facilisis risus et orci aliquet, ac sodales neque auctor. In vulputate congue tortor. Fusce sollicitudin accumsan accumsan. Fusce lacus neque, dictum eget sapien eget, efficitur eleifend eros. Nunc sit amet mauris luctus, accumsan velit non, finibus tortor. Donec imperdiet nunc vitae orci cursus, id aliquam metus aliquam. Suspendisse nec tortor magna. Vestibulum tincidunt id arcu sed rhoncus. Sed ut euismod nunc, sit amet efficitur orci. In ultrices sapien libero, sed condimentum mauris hendrerit nec. Duis maximus feugiat neque, nec tincidunt ante vulputate at.
+        <p class="motto">You've heard of LinkedIn. You've heard of Handshake. But now there's a
+            new sheriff in town, Clique! With Clique, students are in power. We
+            have created a site where students can team up with other students
+            to work on different types of collaborations like school projects, passion projects, and so on. 
+            Everything from posting a project to applying for a project to chatting with 
+            the project leader is all possible with
+            Clique!
+        </p>
+        <p class="motto">
+            So sign up and start applying for projects today!
         </p>
     </div>
     <img id="landingDoodle"src="{% static 'authorize_main/LandingPagePic.png' %}" alt="People Collaborating">
@@ -59,7 +73,9 @@
     <br>
     <div class="frontEnd">
         <div class="yupeng">
+            <a href="https://www.linkedin.com/in/yuplu/">
             <img src="" alt="Yupeng">
+            </a>
             <h1 class="name">Yupeng</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
         </div>

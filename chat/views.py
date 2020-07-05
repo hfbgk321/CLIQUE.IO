@@ -78,8 +78,9 @@ def zip_lists(a, b):
   return zip(a, b)
 
 def notify_chat(request, user_id, applicant_id=0):
-    notification = NotificationModel.objects.create(account=request.user,notified_message =f'{Account.objects.get(id=user_id).first_name} {Account.objects.get(id=user_id).last_name} wants to chat!')
-    notification.save()
+    pass
+    #notification = NotificationModel.objects.create(account=request.user,notified_message =f'{Account.objects.get(id=user_id).first_name} {Account.objects.get(id=user_id).last_name} wants to chat!')
+    #notification.save()
 
 def create_private_chat(request, room_name, second_person_id=None, id_arr=None):
     creator = Account.objects.get(id=request.user.id)

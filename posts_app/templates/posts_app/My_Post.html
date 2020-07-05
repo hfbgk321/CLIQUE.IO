@@ -6980,59 +6980,61 @@ function setWindowID(ID){
 
 <input id="button" onclick="myFunction();" class="plus" type="image" style="position:fixed;bottom:5%;left:95%;"
 	name="addpost" src="{%static 'posts_app/plus_icon.png'%}">
-<div id="show" class="popupposthidden">
-	<h1 style="left:29%;font-size:30px;margin-bottom:2%;">CREATE NEW PROJECT</h1>
-
-	<div class="projects">
-
-		<h1 class="popuptext">Project Title</h1> 
-		<button class="close-button" onclick="closeProjInfo();" type="button" name="button">&times;</button>
-		<!-- <input id="button" onclick="close();" class="close-button" type="submit" value="Close"> -->
-		<form action="{%url 'createposts'%}" method="post">
-			{% csrf_token %}
-			<input id="title" class="popupinput" name="title_of_post">
-			<hr class="divide">
-			<h1 class="popuptext">Description</h1>
-			<textarea id="description" maxlength="500" class="popupinput" name="description_of_post" rows="8" cols="80"></textarea>
-			<hr class="divide">
-			<h1 class="popuptext">Skills</h1>
-			<input id="skills" class="popupinput" name="skills_needed" type="text">
-			<hr class="divide">
-			{% comment %} <h1 class="popuptext">Location</h1>
-			<input id="location" class="popupinput" name="">
-			<hr class="divide"> {% endcomment %}
-			<h1 class="popuptext">Number of Team Members</h1>
-			<input id="team" class="popupinput" name="num_of_positions" input type="number">
-			<hr class="divide">
-			<h1 class="popuptext">Application Deadline</h1>
-			<input id="appdeadline" class="popupinput" type="date" name='application_deadline'>
-			<!-- if date is invalid: display an error -->
-			<hr class="divide">
-			<h1 class="popuptext">Project Genres (Optional)</h1>
-			<h1 class="popuptext-note">This will help us find more suitable team members for your project</h1>
-			<input id="genres" class="popupinput" name="genres" placeholder="business, health, etc">
-			<select name="genreList" id="genreList">
-				<option>Health</option>
-				<option>Business</option>
-				<option>Art</option>
-				<option>Software</option>
-				<option>Data Analytics</option>
-				<option>Web App Development</option>
-			</select>
-
-			<a class="addGenreButton"onclick="addGenre();">Add</a>
-			<hr class="">
-			<h1 class="popuptext">Questions for Appliers</h1>
-			<div id="q-div">
-				<div class="child">
-					<input id="qforapp" class="popupquestion" name="genres" placeholder="Ex: What skills can you bring to this project?">
-					<a class="addGenreButton" onclick="addQuestion();">Add</a>
+	<div id="show" class="popupposthidden">
+		<h1 style="left:29%;font-size:30px;margin-bottom:2%;">CREATE NEW PROJECT</h1>
+	
+		<div  class="projects">
+	
+			<h1 class="popuptext">Project Title</h1>
+	
+			<button class="close-button" onclick="closeProjInfo();" type="button" name="button">&times;</button>
+			<!-- <input id="button" onclick="close();" class="close-button" type="submit" value="Close"> -->
+			<form action="{%url 'createposts'%}" method="post">
+				{% csrf_token %}
+				<input id="title" class="popupinput" name="title_of_post">
+				<hr class="divide">
+				<h1 class="popuptext">Description</h1>
+				<textarea id="description" maxlength="500"class="popupinput" name="description_of_post" rows="8" cols="80"></textarea>
+				<hr class="divide">
+				<h1 class="popuptext">Skills</h1>
+				<input id="skills" class="popupinput" name="skills_needed" type="text">
+				<hr class="divide">
+				{% comment %} <h1 class="popuptext">Location</h1>
+				<input id="location" class="popupinput" name="">
+				<hr class="divide"> {% endcomment %}
+				<h1 class="popuptext">Number of Team Members</h1>
+				<input id="team" class="popupinput" name="num_of_positions" input type="number">
+				<hr class="divide">
+				<h1 class="popuptext">Application Deadline</h1>
+				<input id="appdeadline" class="popupinput" type="date" name='application_deadline'>
+				<!-- if date is invalid: display an error -->
+				<hr class="divide">
+				<h1 class="popuptext">Project Genres (Optional)</h1>
+				<h1 class="popuptext-note">This will help us find more suitable team members for your project</h1>
+				<input id="genres" class="popupinput" name="genres" placeholder="business, health, etc">
+				<select name="genreList" id="genreList">
+					<option selected="selected"disabled>Suggested Genres</option>
+					<option>Health</option>
+					<option>Business</option>
+					<option>Art</option>
+					<option>Software</option>
+					<option>Data Analytics</option>
+					<option>Web App Development</option>
+				</select>
+				<a id="addGenreButton"class="addGenreButton"onclick="addGenre();">Add</a>
+				<hr class="">
+				<h1 class="popuptext">Questions for Appliers</h1>
+				<div id="q-div">
+					<div class="child">
+						<input id="qforapp" class="popupinput" name="questions" placeholder="Ex: What skills can you bring to this project?">
+						<a id="addGenreButton"class="addGenreButton" onclick="addQuestion();">Add</a>
+					</div>
 				</div>
-			</div>
-			
+				
+		</div>
+		<input id="button" onclick="submit();" class="submit" type="submit">
+		</form>
 	</div>
-	<input id="button" onclick="submit();" class="submit" type="submit">
-</div>
 <div id="overlay" class="hidden"></div>
 </div>
 
