@@ -3,6 +3,7 @@
 {%block content%}
 <link rel="stylesheet" href="{%static 'authorize_main/landing_page_styles.css'%}">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% if messages %}
         {% for message in messages %}
             <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
@@ -38,6 +39,10 @@
     <video id="landingVid"src="{%static 'authorize_main/landing_page_vid.mp4'%}" autoplay="" muted="" loop=""></video>
     <div id="video-overlay" class="video-overlay"></div>
     <img src="{%static 'authorize_main/clique_logo.png'%}" id="cliqueLogo">
+    
+</div>
+<div class="scroll-container">
+<img src="{%static 'authorize_main/scroll2.jpg'%}" id="landingpageScroll">
 </div>
 </section>
 <section>
@@ -90,7 +95,7 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
         </div>
     </div>
-    <hr style="height: 300px;">
+    <hr style="height: 100px;">
     <!-- <h1 class="back">Back-End</h1> -->
     <br>
     <div class="frontEnd">
@@ -110,19 +115,36 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
         </div>
     </div>
+
+    <div id="footer-top">
+        <div class="social">
+        <a target="_blank" href="https://www.facebook.com/" class="fa fa-facebook"></a>
+        <a target="_blank" href="https://twitter.com/explore" class="fa fa-twitter"></a>
+        <a target="_blank" href="https://www.linkedin.com/" class="fa fa-linkedin"></a>
+        </div>
+        <h1 id="footer-text">&copy; 2020 Clique, Inc. and the Clique logo are trademarks of Clique, Inc.  </h1>
+        <img src="{%static 'authorize_main/clique_logo.png'%}" id="minilogo">
+    </div>
 </div>
+
+<!-- <div id="footer-top">
+    <h1>hey</h1>
+</div> -->
+
+
 <script type="text/javascript">
     let videoOverlay=document.getElementById("video-overlay");
     let block1=document.getElementById('landingPageBlock1');
     let image=document.getElementById('cliqueLogo');
     let video=document.getElementById('landingVid');
-    
+    let downarrow=document.getElementById('landingpageScroll')
     
    
     window.addEventListener('scroll',function(){
         let value=1+window.scrollY/-400;
         image.style.opacity=value;
         video.style.opacity=value;
+        downarrow.style.opacity=value;
         if(video.style.opacity<0.8){
         videoOverlay.style.opacity=0;
     }

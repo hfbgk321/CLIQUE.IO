@@ -4,7 +4,7 @@ from .forms import PostForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from.models import PostModel, BookmarkedModel,AppliedPostsModel
+from.models import PostModel, BookmarkedModel, AppliedPostsModel, AnswerModel
 from django.views.generic import ListView
 from django.core.exceptions import ObjectDoesNotExist,MultipleObjectsReturned
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -36,44 +36,69 @@ def redir_2_bookmarked(request, page_number=1):
   
   return redirect(f'/posts/bookmarked_posts/?page3={page_number}')
 
-def apply_page(request, post_id):
+def apply_page(request, page_number):
+  post_id = request.POST['postID']
+  post = PostModel.objects.get(id=post_id)
+  question_num_lst= []
+  
+  if post.application_completed == True:
+    return HttpResponse('This application has expired') 
+  
+  application_questions = post.application_questions
+  for question in range(1, len(application_questions) + 1):
+    question_num_lst.append(str(question))
+  
+  question_zip = zip(application_questions, question_num_lst)
+  
+  return render(request, "posts_app/application_questions.html", {'application_questions': question_zip, "post_id": post.id, "page_number":page_number}) 
+  #return render(request, "", {"questions": questions})
+
+
+def submit_application(request, post_id, page_number):
+  print("answers----->", request.POST)
+  user = Account.objects.get(id=request.user.id)
   post = PostModel.objects.get(id=post_id)
   
-  questions = post.application_questions
-  return HttpResponse(post.id)
-  return render(request, "", {"questions": questions})
+  if request.method == 'POST':
 
-
-def apply_view(request):
-  if request.POST:
-    try:
-        # for key, value in request.POST.items():
-        #   print('Key:'+key+ ' Value:'+ value)
-        # return HttpResponse('Hello')
-        post_to_apply = request.POST['postID']
-        #print(post_to_apply)
-        user = request.user
-        
-        #expired_post_check = PostModel.objects.get(id=post_to_apply)
-        #print(expired_post_check.application_completed)
-          
-        if PostModel.objects.get(id=post_to_apply).application_completed == True:
-          return messages.success(request, 'Application has expired')
-        
-        already_applied_check = AppliedPostsModel.objects.filter(account__id = user.id, applied_post__id__contains = post_to_apply)
-
-        if len(already_applied_check) > 0:
-          return messages.success(request,'Post is already applied to!')
-        else:
-          raise ObjectDoesNotExist
+    questions = []
+    answers = []
     
-    except ObjectDoesNotExist:  
-      applied = AppliedPostsModel.objects.create(account=user,applied_post = PostModel.objects.get(id = post_to_apply))
-      applied.id = post_to_apply
-      current_post = PostModel.objects.get(id = post_to_apply)
-      current_post.applicants.append(request.user.id)
-      current_post.save()
-      return messages.success(request,"Post Successfully Applied To")
+    if PostModel.objects.get(id=post_id).application_completed == True:
+      messages.success(request, 'Application has expired')
+      return redirect(f'/posts/all_posts/?page1={page_number}')
+
+    for question_num in range(1, len(post.application_questions) + 1):
+      answer = request.POST[str(question_num)]
+      print("answer", answer)
+      answers.append(answer)
+      
+    if len(AnswerModel.objects.filter(applicant=Account.objects.get(id=request.user.id), post=PostModel.objects.get(id=post_id))) == 0:
+      apply_view(request, post_id)
+      application = AnswerModel.objects.create(answers=answers, applicant=Account.objects.get(id=request.user.id), post=PostModel.objects.get(id=post_id))
+      messages.success(request,"Application successfully submitted")
+      return redirect(f'/posts/all_posts/?page1={page_number}')
+    else:
+      messages.success(request,"Application already submitted")
+      return redirect(f'/posts/all_posts/?page1={page_number}') 
+    
+  messages.success(request,"Application failed")
+  return redirect(f'/posts/all_posts/?page1={page_number}')
+
+
+def apply_view(request, post_id):
+  if request.POST:
+    
+    post_to_apply = post_id
+
+    user = request.user
+  
+    applied = AppliedPostsModel.objects.create(account=user,applied_post = PostModel.objects.get(id = post_to_apply))
+    applied.id = post_to_apply
+    current_post = PostModel.objects.get(id = post_to_apply)
+    current_post.applicants.append(request.user.id)
+    current_post.save()
+  
   else:
     raise Exception('request is not POST')
    
@@ -128,12 +153,12 @@ def PostList(request, searched=False, results=None, title='', sorted_option=''):
     # print(time[11:len(time)-1])
     # article['publishedAt'] = time[0:10]+" "+time[11:len(time)-1]
     # time = time[0,10] +" "+time[11,int(len(time))]
+
   
   
-  
-  for post in PostModel.objects.all():
-  
-    print("post:", post.title_of_post, "Questions --->", post.application_questions)
+  #for post in PostModel.objects.all():
+    #if post.application_completed is False:
+      #print("post:", post.title_of_post, "Questions --->", post.application_questions)
   
     
   return render(request,'posts_app/home_template.html',{"pag_allposts":postlist, 'all_notifications': Notifications(request),"all_articles":all_articles, 'friends':list_all_people(), 'title': title, 'sorted_option':sorted_option})
@@ -191,7 +216,7 @@ def MyPostList(request, post_id=None,page_number=1, searched=False, results=None
   users = []
   accepted = []
   chat_url = []
-  
+  user_apps = [] 
   if post_id:
     post = PostModel.objects.get(id=post_id)
     applicants = post.applicants
@@ -204,24 +229,43 @@ def MyPostList(request, post_id=None,page_number=1, searched=False, results=None
       users.append(Account.objects.get(id=x))
     #print(accepted)
 
+    user_url_combined = []
     
     for x in range(len(accepted)):
+      questions = post.application_questions
+      application = AnswerModel.objects.get(applicant=accepted[x], post=post) 
+      answers = application.answers
       
-      #print(request.user.id)
-      #print(accepted[x].id) 
       url = url_scrambler(request.user.id) + url_scrambler(post_id) + url_scrambler(accepted[x].id)
       create_private_chat(request, url, accepted[x].id)
-      chat_url.append(url)
       
-    user_url_combined = zip(accepted, chat_url)
+      combined = [accepted[x], url, zip(questions, answers)]
+      user_url_combined.append(combined)
+      
+      
+  
+    
+    user_apps = []
+
+    for user in range(len(users)):
+      user = users[user]
+      
+      application = AnswerModel.objects.get(applicant=user, post=post)
+      
+      answers = application.answers
+      questions = post.application_questions
+      
+      combined = [user, zip(questions, answers)]
+      user_apps.append(combined)
     
   else:
     user_url_combined = []
     applicants = []
+   
   
   return render(request, 'posts_app/My_Post.html', {"pag_mypost":mypost_obj, 'users': users,"current_post":current_post,
   "num":len(users),"post_id":post_id,"accepted":accepted,"num_accepted":len(accepted), 'all_notifications': Notifications(request),
-  'user_url_combined': user_url_combined, 'friends':list_all_people(), 'title': title, 'sorted_option': sorted_option})
+  'user_url_combined': user_url_combined, 'friends':list_all_people(), 'title': title, 'sorted_option': sorted_option, "user_apps": user_apps})
   
 def AllAppliedBookmarkedView(request,page_number=None):
   all_posts = PostModel.objects.all().order_by('id')
@@ -736,19 +780,13 @@ def filter_keyword_bookmarked(request):
         for word2 in word.split(' '):
           interest_lst.append(word2)
   
-    #print('interest_lst------- ->', interest_lst)
-    
-    #sorted list
+  
     sorted_lst = []
     
     sorted_lst.append(request.POST.get('upcomingDeadlines'))
     sorted_lst.append(request.POST.get(('mostRecent')))
     
-    #print('sorted_list ---->', sorted_lst)
     
-    #university = request.POST.get('university')
-    
-    #print('university ---->', university)
     
   else:
     sorted_option = pre_url[-1]
@@ -766,8 +804,7 @@ def filter_keyword_bookmarked(request):
     if interest != None:
       title = title + ',' + interest
   
-  #if university is not '':
-    #title = title + ',' + university
+  
   
   if title is not None or title == '':
     
@@ -786,10 +823,7 @@ def filter_keyword_bookmarked(request):
     if filtered_list[-1] == "":
       filtered_list.pop()
     
-    #print('filtered_lst-------->', filtered_list)
-    
-    #user_posts = PostModel.objects.filter(post_made_by__id=request.user.id)
-    
+
 
     all_posts = BookmarkedModel.objects.filter(account__id=request.user.id).order_by('id') 
     
@@ -864,19 +898,13 @@ def filter_keyword_mypost(request):
         for word2 in word.split(' '):
           interest_lst.append(word2)
   
-    #print('interest_lst------- ->', interest_lst)
     
-    #sorted list
     sorted_lst = []
     
     sorted_lst.append(request.POST.get('upcomingDeadlines'))
     sorted_lst.append(request.POST.get(('mostRecent')))
     
-    #print('sorted_list ---->', sorted_lst)
-    
-    #university = request.POST.get('university')
-    
-    #print('university ---->', university)
+  
     
   else:
     sorted_option = pre_url[-1]
@@ -891,10 +919,7 @@ def filter_keyword_mypost(request):
   for interest in interest_lst:
     if interest != None:
       title = title + ',' + interest
-  
-  #if university is not '':
-    #title = title + ',' + university
-  
+    
   if title is not None or title == '':
     
     keywords = title.strip().split(' ')
@@ -904,19 +929,12 @@ def filter_keyword_mypost(request):
     for ind in range(len(title)):
       if title[ind].isalnum() is not True:
         title = title.replace(title[ind], ',')
-        
-    #print(title)
-    
+      
     if filtered_list[0] == '':
       filtered_list.pop(0)
     if filtered_list[-1] == "":
       filtered_list.pop()
     
-    #print('filtered_lst-------->', filtered_list)
-    
-    #user_posts = PostModel.objects.filter(post_made_by__id=request.user.id)
-    
-
     all_posts = PostModel.objects.filter(post_made_by__id=request.user.id).order_by('id') 
     
     #search by filter
@@ -961,3 +979,4 @@ def filter_keyword_mypost(request):
     return redirect('mypostlist')
     #return PostList(request)
   return MyPostList(request, None, 1, True, relevant_lst, title, sorted_option)
+

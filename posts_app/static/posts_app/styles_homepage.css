@@ -17,6 +17,14 @@
 .filter a:hover{
   cursor:pointer;
 }
+.appResponses{
+  background:White;
+  min-width:80%;
+  max-width:80%;
+}
+.appQuestion{
+  color:#1B9AAA;
+}
 .addGenreButton{
   padding: 5px 20px;
   margin-left:5px;
@@ -25,6 +33,53 @@
   text-align: center;
   
 }
+.postApplication .submit{
+  display:block;
+  margin:0 auto;
+  padding:10px;
+  font-size:15px;
+}
+.postApplication .submit:hover{
+  color:#EF476F;
+  background:White;
+}
+.postApplication h1{
+  text-align:center;
+  font-weight:bold;
+  font-size:20px;
+  color:#EF476F;
+}
+.postApplication{
+  padding:10px;
+  margin:0 auto;
+  width:60%;
+  min-width:600px;
+  max-width:1200px;
+  background:#1B9AAA;
+  border-radius:10px;
+  max-height:90%;
+  overflow:scroll;
+  overflow-x:hidden;
+}
+
+.question {
+  color:white;
+font-weight:bold;
+  display:block;
+  margin:30px auto 10px;
+  width:90%;
+  
+}
+.text-box{
+  border-radius:10px;
+  display:block;
+  margin:0 auto;
+  width:90%;
+  resize:none;
+  padding:10px;
+  height:200px;
+}
+
 #addGenreButton{
   color:#F8FFE5;
   background-color: #1B9AAA;
@@ -118,16 +173,8 @@
     border-bottom: 0px;
 }
 
-.text-box {
-  width: 75%;
-  margin-left: 10%;
-  resize: none;
-  padding:10px;
-}
-.question {
-  width: 100%;
-  padding: 5%;
-}
+
+
 
 .bottom-space {
   text-align: center;
@@ -257,6 +304,7 @@ body .gallery .BookMarkButt {
   margin-left: 35%;
   color: white;
   background: #1b9aaa;
+  margin-top:-5%;
   border-radius: 10px;
   outline: none;
   border: none;
@@ -269,9 +317,11 @@ body .gallery .BookMarkButt {
 }
 
 .viewApp {
-  position: absolute;
-  margin-left: 30%;
-  margin-top: 40px;
+  position: relative;
+  margin-left: 60%;
+  margin-top: 0px;
+  bottom:10px;
+
   color: white;
   background: #1b9aaa;
   border-radius: 10px;

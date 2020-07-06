@@ -25,13 +25,13 @@
 </div>
 <!-- List of ALL projects BACKEND: just need to set the arguments inside openProject(name,skills,location,description)
 		Make sure to set the h1's under it as well. -->
-		<script>function openProject1(projectName,memberCount,skills,location,description,postID,appTabURL){
+		<script>function openProject1(projectName,memberCount,skills,description,postID,appTabURL){
 			var element=document.getElementById("projectInfo");
 			var projects=document.querySelectorAll('.projects');
 			document.getElementById("projectName").innerHTML=projectName;
 			document.getElementById("memberCount").innerHTML="Number of Team Members: "+memberCount;
 			document.getElementById("skills").innerHTML="Skills preferred: "+skills;
-			document.getElementById("location2").innerHTML="Location: "+location;
+			
 			document.getElementById("description").innerHTML="Description: "+description;
 			document.getElementById("postID").value=postID;
 			element.classList.add("popuppostshown");
@@ -41,7 +41,7 @@
 			element2.classList.remove("hidden");
 			element2.classList.add("show1");
 			element2.style.display="block";
-			document.getElementById('openAppTab').action=appTabURL;
+			document.getElementById('postID').value=postID;
 		  }
 		  
 		  </script>
@@ -52,7 +52,7 @@
 		
 		  
 		  <!-- <a class = "bookmarkButt" href="{%url 'bookmark' post.id %}">Bookmark</a> -->
-		<div  class = "projectSec" id="clickPost" onclick= "openProject1('{{post.title_of_post}}','{{post.num_of_positions}}','{{post.skills_needed}}','lolol',
+		<div  class = "projectSec" id="clickPost" onclick= "openProject1('{{post.title_of_post}}','{{post.num_of_positions}}','{{post.skills_needed}}',
 		'{{post.description_of_post}}','{{post.id}}');">
 			<div id='project'  class='project'>
 				{%if post.post_made_by.profile_pic == 'None'%}
@@ -64,7 +64,7 @@
 				<h4 style="color: aquamarine;">Application Deadline: {{post.application_deadline}}</h4>
 				<a onclick = "notBubbleUp(event);" href = "{%url 'applicant_profile' post.post_made_by.id%}"><h4 href = '#' style="color:cornflowerblue;">Posted By: {{post.post_made_by.first_name}} {{post.post_made_by.last_name}}</h4></a>
 				<h1 id="projname" class="projname" style="font-size:15px;">Start Up Idea: {{post.title_of_post}} </h1>
-				<h1 id="projpeople" class="projpeople" style="font-size:15px;"> Number of Open Positions: X/{{post.num_of_positions}}</h1>
+				<h1 id="projpeople" class="projpeople" style="font-size:15px;"> Number of Open Positions: {{post.num_of_positions}}</h1>
 				<h1 class="projdesc"style="font-size:15px;"> Description: {{post.description_of_post}}</h1>
 				{% if post.application_completed %}
 						<h1 class = "expired">Expired Post</h1>
@@ -105,7 +105,7 @@
 		{% csrf_token%}
 		<input type="search" id='search' name="search" class="searchBar" placeholder="Search By Keyword">
 		<!--<button type ="submit">Submit</button>-->
-		<button style="background:transparent;border:none;"onclick="saveFilters();"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
+		<button style="margin-left:30px;background:transparent;border:none;"onclick="saveFilters();"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
 		<br>
 		<br>
 		<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
@@ -6928,17 +6928,13 @@
 		<br>
 		<h1 id="skills"style="font-size:15px;">Skills</h1>
 		<br>
-		<h1 id="location2"style="font-size:15px;">Location</h1>
-		<br>
 		<h1 id="description"style="font-size:15px;">Description </h1>
-		<form action = "{%url 'applyall' pag_allposts.number%}" method = "post">
+		<form action = "{%url 'applyform' pag_allposts.number%}" method = "post">
 			{% csrf_token %}
 			<input type="text" name="postID" id="postID" style="display:none;">
 			<!-- <button id="button" onclick="submit();" class="submit" type="submit" value="Apply" name='app'>Apply</button> -->
+			<button id="button"  class="submit" type="submit" value="Apply" name='app'>Apply</button>
 		</form>
-		<form id="openAppTab">
-			<button href="{% url 'applyform' %}" id="button"  class="submit" type="submit" value="Apply" name='app'>Apply</button>
-		<form>
 		</div>
 	<button class="contactLeader">Contact Project Leader</button>
 </div>
@@ -6964,8 +6960,7 @@
 				<h1 class="popuptext">Skills</h1>
 				<input id="skills" class="popupinput" name="skills_needed" type="text">
 				<hr class="divide">
-				{% comment %} <h1 class="popuptext">Location</h1>
-				<input id="location" class="popupinput" name="">
+				{% comment %} 
 				<hr class="divide"> {% endcomment %}
 				<h1 class="popuptext">Number of Team Members</h1>
 				<input id="team" class="popupinput" name="num_of_positions" input type="number">
@@ -6988,10 +6983,10 @@
 				</select>
 				<a id="addGenreButton"class="addGenreButton"onclick="addGenre();">Add</a>
 				<hr class="">
-				<h1 class="popuptext">Questions for Appliers</h1>
+				<h1 class="popuptext">Questions for Applicants</h1>
 				<div id="q-div">
 					<div class="child">
-						<input id="qforapp" class="popupinput" name="questions" placeholder="Ex: What skills can you bring to this project?">
+						<input id="qforapp" class="popupinput" name="questions"  placeholder="Ex: What skills can you bring to this project?">
 						<a id="addGenreButton"class="addGenreButton" onclick="addQuestion();">Add</a>
 					</div>
 				</div>

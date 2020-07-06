@@ -135,7 +135,7 @@ style = "background-color: #1B9AAA; position:relative;top:55px; z-index:99999;" 
   <form name='friend_search' id = "friend_search" method="post" action="{%url 'friend_search' %}">
         {%csrf_token%}
         <input type="text" placeholder="Search By Name" name='search_friend_name' id='search_friend_name'>
-    <button style="background:transparent;outline:none;border:none;"type ='submit' id="fa-search"class="fa fa-search" aria-hidden="true">  </button>
+    <button style="margin-left:30px;background:transparent;outline:none;border:none;"type ='submit' id="fa-search"class="fa fa-search" aria-hidden="true">  </button>
   </form>
   <div class="profilefriendsBox">
     {%for friend in friend_list %}

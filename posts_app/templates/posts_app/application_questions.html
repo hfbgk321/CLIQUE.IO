@@ -1,0 +1,18 @@
+{% extends 'authorize_main/base.html' %}
+{% block content %}
+{% load static %}
+<br><br><br><br><br>
+<div class="postApplication">
+<h1>Application for ' '</h1>
+<form name='application_questions' method="post" action="{%url 'submitapp' post_id page_number %}">
+    {%csrf_token%}
+    {% for questions, number in application_questions %}
+        <label class="question" for="question">{{questions}}</label>
+        <textarea class="text-box" name={{number}} id={{number}} maxlength="200" ></textarea>
+    {% endfor %}
+    <br>
+    <button id="button" onclick="submit();" class="submit" type="submit">Submit</button>
+    
+</form>
+</div>
+{% endblock %}  

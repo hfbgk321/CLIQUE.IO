@@ -18,7 +18,10 @@
 //   document.querySelector("#q-div").appendChild(delbtn);
 // }
 
-
+window.onload=function () {
+  var objDiv = document.getElementById("notification-box");
+  objDiv.scrollTop = objDiv.scrollHeight;
+}
 function addQuestion() {
   var newdiv = document.createElement("div");
   var input = document.createElement("INPUT");
@@ -158,19 +161,22 @@ function navbarDrop() {
   }
 }
 
-function viewApp(){
-  console.log(document.querySelector("#viewAppBox"));
-  document.querySelector("#viewAppBox").classList.remove("viewAppHide");
-  document.querySelector("#viewAppBox").classList.add("viewAppShow");
+function viewApp(app){
+  console.log(app.parentNode.children[1]);
+  // document.querySelector("#viewAppBox").classList.remove("viewAppHide");
+  // document.querySelector("#viewAppBox").classList.add("viewAppShow");
+  app.parentNode.children[1].classList.remove('viewAppHide');
+  app.parentNode.children[1].classList.add('viewAppShow');
   var element2 = document.getElementById("overlay2");
   element2.classList.add("show1");
   element2.classList.remove("hidden");
 }
 
-function closeApp(){
-  console.log("hey");
-  document.querySelector("#viewAppBox").classList.remove("viewAppShow");
-  document.querySelector("#viewAppBox").classList.add("viewAppHide");
+function closeApp(app){
+  // document.querySelector("#viewAppBox").classList.remove("viewAppShow");
+  // document.querySelector("#viewAppBox").classList.add("viewAppHide");
+  app.parentNode.classList.remove('viewAppShow');
+  app.parentNode.classList.add('viewAppHide');
   var element2 = document.getElementById("overlay2");
   element2.classList.add("hidden");
   element2.classList.remove("show1");

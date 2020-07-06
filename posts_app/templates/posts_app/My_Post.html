@@ -24,20 +24,19 @@
 	 <div class="gallery posted">
 		<script>
 			var currentPostID;
-			function openProjectmyPost(projectName,memberCount,skills,location,description,postID,appDeadline){
+			function openProjectmyPost(projectName,memberCount,skills,description,postID,appDeadline){
 	var element=document.getElementById("projectInfo");
 	var projects=document.querySelectorAll('.projects');
 	document.getElementById("projectName").innerHTML=projectName;
 	document.getElementById("memberCount").innerHTML="Number of Team Members: "+memberCount;
 	document.getElementById("skills").innerHTML="Skills preferred: "+skills;
-	document.getElementById("location2").innerHTML="Location: "+location;
 	document.getElementById("description").innerHTML="Description: "+description;
 	document.getElementById("appDeadline").innerHTML="Application Deadline: "+appDeadline;
 	document.getElementById("postID").value=postID;
 	console.log(postID);
 	document.getElementById("editMember").style.display="none";
 	document.getElementById("editSkills").style.display="none";
-	document.getElementById("editLocation").style.display="none";
+	
 	document.getElementById("editDescription").style.display="none";
 	document.getElementById("editApplication_Deadline").style.display="none";
 	document.getElementById("applyChanges").style.display="none";
@@ -49,18 +48,16 @@
 	element2.classList.add("show1");
 	element2.style.display="block";
 	
-	document.getElementById("editButton").onclick=function(){editPost(memberCount,skills,location,description)};
+	document.getElementById("editButton").onclick=function(){editPost(memberCount,skills,description)};
 	document.getElementById("editButton").style.display="block";
   }
-  function editPost(memberCount,skills,location,description){
+  function editPost(memberCount,skills,description){
   document.getElementById("editButton").style.display="none";
   document.getElementById("applyChanges").style.display="block";
   document.getElementById("editMember").style.display="block";
   document.getElementById("editMember").value=memberCount;
   document.getElementById("editSkills").style.display="block";
   document.getElementById("editSkills").value=skills;
-  document.getElementById("editLocation").style.display="block";
-  document.getElementById("editLocation").value=location;
   document.getElementById("editDescription").style.display="block";
   document.getElementById("editDescription").value=description;
   document.getElementById("editApplication_Deadline").style.display="block";
@@ -75,7 +72,7 @@ function setWindowID(ID){
 		</script>
 		{%for post in pag_mypost%}
 		
-		<div class = "projectSec" onclick="openProjectmyPost('{{post.title_of_post}}','{{post.num_of_positions}}','{{post.skills_needed}}','lolll','{{post.description_of_post}}','{{post.id}}','{{post.application_deadline}}');">
+		<div class = "projectSec" onclick="openProjectmyPost('{{post.title_of_post}}','{{post.num_of_positions}}','{{post.skills_needed}}','{{post.description_of_post}}','{{post.id}}','{{post.application_deadline}}');">
 			<!-- <div class="projectSec" onclick="openProjectmyPost('Jacky&#x27;s New Post','10','Python,Java','lolll','Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;','59');"> -->
 			<div class="project">
 				{%if post.post_made_by.profile_pic == 'None'%}
@@ -126,7 +123,7 @@ function setWindowID(ID){
 			{% csrf_token%}
 			<input type="search" id='search' name="search" class="searchBar" placeholder="Search By Keyword">
 			<!--<button type ="submit">Submit</button>-->
-			<button onclick="saveFilters();"style="background:transparent;border:none;"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
+			<button onclick="saveFilters();"style="margin-left:30px;background:transparent;border:none;"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
 			<br>
 			<br>
 			<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
@@ -6957,10 +6954,6 @@ function setWindowID(ID){
 		<br>
 		<input name="editSkills"type="text"id="editSkills">
 		<br>
-		<h1 id="location2"style="font-size:15px;">Location</h1>
-		<br>
-		<input name="editLocation"type="text"id="editLocation">
-		<br>
 		<h1 id="description"style="font-size:15px;">Description </h1>
 		<br>
 		<textarea type="text"id="editDescription" maxlength="500" name="editDescription" rows="8" cols="80"></textarea>
@@ -6999,8 +6992,7 @@ function setWindowID(ID){
 				<h1 class="popuptext">Skills</h1>
 				<input id="skills" class="popupinput" name="skills_needed" type="text">
 				<hr class="divide">
-				{% comment %} <h1 class="popuptext">Location</h1>
-				<input id="location" class="popupinput" name="">
+				{% comment %} 
 				<hr class="divide"> {% endcomment %}
 				<h1 class="popuptext">Number of Team Members</h1>
 				<input id="team" class="popupinput" name="num_of_positions" input type="number">
@@ -7061,11 +7053,29 @@ function setWindowID(ID){
 		</script>
 		<form >
 			
-		{% for user in users%}
+		{% for user, quest_answers in user_apps %}
 		
 		<input name="applicant"class="applicantLists"type="checkbox" id="applicant">
 			<label class="appCheckBox"id="checkBox" for="applicant"><a href="{% url 'applicant_profile' user.id %}">{{user.first_name}} {{user.last_name}}</a></label> 
 			<label style="display:none;"class="hiddenID" id="hiddenID" for="applicant">{{user.id}}</label>
+			
+			<div>
+			<a id="viewApp" class="viewApp" onclick="viewApp(this);">View App</a>
+			<div id="viewAppBox" class="viewAppHide">
+				<button class="close-button" onclick="closeApp(this);" type="button" name="button">&times;</button>
+				
+				<h1 style="color:black;" class="appHeading">{{user.first_name}} {{user.last_name}}</h1>
+				{% for question, answer in quest_answers %}
+				<h1 style="color:black;" class="appQuestion">Question: {{question}}</h1>
+				<div class="appResponses">
+					
+				<h1 style="color:black;">Answer: {{answer}}
+					<br><br><br>
+				</h1>
+				</div>
+			{%endfor%}
+			</div>
+		</div>
 		<br><br>
 		
 		<script>
@@ -7079,11 +7089,7 @@ function setWindowID(ID){
 		{% endfor %}
 		
 		</form>
-		<button id="viewApp" class="viewApp" onclick="viewApp();">View Application</button>
-		<div id="viewAppBox" class="viewAppHide">
-			<button class="close-button" onclick="closeApp();" type="button" name="button">&times;</button>
-			<h1 class="appHeading">YuPeng's Application</h1>
-
+		
 		</div>
 	<script>
 		function checkedApplicants(){
@@ -7111,16 +7117,35 @@ function setWindowID(ID){
 			<button type = 'submit' onclick="setWindowID('{{post_id}}');checkedApplicants();"class="acceptApplicants">Accept</button>
 		<form>
 		{%endif%}
-	</div>
+	
 	<div id="acceptedApplicants" class="acceptedApplicants">
 		<input style="display:none;" type="text" id="acceptedPostID" name="acceptedPostID">
 		<h1 style="color:white;font-weight:bold;">Number of Accepted Applicants: {{num_accepted}}</h1> 
 		<br>
 		<!-- for loop -->
-		{%for accepted_user, url in user_url_combined%}
+		{%for accepted_user, url, quest_answers in user_url_combined%}
+		
 		<h1 style="color:white;">- {{accepted_user.first_name}} {{accepted_user.last_name}}</h1>
 		<h1 style="display:none;">{{accepted_user.id}}</h1>
-		
+
+		<div>
+			<a id="viewApp" class="viewApp" onclick="viewApp(this);">View App</a>
+			<div id="viewAppBox" class="viewAppHide">
+				<button class="close-button" onclick="closeApp(this);" type="button" name="button">&times;</button>
+				
+				<h1 style="color:black;" class="appHeading">{{accepted_user.first_name}} {{accepted_user.last_name}}</h1>
+				{% for question, answer in quest_answers %}
+				<h1 style="color:black;" class="appQuestion">Question: {{question}}</h1>
+				<div class="appResponses">
+					
+				<h1 style="color:black;">Answer: {{answer}}
+					<br><br><br>
+				</h1>
+				</div>
+			{%endfor%}
+			</div>
+
+		</div>
 		<a href="{%url 'room' url %}">Chat</a>
 		<br>
 		{%endfor%}

@@ -32,13 +32,13 @@
 <!-- list of BOOKMARKED projects  -->
 <div class="gallery" >
 	{% for bookmark in pag_bookmarks %}
-	<script>function openProject1(projectName,memberCount,skills,location,description,postID){
+	<script>function openProject1(projectName,memberCount,skills,description,postID){
 		var element=document.getElementById("projectInfo");
 		var projects=document.querySelectorAll('.projects');
 		document.getElementById("projectName").innerHTML=projectName;
 		document.getElementById("memberCount").innerHTML="Number of Team Members: "+memberCount;
 		document.getElementById("skills").innerHTML="Skills preferred: "+skills;
-		document.getElementById("location2").innerHTML="Location: "+location;
+		
 		document.getElementById("description").innerHTML="Description: "+description;
 		document.getElementById("postID").value=postID;
 		element.classList.add("popuppostshown");
@@ -50,7 +50,7 @@
 		element2.style.display="block";
 	  }
 	  </script>
-	<div class = "projectSec" onclick="openProject1('{{bookmark.bookmarked_post.title_of_post}}','{{bookmark.bookmarked_post.num_of_positions}}','{{bookmark.bookmarked_post.skills_needed}}','lolol','{{bookmark.bookmarked_post.description_of_post}}','{{bookmark.bookmarked_post.id}}');">
+	<div class = "projectSec" onclick="openProject1('{{bookmark.bookmarked_post.title_of_post}}','{{bookmark.bookmarked_post.num_of_positions}}','{{bookmark.bookmarked_post.skills_needed}}','{{bookmark.bookmarked_post.description_of_post}}','{{bookmark.bookmarked_post.id}}');">
 		<div id = "project" class="project" class="infinite-item">
 				{%if bookmark.bookmarked_post.post_made_by.profile_pic == 'None'%}
 				<img  class="projectProfImage"src = '/media/media/default_profile.png' alt = "">
@@ -100,7 +100,7 @@
 		{% csrf_token%}
 		<input type="search" id='search' name="search" class="searchBar" placeholder="Search By Keyword">
 		<!--<button type ="submit">Submit</button>-->
-		<button style="background:transparent;border:none;"onclick="saveFilters();"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
+		<button style="margin-left:30px;background:transparent;border:none;"onclick="saveFilters();"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
 		<br>
 		<br>
 		<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
@@ -6924,8 +6924,6 @@
 		<br>
 		<h1 id="skills"style="font-size:15px;">Skills</h1>
 		<br>
-		<h1 id="location2"style="font-size:15px;">Location</h1>
-		<br>
 		<h1 id="description"style="font-size:15px;">Description </h1>
 		<form action = "{%url 'applybookmark' pag_bookmarks.number %}" method = "post">
 			{% csrf_token %}
@@ -6962,8 +6960,7 @@
 				<h1 class="popuptext">Skills</h1>
 				<input id="skills" class="popupinput" name="skills_needed" type="text">
 				<hr class="divide">
-				{% comment %} <h1 class="popuptext">Location</h1>
-				<input id="location" class="popupinput" name="">
+				{% comment %} 
 				<hr class="divide"> {% endcomment %}
 				<h1 class="popuptext">Number of Team Members</h1>
 				<input id="team" class="popupinput" name="num_of_positions" input type="number">

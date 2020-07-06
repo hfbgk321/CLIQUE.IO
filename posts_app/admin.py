@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PostModel, BookmarkedModel, AppliedPostsModel
+from .models import PostModel, BookmarkedModel, AppliedPostsModel, AnswerModel
 
 # Register your models here.
 
@@ -23,3 +23,10 @@ class ApplyAdmin(admin.ModelAdmin):
   search_fields = ('account__email',)
   
 admin.site.register(AppliedPostsModel, ApplyAdmin)
+
+class AnswerAdmin(admin.ModelAdmin):
+  list_display = ('applicant', 'post', 'answers',)
+  search_fields = ('applicant', 'post', 'answers',)
+admin.site.register(AnswerModel, AnswerAdmin)
+
+

@@ -18,13 +18,13 @@
 </div>
 <!-- List of ALL projects BACKEND: just need to set the arguments inside openProject(name,skills,location,description)
 		Make sure to set the h1's under it as well. -->
-		<script>function openProject(projectName,memberCount,skills,location,description){
+		<script>function openProject(projectName,memberCount,skills,description){
 			var element=document.getElementById("projectInfo");
 			var projects=document.querySelectorAll('.projects');
 			document.getElementById("projectName").innerHTML=projectName;
 			document.getElementById("memberCount").innerHTML="Number of Team Members: "+memberCount;
 			document.getElementById("skills").innerHTML="Skills preferred: "+skills;
-			document.getElementById("location2").innerHTML="Location: "+location;
+			
 			document.getElementById("description").innerHTML="Description: "+description;
 			element.classList.add("popuppostshown");
 			element.classList.remove("popupposthidden");
@@ -40,7 +40,7 @@
 <div class="gallery applied">
 	{%for application, url in applied_posts_urls%}
 	<div class = "projectSec" id="clickPost"
-			onclick="openProject('{{application.applied_post.title_of_post}}','{{application.applied_post.num_of_positions}}','{{application.applied_post.skills_needed}}','lolol','{{application.applied_post.description_of_post}}');">
+			onclick="openProject('{{application.applied_post.title_of_post}}','{{application.applied_post.num_of_positions}}','{{application.applied_post.skills_needed}}','{{application.applied_post.description_of_post}}');">
 			<div id="project"  class="project">
 				{%if application.applied_post.post_made_by.profile_pic == 'None'%}
 				<img class="projectProfImage" src = '/media/media/default_profile.png' alt = "">
@@ -105,7 +105,7 @@
 		{% csrf_token%}
 		<input type="search" id='search' name="search" class="searchBar" placeholder="Search By Keyword">
 		<!--<button type ="submit">Submit</button>-->
-		<button onclick="saveFilters();"style="background:transparent;border:none;"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
+		<button onclick="saveFilters();"style="margin-left:30px;background:transparent;border:none;"action='submit'><i id="fa-search"class="fa fa-search" aria-hidden="true"></i></button>
 		<br>
 		<br>
 		<a id="clear" onclick="clearAll();" href="javascript:;" class="hvr-underline-reveal">Clear All</a>
@@ -6929,8 +6929,6 @@
 		<br>
 		<h1 id="skills"style="font-size:15px;">Skills</h1>
 		<br>
-		<h1 id="location2"style="font-size:15px;">Location</h1>
-		<br>
 		<h1 id="description"style="font-size:15px;">Description </h1>
 	</div>
 	<button class="contactLeader">Contact Project Leader</button>
@@ -6962,8 +6960,7 @@
 				<h1 class="popuptext">Skills</h1>
 				<input id="skills" class="popupinput" name="skills_needed" type="text">
 				<hr class="divide">
-				{% comment %} <h1 class="popuptext">Location</h1>
-				<input id="location" class="popupinput" name="">
+				{% comment %} 
 				<hr class="divide"> {% endcomment %}
 				<h1 class="popuptext">Number of Team Members</h1>
 				<input id="team" class="popupinput" name="num_of_positions" input type="number">

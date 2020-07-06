@@ -21,8 +21,9 @@ urlpatterns = [
       path('apply_all_post/<int:page_number>/', views.redir_2_all_post, name='applyall'),
       path('apply_bookmarks/<int:page_number>/', views.redir_2_bookmarked, name='applybookmark'),
       path('apply_bookmarks/', views.redir_2_bookmarked, name='applybookmark'),
-      path('apply_form/<int:post_id>/', views.apply_form, name='applyform'),
-      path('apply_form/', views.apply_form, name='applyform'),
+      path('apply_form/<int:page_number>/', views.apply_page, name='applyform'),
+      path('apply_form/', views.apply_page, name='applyform'),
+      path('submit_application/<int:post_id>/<int:page_number>/', views.submit_application, name='submitapp'),
       
       path('delete_bookmark/<int:bookmark_id>/<int:page_number>/', views.delete_my_bookmark, name='delete_my_bookmark'),
       #path('delete_my_post/<int:post_id>/', views.delete_my_post, name='delete_my_post'),
