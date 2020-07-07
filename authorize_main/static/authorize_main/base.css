@@ -40,11 +40,15 @@ body {
   color:#F8FFE5;
   background:#EF476F;
 }
+.fa-sign-out{
+
+}
 #fa-sortalpha{
   position:absolute;
     top:39px;;
     right:30px;
 }
+
 .chatBox .fa-search{
   margin-left:-20px;
   color:black;

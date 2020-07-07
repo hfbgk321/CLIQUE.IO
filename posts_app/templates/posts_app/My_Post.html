@@ -7015,7 +7015,7 @@ function setWindowID(ID){
 				</select>
 				<a id="addGenreButton"class="addGenreButton"onclick="addGenre();">Add</a>
 				<hr class="">
-				<h1 class="popuptext">Questions for Appliers</h1>
+				<h1 class="popuptext">Questions for Applicants</h1>
 				<div id="q-div">
 					<div class="child">
 						<input id="qforapp" class="popupinput" name="questions" placeholder="Ex: What skills can you bring to this project?">
@@ -7061,7 +7061,7 @@ function setWindowID(ID){
 			
 			<div>
 			<a id="viewApp" class="viewApp" onclick="viewApp(this);">View App</a>
-			<div id="viewAppBox" class="viewAppHide">
+			<div  id="viewAppBox" class="viewAppHide">
 				<button class="close-button" onclick="closeApp(this);" type="button" name="button">&times;</button>
 				
 				<h1 style="color:black;" class="appHeading">{{user.first_name}} {{user.last_name}}</h1>
@@ -7133,22 +7133,25 @@ function setWindowID(ID){
 			<div id="viewAppBox" class="viewAppHide">
 				<button class="close-button" onclick="closeApp(this);" type="button" name="button">&times;</button>
 				
-				<h1 style="color:black;" class="appHeading">{{accepted_user.first_name}} {{accepted_user.last_name}}</h1>
+				<h1 class="appHeading">{{accepted_user.first_name}} {{accepted_user.last_name}}</h1>
 				{% for question, answer in quest_answers %}
-				<h1 style="color:black;" class="appQuestion">Question: {{question}}</h1>
-				<div class="appResponses">
-					
-				<h1 style="color:black;">Answer: {{answer}}
-					<br><br><br>
+				<h1  class="appQuestion">Question: {{question}}</h1>
+				<div class="appResponses">	
+				<h1>Answer: {{answer}}
 				</h1>
 				</div>
 			{%endfor%}
+			
 			</div>
 
 		</div>
-		<a href="{%url 'room' url %}">Chat</a>
+		<a id="chatButton"class="chatButton"href="{%url 'room' url %}">
+			<!-- <i class='far fa-comment-dots'></i> -->
+			<i class='far fa-comments'></i>
+		</a>
 		<br>
 		{%endfor%}
+	
 		<!-- end for loop -->
 	</div>
 	

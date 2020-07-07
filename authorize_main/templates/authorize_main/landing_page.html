@@ -3,7 +3,7 @@
 {%block content%}
 <link rel="stylesheet" href="{%static 'authorize_main/landing_page_styles.css'%}">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 {% if messages %}
         {% for message in messages %}
             <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
@@ -73,44 +73,60 @@
 </div>
 <hr style="height: 0px; border: solid black; margin-left: 15px;">
 <div class="founders">
-    <h1 class="founders-title">Founders</h1>
-    <!-- <h1 class="front">Front-End</h1> -->
+    <div>
+        <h1 class="founders-title">Founders</h1>
+        <marquee style="height:17px;" behavior="scroll" direction="left">Click on the individual pictures to access our LinkedIn profiles! Thank you for visiting out site!</marquee>
+
+    </div>
+        <!-- <h1 class="front">Front-End</h1> -->
     <br>
-    <div class="frontEnd">
+    <div class="frontEnd bcolor">
+       
         <div class="yupeng">
-            <a href="https://www.linkedin.com/in/yuplu/">
-            <img src="" alt="Yupeng">
-            </a>
+            <a class="founderTag"  target="_blank" href="https://www.linkedin.com/in/yuplu/">
+            <img class="pic" src="{% static 'authorize_main/yupeng.jpg' %}" alt="YuPeng" title="Connect with me on LinkedIn!">
+        </a>
             <h1 class="name">Yupeng</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
+        
         </div>
         <div class="jie">
-            <img src="" alt="Jie">
+            <a class="founderTag"  target="_blank" href="https://www.linkedin.com/in/jie-zhang-54a2b2160/">
+            <img class="pic" src="{% static 'authorize_main/jie.png' %}" alt="Jie">
+            </a>
             <h1 class="name">Jie</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
         </div>
         <div class="isfar">
-            <img class="pic" src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/104330516_1505455792949132_2348928184954856241_n.jpg?_nc_cat=110&_nc_sid=8024bb&_nc_ohc=VzQWIdq9zKIAX8YFEZM&_nc_ht=scontent-lga3-1.xx&oh=8c4d49eff1089cfd3b26fd89bff2daa0&oe=5F0E6798" alt="Isfar">
+            <a class="founderTag"  target="_blank" href="https://www.linkedin.com/in/isfar-oshir-043403190/">
+            <img class="pic" src="{% static 'authorize_main/isfar.jpg' %}" alt="Isfar">
+            </a>
             <h1 class="name">Isfar</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
         </div>
     </div>
-    <hr style="height: 100px;">
+    <!-- <hr style="height: 100px;"> -->
     <!-- <h1 class="back">Back-End</h1> -->
-    <br>
-    <div class="frontEnd">
+    <!-- <br> -->
+    <div class="frontEnd bcolor2">
         <div class="yupeng">
+            <a class="founderTag"  target="_blank" href="https://www.linkedin.com/in/jacky-chen-084a6b16b/">
             <img class="pic" src="{% static 'authorize_main/linkedin_img.png' %}" alt="Jacky">
+            </a>
             <h1 class="name">Jacky</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
         </div>
         <div class="jie">
-            <img src="" alt="Junming">
+            <a class="founderTag"  target="_blank" href="https://www.linkedin.com/in/junming-qiu-32b343191/">
+            <img class="pic" src="{% static 'authorize_main/junming.jpg' %}" alt="Junming">
+            </a>
             <h1 class="name">Junming</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
         </div>
         <div class="isfar">
+            <a class="founderTag"  target="_blank" href="https://www.linkedin.com/in/shi-xin-wu-6b178719b/">
             <img class="pic" src="{% static 'authorize_main/monkey.jpg' %}" alt="Kevin">
+            </a>
             <h1 class="name">Kevin</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
         </div>

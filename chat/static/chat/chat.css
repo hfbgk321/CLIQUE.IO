@@ -17,6 +17,7 @@
     height:100%;
     min-width: 300px;
     border-right: 1px solid #ccc;
+    background-color:white;
 }
 
 .friends::-webkit-scrollbar {
@@ -41,9 +42,10 @@ ul {
         margin:0;
         padding:0;
 }
-
+.friendslist{
+    width:100%;
+}
 .friendsbox{
-
     width:100%;
     margin-top:-2px;
 }

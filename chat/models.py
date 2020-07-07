@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields.array import ArrayField
 from authorize_main.models import Account
 from posts_app.models import PostModel
+from django.utils import timezone
 
 # Create your models here.
 class ChatModel(models.Model):
@@ -11,3 +12,5 @@ class ChatModel(models.Model):
     key = models.BigIntegerField(blank=False, default=0)
     chat_name = models.CharField(max_length=50, blank=True, default='Chat')
     messages = ArrayField(models.TextField(), default=[])
+    last_updated = models.DateTimeField(verbose_name="date_updated", default = timezone.now())
+

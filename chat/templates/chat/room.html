@@ -6,22 +6,13 @@
   <title>Chat Room</title>
 </head>
 <body>
-  <h1 class = "chatName">Chat Rooms: {{room_model.chat_name}}</h1>
+  <h1 class = "chatName">{{room_title}}</h1>
   <div class="chatting">
     <div class="friends">
       <ul class = 'friendslist'>
-        <li class = 'friendsbox'><a  href = 'javascript:;' class="singularfriend selected"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
-        <li class = 'friendsbox'><a href = 'javascript:;' class="singularfriend"><img src="{{user_img}}" alt=""><span>Jie Zhang</span></a></li>
+        {% for chat, chat_url, chat_img, chat_name in chat_rooms %}
+        <li class = 'friendsbox'><a  href = "{% url 'change_chat_room' chat_url %}" class="singularfriend"><img src="{{chat_img.url}}" alt=""><span>{{chat_name}}</span></a></li>
+        {% endfor %}
       </ul>
         
     </div>

@@ -140,13 +140,13 @@ style = "background-color: #1B9AAA; position:relative;top:55px; z-index:99999;" 
   <div class="profilefriendsBox">
     {%for friend in friend_list %}
     <br>
-    <div class="profilefriendsButton">
+    <div style= "position:relative"class="profilefriendsButton">
       <a href ='/posts/applicant_profile/{{friend.id}}'>
         <img style='min-width:50px;max-width:50px;min-height:50px;max-height:50px;' src="{{ friend.profile_pic.url }}"/>
         <h1>{{friend.first_name}} {{friends.last_name}}</h1>
         <h1>{{friend.id}}</h1>
-        
       </a>
+      <a href='javascript:;' style="position:absolute; bottom:0; left:60px;"><i class='far fa-comments'></i> </a>
       <a class="deleteFriendButton"onclick="notBubbleUp(event);" href="{% url 'delete_friend' friend.id %}">X</a>
       <br><br><br>
     </div>

@@ -4,6 +4,7 @@ from authorize_main.models import Account
 from Notifications.models import NotificationModel
 from authorize_main.models import Account
 from .models import ChatModel
+from posts_app.models import PostModel
 import random
 from django.http import HttpResponse
 from django import template
@@ -12,11 +13,6 @@ import urllib
 register = template.Library()
 
 #from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler
-
-def roomtest(request, room_name):
-    return render(request, 'chat/roomtest.html', {
-        'room_name': room_name
-    })
 
 def main_chat_room(request):
     user = Account.objects.get(id=request.user.id)
@@ -29,6 +25,9 @@ def main_chat_room(request):
     
     return render(request, 'chat/index.html', {'user': user, 'friends':user.friends, 'chats':chats})
 
+def change_chat_room(request, chat_url):
+    return redirect(f'/chat/{chat_url}')
+    
 def room(request, room_name):
     other_guy = ''
     user = Account.objects.get(id=request.user.id)#created_by
@@ -57,44 +56,61 @@ def room(request, room_name):
         img_src = other_guy.profile_pic.url
         user_img = user.profile_pic.url
         
-        #print(room_model.chat_name)
+        chat_keys = user.chat_keys
+        chat_rooms = []
+        print(chat_keys)
+        for room_key in chat_keys:
+            chat = ChatModel.objects.filter(key = room_key)
+            if len(chat) > 0:
+                chat = ChatModel.objects.get(key = room_key)
+                for ids in chat.users:
+                    if ids != request.user.id:
+                        other_user = Account.objects.get(id = ids)
+                        chat_img = other_user.profile_pic
+                        chat_name = other_user.first_name + ' ' + other_user.last_name
+                chat_rooms.append([chat, chat.url, chat_img, chat_name])
+
+        chat_times = {}
+        time_key_lst = []
+
+        for chat_collection in chat_rooms:
+            time_key_lst.append(chat_collection[0].last_updated)
+            chat_times[chat_collection[0].last_updated] = chat_collection
+            
+        time_key_lst = sorted(time_key_lst)
+        chat_room_organized = []
+        
+        for chat in time_key_lst:
+            chat_room_organized.append(chat_times[chat])
+
+        chat_room_organized.reverse()
+        
+        print('---------->', time_key_lst,)
+        print(chat_room_organized)
         return render(request, 'chat/room.html', {
-            'room_name': room_name,
-            'user': user,
-            #'message_combined': message_combined,
-            'room_model': room_model,
-            #'text_log': text_log, 
-            #'lr_arr': lr_arr,
+            "room_name": room_name,
+            "room_title": room_model.chat_name,
             "message_combined":message_combined,
             "img_src":img_src,
             "user_img":user_img,
-            "friends":list_all_people()
+            "friends":list_all_people(),
+            "chat_rooms":chat_room_organized,
         })
-    else:
-        return HttpResponse('Account Denied')
 
-@register.filter
-def zip_lists(a, b):
-  return zip(a, b)
-
-def notify_chat(request, user_id, applicant_id=0):
-    pass
-    #notification = NotificationModel.objects.create(account=request.user,notified_message =f'{Account.objects.get(id=user_id).first_name} {Account.objects.get(id=user_id).last_name} wants to chat!')
     #notification.save()
 
-def create_private_chat(request, room_name, second_person_id=None, id_arr=None):
+def create_private_chat(request, room_name, second_person_id=None, post_id=1, id_arr=None):
     creator = Account.objects.get(id=request.user.id)
     
     room_model = ChatModel.objects.filter(url=room_name)
-
+    post_name = PostModel.objects.get(id= post_id).title_of_post
     if second_person_id:
         second_person = Account.objects.get(id=second_person_id)
-        key = chat_key_seeder(request.user.id, second_person_id)
+        key = chat_key_seeder(request.user.id, second_person_id, post_id)
         #print(room_name, request.user.id, second_person_id, key)
         if len(room_model) == 0:
-            #print(creator.chat_keys, second_person.chat_keys)
-            
-            ChatModel.objects.create(users=[request.user.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s Chat", messages=[''], key=key)
+             #print(creator.chat_keys, second_person.chat_keys)
+            ChatModel.objects.create(users=[request.user.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s Chat for post: " + post_name, messages=[''], key=key)
             room_model = ChatModel.objects.get(url=room_name)
             #print(room_model.users)
             if key not in creator.chat_keys:
@@ -134,11 +150,11 @@ def verify_chat_member(request, room_name):
     
     return True       
      
-def chat_key_seeder(creator_id, second_id):
+def chat_key_seeder(creator_id, second_id, post_id=1):
     prime = 67280421310721
     #prime = 1
     #print(creator_id, second_id, prime)
-    seed = abs(hash(int(creator_id) * int(prime) - int(second_id)))
+    seed = abs(hash(int(creator_id) * int(prime) - int(second_id))) * post_id
     random.seed(seed)
     key = random.randrange(1, seed)
     #print(seed, url)
@@ -216,4 +232,5 @@ def list_all_people():
     all_people = Account.objects.all()
     return all_people
 
-
+def notify_chat(request, second):
+    pass

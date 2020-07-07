@@ -237,7 +237,7 @@ def MyPostList(request, post_id=None,page_number=1, searched=False, results=None
       answers = application.answers
       
       url = url_scrambler(request.user.id) + url_scrambler(post_id) + url_scrambler(accepted[x].id)
-      create_private_chat(request, url, accepted[x].id)
+      create_private_chat(request, url, accepted[x].id, post.id)
       
       combined = [accepted[x], url, zip(questions, answers)]
       user_url_combined.append(combined)

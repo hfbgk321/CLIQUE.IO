@@ -1,9 +1,9 @@
-
+import datetime
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .models import ChatModel
 from channels.db import database_sync_to_async
-
+from django.utils import timezone
 
 class ChatConsumer(AsyncWebsocketConsumer):
     
@@ -63,7 +63,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def edit_text_log(self, url, text_data):
         chat_model = ChatModel.objects.get(url=self.room_name)
-        #print(chat_model.messages)
+        chat_model.last_updated = timezone.now()
+        chat_model.save()
         chat_model.messages.append(text_data)
         chat_model.save()
         return True
