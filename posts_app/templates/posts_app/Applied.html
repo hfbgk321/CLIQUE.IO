@@ -18,7 +18,7 @@
 </div>
 <!-- List of ALL projects BACKEND: just need to set the arguments inside openProject(name,skills,location,description)
 		Make sure to set the h1's under it as well. -->
-		<script>function openProject(projectName,memberCount,skills,description){
+		<script>function openProject(projectName,memberCount,skills,description,postID){
 			var element=document.getElementById("projectInfo");
 			var projects=document.querySelectorAll('.projects');
 			document.getElementById("projectName").innerHTML=projectName;
@@ -33,6 +33,7 @@
 			element2.classList.remove("hidden");
 			element2.classList.add("show1");
 			element2.style.display="block";
+			document.getElementById('contactLeaderID').value=postID;
 		  }
 		  </script>
 
@@ -40,7 +41,8 @@
 <div class="gallery applied">
 	{%for application, url in applied_posts_urls%}
 	<div class = "projectSec" id="clickPost"
-			onclick="openProject('{{application.applied_post.title_of_post}}','{{application.applied_post.num_of_positions}}','{{application.applied_post.skills_needed}}','{{application.applied_post.description_of_post}}');">
+			onclick="openProject('{{application.applied_post.title_of_post}}','{{application.applied_post.num_of_positions}}','{{application.applied_post.skills_needed}}',
+			'{{application.applied_post.description_of_post}}','{{application.applied_post.id}}');">
 			<div id="project"  class="project">
 				{%if application.applied_post.post_made_by.profile_pic == 'None'%}
 				<img class="projectProfImage" src = '/media/media/default_profile.png' alt = "">
@@ -6931,7 +6933,12 @@
 		<br>
 		<h1 id="description"style="font-size:15px;">Description </h1>
 	</div>
-	<button class="contactLeader">Contact Project Leader</button>
+	
+	<form action="{% url 'contact_leader' %}" method='post'>
+		{% csrf_token %}
+		<input style="display:none;" type="text" name="contactLeaderID" id="contactLeaderID">
+		<button type='submit' class="contactLeader">Contact Project Leader</button>
+	</form>
 </div>
 <div id="overlay2" class="hidden"></div>
 
@@ -6983,7 +6990,7 @@
 				</select>
 				<a id="addGenreButton"class="addGenreButton"onclick="addGenre();">Add</a>
 				<hr class="">
-				<h1 class="popuptext">Questions for Appliers</h1>
+				<h1 class="popuptext">Questions for Applicants</h1>
 				<div id="q-div">
 					<div class="child">
 						<input id="qforapp" class="popupinput" name="questions" placeholder="Ex: What skills can you bring to this project?">

@@ -39,7 +39,7 @@ urlpatterns = [
       path('submit_filter_applied/', views.filter_keyword_applied, name='submit_filter_applied'),
       path('submit_filter_bookmarked/', views.filter_keyword_bookmarked, name='submit_filter_bookmarked'),
       path('submit_filter_mypost/', views.filter_keyword_mypost, name='filter_keyword_mypost'),
-      
+      path('contact_leader/', views.contact_leader, name='contact_leader') 
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

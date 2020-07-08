@@ -3,7 +3,7 @@
 {% load static %}
 <br><br><br><br><br>
 <div class="postApplication">
-<h1>Application for ' '</h1>
+<h1>Application for {{post_name}} </h1>
 <form name='application_questions' method="post" action="{%url 'submitapp' post_id page_number %}">
     {%csrf_token%}
     {% for questions, number in application_questions %}

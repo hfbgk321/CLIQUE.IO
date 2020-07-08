@@ -146,7 +146,7 @@ style = "background-color: #1B9AAA; position:relative;top:55px; z-index:99999;" 
         <h1>{{friend.first_name}} {{friends.last_name}}</h1>
         <h1>{{friend.id}}</h1>
       </a>
-      <a href='javascript:;' style="position:absolute; bottom:0; left:60px;"><i class='far fa-comments'></i> </a>
+      <a onclick="notBubbleUp(event);"href='javascript:;' style="color:white;position:absolute; bottom:0; left:60px;"><i class='far fa-comments'></i> </a>
       <a class="deleteFriendButton"onclick="notBubbleUp(event);" href="{% url 'delete_friend' friend.id %}">X</a>
       <br><br><br>
     </div>

@@ -48,6 +48,7 @@
 		element2.classList.remove("hidden");
 		element2.classList.add("show1");
 		element2.style.display="block";
+		document.getElementById('contactLeaderID').value=postID;
 	  }
 	  </script>
 	<div class = "projectSec" onclick="openProject1('{{bookmark.bookmarked_post.title_of_post}}','{{bookmark.bookmarked_post.num_of_positions}}','{{bookmark.bookmarked_post.skills_needed}}','{{bookmark.bookmarked_post.description_of_post}}','{{bookmark.bookmarked_post.id}}');">
@@ -6931,7 +6932,11 @@
 			<button id="button" onclick="submit();" class="submit" type="submit" value="Apply" name='app'>Apply</button>
 		</form>
 	</div>
-	<button class="contactLeader">Contact Project Leader</button>
+	<form action="{% url 'contact_leader' %}" method='post'>
+		{% csrf_token %}
+		<input style="display:none;" type="text" name="contactLeaderID" id="contactLeaderID">
+		<button type='submit' class="contactLeader">Contact Project Leader</button>
+	</form>
 </div>
 <div id="overlay2" class="hidden"></div>
 

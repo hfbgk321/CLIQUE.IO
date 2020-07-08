@@ -50,15 +50,14 @@ def room(request, room_name):
             #print(user.id)
             if person.id != user.id:
                 other_guy = person
-            #else:
-                #other_guy = person
+            
         
         img_src = other_guy.profile_pic.url
         user_img = user.profile_pic.url
         
         chat_keys = user.chat_keys
         chat_rooms = []
-        print(chat_keys)
+        print(user.first_name, other_guy.first_name)
         for room_key in chat_keys:
             chat = ChatModel.objects.filter(key = room_key)
             if len(chat) > 0:
@@ -68,7 +67,7 @@ def room(request, room_name):
                         other_user = Account.objects.get(id = ids)
                         chat_img = other_user.profile_pic
                         chat_name = other_user.first_name + ' ' + other_user.last_name
-                chat_rooms.append([chat, chat.url, chat_img, chat_name])
+                        chat_rooms.append([chat, chat.url, chat_img, chat_name])
 
         chat_times = {}
         time_key_lst = []
@@ -85,8 +84,6 @@ def room(request, room_name):
 
         chat_room_organized.reverse()
         
-        print('---------->', time_key_lst,)
-        print(chat_room_organized)
         return render(request, 'chat/room.html', {
             "room_name": room_name,
             "room_title": room_model.chat_name,
@@ -99,18 +96,22 @@ def room(request, room_name):
 
     #notification.save()
 
-def create_private_chat(request, room_name, second_person_id=None, post_id=1, id_arr=None):
-    creator = Account.objects.get(id=request.user.id)
+def create_private_chat(request, room_name, second_person_id=None, post_id=None, owner_id= None):
+    if not owner_id:
+        
+        creator = Account.objects.get(id=request.user.id)
+    else:
+        creator = Account.objects.get(id=owner_id) 
     
     room_model = ChatModel.objects.filter(url=room_name)
     post_name = PostModel.objects.get(id= post_id).title_of_post
     if second_person_id:
         second_person = Account.objects.get(id=second_person_id)
-        key = chat_key_seeder(request.user.id, second_person_id, post_id)
+        key = chat_key_seeder(creator.id, second_person_id, post_id)
         #print(room_name, request.user.id, second_person_id, key)
         if len(room_model) == 0:
              #print(creator.chat_keys, second_person.chat_keys)
-            ChatModel.objects.create(users=[request.user.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s Chat for post: " + post_name, messages=[''], key=key)
+            ChatModel.objects.create(users=[creator.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s Chat for post: " + post_name, messages=[''], key=key)
             room_model = ChatModel.objects.get(url=room_name)
             #print(room_model.users)
             if key not in creator.chat_keys:
@@ -121,7 +122,7 @@ def create_private_chat(request, room_name, second_person_id=None, post_id=1, id
                 second_person.chat_keys.append(key)
                 second_person.save()
             #print(room_name)
-            notify_chat(request, request.user.id)
+            notify_chat(request, creator.id)
             return ChatModel.objects.get(url=room_name)
             
         else: 
@@ -150,7 +151,7 @@ def verify_chat_member(request, room_name):
     
     return True       
      
-def chat_key_seeder(creator_id, second_id, post_id=1):
+def chat_key_seeder(creator_id, second_id, post_id=None):
     prime = 67280421310721
     #prime = 1
     #print(creator_id, second_id, prime)

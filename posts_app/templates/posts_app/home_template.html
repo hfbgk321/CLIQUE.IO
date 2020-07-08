@@ -42,6 +42,7 @@
 			element2.classList.add("show1");
 			element2.style.display="block";
 			document.getElementById('postID').value=postID;
+			document.getElementById('contactLeaderID').value=postID;
 		  }
 		  
 		  </script>
@@ -6936,7 +6937,13 @@
 			<button id="button"  class="submit" type="submit" value="Apply" name='app'>Apply</button>
 		</form>
 		</div>
-	<button class="contactLeader">Contact Project Leader</button>
+		
+		<form action="{% url 'contact_leader' %}" method='post'>
+			{% csrf_token %}
+			<input style="display:none;" type="text" name="contactLeaderID" id="contactLeaderID">
+			<button type='submit' class="contactLeader">Contact Project Leader</button>
+		</form>
+
 </div>
 <div id="overlay2" class="hidden"></div>
 <input id="button" onclick="myFunction();" class="plus" type="image" style="position:fixed;bottom:5%;left:95%;"
@@ -6970,7 +6977,7 @@
 				<!-- if date is invalid: display an error -->
 				<hr class="divide">
 				<h1 class="popuptext">Project Genres (Optional)</h1>
-				<h1 class="popuptext-note">This will help us find more suitable team members for your project</h1>
+				<h1 class="popuptext-note">This will help us find more suitable team members for your project. Separate with commas!</h1>
 				<input id="genres" class="popupinput" name="genres" placeholder="business, health, etc">
 				<select name="genreList" id="genreList">
 					<option selected="selected"disabled>Suggested Genres</option>
@@ -6992,7 +6999,7 @@
 				</div>
 				
 		</div>
-		<input id="button" onclick="submit();" class="submit" type="submit">
+		<input id="button" 	onclick="submit();" class="submit" type="submit">
 		</form>
 	</div>
 

@@ -28,11 +28,12 @@
   {%if is_friend == False %}
   <a class="AddFriend" href="{% url 'send_friend_request' applicant.id %}">Send Friend Request</a>
   {%else%}
-  <a style="color: white;" class="AddFriend">Already Friended</a>
-  {%endif%}
-  <a style="position:absolute;margin-top:5px;margin-left:10px;font-size:50px;text-decoration:none;"href="">
+  <a title="Start Chatting!"style="position:absolute;margin-top:5px;margin-left:10px;font-size:50px;text-decoration:none;"href="">
     <i class='far fa-comments'></i>
   </a>
+  <a style="color: white;" class="AddFriend">Already Friended</a>
+  {%endif%}
+  
   <img
     class="profpic"
     src="{{profile_pic}}"

@@ -50,7 +50,7 @@ def apply_page(request, page_number):
   
   question_zip = zip(application_questions, question_num_lst)
   
-  return render(request, "posts_app/application_questions.html", {'application_questions': question_zip, "post_id": post.id, "page_number":page_number}) 
+  return render(request, "posts_app/application_questions.html", {'application_questions': question_zip, "post_id": post.id, "page_number":page_number, 'post_name': post.title_of_post}) 
   #return render(request, "", {"questions": questions})
 
 
@@ -980,3 +980,16 @@ def filter_keyword_mypost(request):
     #return PostList(request)
   return MyPostList(request, None, 1, True, relevant_lst, title, sorted_option)
 
+def contact_leader(request):
+  print(request.POST)
+  if request.method == 'POST':
+    post_id = int(request.POST['contactLeaderID'])
+    print("--------->>>", post_id)
+    poster_id = PostModel.objects.get(id=post_id).post_made_by.id
+    
+    url =  url_scrambler(poster_id) + url_scrambler(post_id) + url_scrambler(request.user.id) 
+    print("<><><>", request.user.id, '+', poster_id)
+    create_private_chat(request, url, request.user.id, post_id, poster_id)
+    
+    return redirect(f'/chat/{url}/')
+  return HttpResponse('not POST')
