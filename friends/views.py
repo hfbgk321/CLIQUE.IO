@@ -85,7 +85,7 @@ def friend_search(request):
     user_settings = user.show_to_public
     
     relevant_friends = []
-    print(">>>>>>>", request.POST)
+   
     friend_name = request.POST['search_friend_name'].strip().split()
     
     for friend_id in user.friends:
@@ -101,13 +101,12 @@ def friend_search(request):
     
     return render(request,'authorize_main/new_profile.html', {'friend_list': relevant_friends,'profile_pic': user_settings[0], 'email': user_settings[1],'first_name': user_settings[2], 'last_name': user_settings[3],'university': user_settings[4], 'major': user_settings[5],'school_year': user_settings[6], 'date_joined': user_settings[7],"all_notifications":Notifications(request)})
  
-def get_mutual_friends(request):
+def get_mutual_friends(request): 
     user = Account.objects.get(id=request.user.id)
     user_friends = user.friends
     
     mutual_friends = []
 
-    
     for friend in user_friends:
         friend = Account.objects.get(id=friend)
         

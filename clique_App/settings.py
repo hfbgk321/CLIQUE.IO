@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import pytz
+import django_heroku
+import whitenoise
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,7 +47,7 @@ INSTALLED_APPS = [
     'friends',
 ]
 
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'clique_App.urls'
@@ -91,20 +94,13 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
 
         'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'clique_data',
-
-        'USER': 'postgres',
-
-        'PASSWORD': 'hfbgk987654321',
-
-        'HOST': 'localhost',
-
-        'PORT': '5432',
+        'NAME': os.path.join(BASE_DIR,'clique_data'),
     }
 }
 
@@ -162,4 +158,5 @@ if DEBUG == True:
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = 'Clique.io Team <noreply@Clique.io.com>'
-    
+
+django_heroku.settings(locals())

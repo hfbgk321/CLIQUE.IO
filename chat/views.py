@@ -14,7 +14,7 @@ register = template.Library()
 
 #from chat.views import chat_key_seeder, create_private_chat, notify_chat, url_scrambler
 
-def main_chat_room(request):
+def main_chat_room(request): #Beta chat room to see avaliable chats
     user = Account.objects.get(id=request.user.id)
     chats = []
     for key in user.chat_keys:
@@ -28,7 +28,7 @@ def main_chat_room(request):
 def change_chat_room(request, chat_url):
     return redirect(f'/chat/{chat_url}')
     
-def room(request, room_name):
+def room(request, room_name): #load chat log, verify users
     other_guy = ''
     user = Account.objects.get(id=request.user.id)#created_by
     user_name = user.first_name
@@ -36,18 +36,15 @@ def room(request, room_name):
     room_model = ChatModel.objects.filter(url=room_name)
     
     #verify
-    if verify_chat_member(request, room_name) == True or True:
+    if verify_chat_member(request, room_name) == True:
         text_log, lr_arr, message_combined = load_chat_log(request, room_name)
-        #message_combined = zip(text_log,lr_arr)
-        #print(message_combined)
         room_model = ChatModel.objects.get(url=room_name)
         
         id_arr = room_model.users
-        #print(id_arr)
+
         for x in id_arr:
             person = Account.objects.get(id=x)
-            #print(person.id)
-            #print(user.id)
+            
             if person.id != user.id:
                 other_guy = person
             
@@ -57,7 +54,7 @@ def room(request, room_name):
         
         chat_keys = user.chat_keys
         chat_rooms = []
-        print(user.first_name, other_guy.first_name)
+        
         for room_key in chat_keys:
             chat = ChatModel.objects.filter(key = room_key)
             if len(chat) > 0:
@@ -71,19 +68,34 @@ def room(request, room_name):
 
         chat_times = {}
         time_key_lst = []
+        
+        for chat_collection in chat_rooms:
+           chat_times[chat_collection[0].last_updated] = None
 
         for chat_collection in chat_rooms:
             time_key_lst.append(chat_collection[0].last_updated)
-            chat_times[chat_collection[0].last_updated] = chat_collection
+            
+            if chat_times[chat_collection[0].last_updated] is None: 
+                chat_times[chat_collection[0].last_updated] = [chat_collection]
+            elif chat_times[chat_collection[0].last_updated] is not None:
+                chat_times[chat_collection[0].last_updated].append(chat_collection)
             
         time_key_lst = sorted(time_key_lst)
+
         chat_room_organized = []
         
         for chat in time_key_lst:
-            chat_room_organized.append(chat_times[chat])
-
+            
+            if len(chat_times[chat]) > 1:
+                for i in chat_times[chat]:
+                    if i not in chat_room_organized:
+                        chat_room_organized.append(i)
+            else:
+                    if chat_times[chat][0] not in chat_room_organized:
+                        chat_room_organized.append(chat_times[chat][0])
+    
         chat_room_organized.reverse()
-        
+         
         return render(request, 'chat/room.html', {
             "room_name": room_name,
             "room_title": room_model.chat_name,
@@ -94,9 +106,8 @@ def room(request, room_name):
             "chat_rooms":chat_room_organized,
         })
 
-    #notification.save()
 
-def create_private_chat(request, room_name, second_person_id=None, post_id=None, owner_id= None):
+def create_private_chat(request, room_name, second_person_id=None, post_id=1, owner_id= None): #creates chat with parameters
     if not owner_id:
         
         creator = Account.objects.get(id=request.user.id)
@@ -104,24 +115,29 @@ def create_private_chat(request, room_name, second_person_id=None, post_id=None,
         creator = Account.objects.get(id=owner_id) 
     
     room_model = ChatModel.objects.filter(url=room_name)
-    post_name = PostModel.objects.get(id= post_id).title_of_post
+    if post_id != 1:
+        post_name = PostModel.objects.get(id= post_id).title_of_post
+        
     if second_person_id:
         second_person = Account.objects.get(id=second_person_id)
         key = chat_key_seeder(creator.id, second_person_id, post_id)
-        #print(room_name, request.user.id, second_person_id, key)
+    
         if len(room_model) == 0:
-             #print(creator.chat_keys, second_person.chat_keys)
-            ChatModel.objects.create(users=[creator.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s Chat for post: " + post_name, messages=[''], key=key)
+             
+            if post_id != 1:
+                ChatModel.objects.create(users=[creator.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s Chat for post: " + post_name, messages=[''], key=key)
+            else:
+               ChatModel.objects.create(users=[creator.id, second_person_id], owner=creator.id, url=room_name, chat_name=creator.first_name + "'s and " + second_person.first_name + "'s chat", messages=[''], key=key) 
             room_model = ChatModel.objects.get(url=room_name)
-            #print(room_model.users)
+            
             if key not in creator.chat_keys:
-                #print('creator', creator.first_name)
+                
                 creator.chat_keys.append(key)
                 creator.save()
             if key not in second_person.chat_keys:
                 second_person.chat_keys.append(key)
                 second_person.save()
-            #print(room_name)
+           
             notify_chat(request, creator.id)
             return ChatModel.objects.get(url=room_name)
             
@@ -129,7 +145,7 @@ def create_private_chat(request, room_name, second_person_id=None, post_id=None,
             room_model = ChatModel.objects.get(url=room_name)
             key = room_model.key
             if key not in creator.chat_keys:
-                #print('creator', creator.first_name)
+                
                 creator.chat_keys.append(key)
                 creator.save()
             if key not in second_person.chat_keys:
@@ -138,12 +154,12 @@ def create_private_chat(request, room_name, second_person_id=None, post_id=None,
             return ChatModel.objects.get(url=room_name)
         
         
-def verify_chat_member(request, room_name):
+def verify_chat_member(request, room_name): #verifys user and chat keys
     model = ChatModel.objects.get(url=room_name)
     user = Account.objects.get(id=request.user.id)
-    #print(model.key, user.chat_keys, user.first_name) 
+    
     if model.key not in user.chat_keys:
-        #print('FLASEEEEEE1')
+        
         return False
     
     if user.id not in model.users:
@@ -151,17 +167,16 @@ def verify_chat_member(request, room_name):
     
     return True       
      
-def chat_key_seeder(creator_id, second_id, post_id=None):
+def chat_key_seeder(creator_id, second_id, post_id=None): # make unique keys(passwords) for chat 
     prime = 67280421310721
-    #prime = 1
-    #print(creator_id, second_id, prime)
+   
     seed = abs(hash(int(creator_id) * int(prime) - int(second_id))) * post_id
     random.seed(seed)
     key = random.randrange(1, seed)
-    #print(seed, url)
+    
     return key
 
-def load_chat_log(request, room_name):
+def load_chat_log(request, room_name): #loads chat log
     user = Account.objects.get(id=request.user.id)#created_by
     user_name = user.first_name
     text_log = []
@@ -177,7 +192,7 @@ def load_chat_log(request, room_name):
         temp.append(line + '\n\n')
         
         line_spl = line.split(':')
-        #print(line_spl, user_name)
+       
         if line_spl[0] == user_name:
             lr_arr.append('right')
             temp.append('right')
@@ -187,21 +202,13 @@ def load_chat_log(request, room_name):
         
         message_combined.append(temp)
     
-    #print('pop1:',text_log.pop(0))
-    #print('pop2:',lr_arr.pop(0))
     message_combined.pop(0)
-    #print(text_log, lr_arr)
-    #print(text_log)
-    #print(lr_arr)
-    
     
     return text_log, lr_arr, message_combined
 
-def url_scrambler(id):
+def url_scrambler(id): # encodes chat room URL to prevent hacking
     hashed = urllib.parse.quote(chr(id))
-    #print(hashed)
-    #hashed = abs(hash(str(id)))
-    #print(hashed, id, 'hashed url')
+    
     hashstr = ''
     hashed = hashed.split('%')
     
@@ -214,7 +221,33 @@ def edit_chat_settings(request):
 
 def route_to_chat(request, second_id):
     pass
+    
+#from chat/views import list_all_people
+def list_all_people():
+    all_people = Account.objects.all()
+    return all_people
 
+def notify_chat(request, second):
+    pass
+
+def friend_chat(request, other_id):
+    user_one = request.user.id
+    user_two = other_id
+    
+    if Account.objects.get(id=user_one).id in Account.objects.get(id=user_two).friends and Account.objects.get(id=user_two).id in Account.objects.get(id=user_one).friends:
+         
+        higher_id = max(user_one, user_two)
+        lower_id = min(user_one, user_two) 
+
+        url = url_scrambler(higher_id) + "EEE" + url_scrambler(lower_id)
+
+        create_private_chat(request, url, other_id)
+        
+        return room(request, url)
+ 
+    else:
+        return HttpResponse(f"You are not friends with this person!")
+    
 #debug
 def clear_all_chats(request):
     for chat in ChatModel.objects.all():
@@ -227,11 +260,4 @@ def clear_user_keys(request):
         account.chat_keys = []
         account.save()
         
-    return redirect('hometemplate')     
-#from chat/views import list_all_people
-def list_all_people():
-    all_people = Account.objects.all()
-    return all_people
-
-def notify_chat(request, second):
-    pass
+    return redirect('hometemplate') 

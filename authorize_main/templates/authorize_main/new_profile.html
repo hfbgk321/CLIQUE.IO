@@ -1,64 +1,111 @@
-{%extends 'authorize_main/base.html'%}
-{%load static%}
-
-{%block content%}
-{% if messages %}
-{% for message in messages %}
-<div 
-style = "background-color: #1B9AAA; position:relative;top:55px; z-index:99999;" class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
-{% endfor %}
-{% endif %}
-{%if user.is_authenticated%}
-<link rel="stylesheet" href="{%static 'authorize_main/profile.css'%}">
-<div class = "wrap">
-  <form class = "editProf"action="{%url 'edit_profile'%}" method='post'enctype="multipart/form-data">
-    {% csrf_token %}
-    {%if user.profile_pic != 'None'%}
-    <div title = "Press to add photo" class="profileSec">
-      <label class = "pressImg" for="img"><img class="profile_pic" src={{user.profile_pic.url}}  alt="Custom Profile Picture Unable to Load"></label>
-     <br><br>
+{%extends 'authorize_main/base.html'%} {%load static%} {%block content%}
+<!---->
+{% if messages %} {% for message in messages %}
+<div
+  style="
+    background-color: #1b9aaa;
+    position: relative;
+    top: 55px;
+    z-index: 99999;
+  "
+  class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
+  role="alert"
+>
+  {{ message }}
+</div>
+{% endfor %} {% endif %} {%if user.is_authenticated%}
+<link rel="stylesheet" href="{%static 'authorize_main/profile.css'%}" />
+<div class="wrap">
+  <form
+    class="editProf"
+    action="{%url 'edit_profile'%}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %} {%if user.profile_pic != 'None'%}
+    <div title="Press to add photo" class="profileSec">
+      <label class="pressImg" for="img"
+        ><img
+          class="profile_pic"
+          src="{{user.profile_pic.url}}"
+          alt="Custom Profile Picture Unable to Load"
+      /></label>
+      <br /><br />
       <label for="img" class="uploadPhoto">PHOTO</label>
-      <label class = "selectImg" for="img" ></label>
-      <input type="file" id="img" name="img" onchange = "selectImgName();" accept="image/*">
-      <label class="imgName" for="img">Add a photo to personalize your account</label>
-    <div class="checkdisplay">
-      <label class = "displayImg" for="img" for="display_profile">Display as Public Profile Picture {% if profile_pic == True %}
-        <input type="checkbox"  name = "display_profile" value ="1" checked>
-      {%else%}
-        <input type="checkbox"  name = "display_profile" value ="1">
-      {%endif%}</label>
-     
-    </div>  
-  </div>
+      <label class="selectImg" for="img"></label>
+      <input
+        type="file"
+        id="img"
+        name="img"
+        onchange="selectImgName();"
+        accept="image/*"
+      />
+      <label class="imgName" for="img"
+        >Add a photo to personalize your account</label
+      >
+      <div class="checkdisplay">
+        <label class="displayImg" for="img" for="display_profile"
+          >Display as Public Profile Picture {% if profile_pic == True %}
+          <input type="checkbox" name="display_profile" value="1" checked />
+          {%else%}
+          <input type="checkbox" name="display_profile" value="1" />
+          {%endif%}</label
+        >
+      </div>
+    </div>
     {%else%}
-    <div title = "Press to add photo" class="profileSec">
-    <label class = "pressImg" for= "img"><img class="profile_pic" src="/media/media/default_profile.png" alt="Profile Picture Not Uploaded"></label> <br><br>
-    <label for="img" class="uploadPhoto">PHOTO</label>
-    <label class = "selectImg" for="img" ></label>
-    <input type="file" id="img" name="img" onchange = "selectImgName();"accept="image/*">
-    <label class="imgName" for="img">Add a photo to personalize your account</label>
-  </div>
+    <div title="Press to add photo" class="profileSec">
+      <label class="pressImg" for="img"
+        ><img
+          class="profile_pic"
+          src="/media/media/default_profile.png"
+          alt="Profile Picture Not Uploaded"
+      /></label>
+      <br /><br />
+      <label for="img" class="uploadPhoto">PHOTO</label>
+      <label class="selectImg" for="img"></label>
+      <input
+        type="file"
+        id="img"
+        name="img"
+        onchange="selectImgName();"
+        accept="image/*"
+      />
+      <label class="imgName" for="img"
+        >Add a photo to personalize your account</label
+      >
+    </div>
     {% endif %}
     <div class="nameSec">
-    <h1 class = "nameTag">NAME</h1>
-    <h1 class = "uname">{{user.first_name}} {{user.last_name}}</h1>
-  </div>
-    <div title = "Email: Press to edit" class="emailSec">
-    <h1 class="emailTag">EMAIL</h1>
-    <h3 class = "email"><input type="text" value='{{user.email}}' name = 'email' id = "emailBox"></h3>
-    <div class="checkDisplayEmail">
-    <label class = "displayEmail"for="display_email">Display Email in Public Profile  {% if email == True %}
-      <input type="checkbox" name = "display_email" value ="1" checked>
-    {%else%}
-      <input type="checkbox" name = "display_email" value ="1">
-    {%endif%}</label>
-  
-  </div>
-</div>
-  <div title = "University: Press to edit" class="universitySec">
-    <label class = "universityTag">UNIVERSITY</label>
-    <h3 class = "university"><input type="text" value='{{user.university}}' name="university" id="universityBox"></h3>
-  </div>
+      <h1 class="nameTag">NAME</h1>
+      <h1 class="uname">{{user.first_name}} {{user.last_name}}</h1>
+    </div>
+    <div title="Email: Press to edit" class="emailSec">
+      <h1 class="emailTag">EMAIL</h1>
+      <h3 class="email">
+        <input type="text" value="{{user.email}}" name="email" id="emailBox" />
+      </h3>
+      <div class="checkDisplayEmail">
+        <label class="displayEmail" for="display_email"
+          >Display Email in Public Profile {% if email == True %}
+          <input type="checkbox" name="display_email" value="1" checked />
+          {%else%}
+          <input type="checkbox" name="display_email" value="1" />
+          {%endif%}</label
+        >
+      </div>
+    </div>
+    <div title="University: Press to edit" class="universitySec">
+      <label class="universityTag">UNIVERSITY</label>
+      <h3 class="university">
+        <input
+          type="text"
+          value="{{user.university}}"
+          name="university"
+          id="universityBox"
+        />
+      </h3>
+    </div>
     <!-- <label style = "color: orange;" for="university">Display University in Public Profile</label> -->
     <!-- {% if university == True %}
       <input type="checkbox" name = "display_university" value ="1" checked>
@@ -66,10 +113,12 @@ style = "background-color: #1B9AAA; position:relative;top:55px; z-index:99999;" 
       <input type="checkbox" name = "display_university" value ="1">
     {%endif%}  -->
     <!-- <br><br> -->
-    <div title = "Major: Press to edit" class="majorSec">
-      <label class ="majorTag">MAJOR</label>
-    <h3 class = "major"><input type="text" value='{{user.major}}' name='major' id="majorBox"></h3>
-  </div>
+    <div title="Major: Press to edit" class="majorSec">
+      <label class="majorTag">MAJOR</label>
+      <h3 class="major">
+        <input type="text" value="{{user.major}}" name="major" id="majorBox" />
+      </h3>
+    </div>
     <!-- <label style = "color: orange;" for="major">Display Major in Public Profile</label>
     {%if major%}
       <input type="checkbox" name = "display_major" value ="1" checked>
@@ -78,38 +127,37 @@ style = "background-color: #1B9AAA; position:relative;top:55px; z-index:99999;" 
     {%endif%} -->
     <!-- <br><br> -->
     <div class="schoolYear">
-    <label  for="school_year" class = "schoolYearTag">SCHOOL YEAR</label>
-    {%if user.school_year == '1'%}
-    <select name="school_year">
-      <option value="1" selected>Freshman</option>
-      <option value="2">Sophomore</option>
-      <option value="3">Junior</option>
-      <option value="4">Senior</option>
-    </select>
-    {%elif user.school_year == '2'%}
-    <select name="school_year">
-      <option value="1">Freshman</option>
-      <option value="2" selected>Sophomore</option>
-      <option value="3">Junior</option>
-      <option value="4">Senior</option>
-    </select>
-    {%elif user.school_year == '3'%}
-    <select name="school_year">
-      <option value="1">Freshman</option>
-      <option value="2">Sophomore</option>
-      <option value="3" selected>Junior</option>
-      <option value="4">Senior</option>
-    </select>
-    {%else%}
-    <select name="school_year">
-      <option value="1">Freshman</option>
-      <option value="2">Sophomore</option>
-      <option value="3">Junior</option>
-      <option value="4" selected>Senior</option>
-    </select>
-    {%endif%}
-  
-  </div>
+      <label for="school_year" class="schoolYearTag">SCHOOL YEAR</label>
+      {%if user.school_year == '1'%}
+      <select name="school_year">
+        <option value="1" selected>Freshman</option>
+        <option value="2">Sophomore</option>
+        <option value="3">Junior</option>
+        <option value="4">Senior</option>
+      </select>
+      {%elif user.school_year == '2'%}
+      <select name="school_year">
+        <option value="1">Freshman</option>
+        <option value="2" selected>Sophomore</option>
+        <option value="3">Junior</option>
+        <option value="4">Senior</option>
+      </select>
+      {%elif user.school_year == '3'%}
+      <select name="school_year">
+        <option value="1">Freshman</option>
+        <option value="2">Sophomore</option>
+        <option value="3" selected>Junior</option>
+        <option value="4">Senior</option>
+      </select>
+      {%else%}
+      <select name="school_year">
+        <option value="1">Freshman</option>
+        <option value="2">Sophomore</option>
+        <option value="3">Junior</option>
+        <option value="4" selected>Senior</option>
+      </select>
+      {%endif%}
+    </div>
     <!-- <br><br> -->
     <!-- <label style = "color: orange;" for="school_year">Display School Year in Public Profile</label>
     
@@ -118,43 +166,95 @@ style = "background-color: #1B9AAA; position:relative;top:55px; z-index:99999;" 
     {%else%}
       <input type="checkbox" name = "display_school_year" value ="1">
     {%endif%} -->
-  
-  
-  <div title = "Press to edit biography" class="BioSec">
-    <label for = "bio" class ="BioTag">BIOGRAPHY</label>
-    <h3 class = "biography"><textarea style ="overflow: auto;" name="bio" id="bio">{{user.bio}}</textarea></h3>
-  </div>
-  
-  <button class = "makeChange" type="submit">Make Changes</button>
+
+    <div title="Press to edit biography" class="BioSec">
+      <label for="bio" class="BioTag">BIOGRAPHY</label>
+      <h3 class="biography">
+        <textarea style="overflow: auto;" name="bio" id="bio">
+{{user.bio}}</textarea
+        >
+      </h3>
+    </div>
+
+    <button class="makeChange" type="submit">Make Changes</button>
   </form>
-  
 </div>
 <div class="profilefriendsList">
-  <h1 style="text-align:center;margin-top:20px;color:white;font-weight:bold;">Colleagues List</h1>
-  <br>
-  <form name='friend_search' id = "friend_search" method="post" action="{%url 'friend_search' %}">
-        {%csrf_token%}
-        <input type="text" placeholder="Search By Name" name='search_friend_name' id='search_friend_name'>
-    <button style="margin-left:30px;background:transparent;outline:none;border:none;"type ='submit' id="fa-search"class="fa fa-search" aria-hidden="true">  </button>
+  <h1
+    style="
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+      font-weight: bold;
+    "
+  >
+    Colleagues List
+  </h1>
+  <br />
+  <form
+    name="friend_search"
+    id="friend_search"
+    method="post"
+    action="{%url 'friend_search' %}"
+  >
+    {%csrf_token%}
+    <input
+      type="text"
+      placeholder="Search By Name"
+      name="search_friend_name"
+      id="search_friend_name"
+    />
+    <button
+      style="
+        margin-left: 30px;
+        background: transparent;
+        outline: none;
+        border: none;
+      "
+      type="submit"
+      id="fa-search"
+      class="fa fa-search"
+      aria-hidden="true"
+    ></button>
   </form>
   <div class="profilefriendsBox">
     {%for friend in friend_list %}
-    <br>
-    <div style= "position:relative"class="profilefriendsButton">
-      <a href ='/posts/applicant_profile/{{friend.id}}'>
-        <img style='min-width:50px;max-width:50px;min-height:50px;max-height:50px;' src="{{ friend.profile_pic.url }}"/>
+    <br />
+    <div style="position: relative;" class="profilefriendsButton">
+      <a href="/posts/applicant_profile/{{friend.id}}">
+        <img
+          style="
+            min-width: 50px;
+            max-width: 50px;
+            min-height: 50px;
+            max-height: 50px;
+          "
+          src="{{ friend.profile_pic.url }}"
+        />
         <h1>{{friend.first_name}} {{friends.last_name}}</h1>
         <h1>{{friend.id}}</h1>
       </a>
-      <a onclick="notBubbleUp(event);"href='javascript:;' style="color:white;position:absolute; bottom:0; left:60px;"><i class='far fa-comments'></i> </a>
-      <a class="deleteFriendButton"onclick="notBubbleUp(event);" href="{% url 'delete_friend' friend.id %}">X</a>
-      <br><br><br>
+      <a
+        onclick="notBubbleUp(event);"
+        href="{% url 'friend_chat' friend.id%}"
+        style="color: white; position: absolute; bottom: 0; left: 60px;"
+        ><i class="far fa-comments"></i>
+      </a>
+      <a
+        class="deleteFriendButton"
+        onclick="notBubbleUp(event);"
+        href="{% url 'delete_friend' friend.id %}"
+        >X</a
+      >
+      <br /><br /><br />
     </div>
     {%endfor%}
-</div>
+  </div>
 </div>
 
-<script type="text/javascript"src="{% static 'posts_app/js/extra.js' %}"></script>
+<script
+  type="text/javascript"
+  src="{% static 'posts_app/js/extra.js' %}"
+></script>
 
-{%endif%}
-{%endblock%}
+{%endif%} {%endblock%}

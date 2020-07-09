@@ -18,75 +18,72 @@
 //   document.querySelector("#q-div").appendChild(delbtn);
 // }
 
-window.onload=function () {
-  var objDiv = document.getElementById("notification-box");
-  objDiv.scrollTop = objDiv.scrollHeight;
-}
 function addQuestion() {
   var newdiv = document.createElement("div");
   var input = document.createElement("INPUT");
-  newdiv.setAttribute('id','additionalQuestion');
-  input.setAttribute('id','qforapp');
-  input.setAttribute('class','popupinput');
-  input.setAttribute('name','questions');
-  input.setAttribute("placeholder", "Ex: What skills can you bring to this project?");
+  newdiv.setAttribute("id", "additionalQuestion");
+  input.setAttribute("id", "qforapp");
+  input.setAttribute("class", "popupinput");
+  input.setAttribute("name", "questions");
+  input.setAttribute(
+    "placeholder",
+    "Ex: What skills can you bring to this project?"
+  );
   newdiv.appendChild(input);
 
   // var delbtn = document.createElement("a");
   // delbtn.setAttribute("class", "close-button-q");
   // delbtn.innerHTML = "&times";
- 
+
   // delbtn.setAttribute("onclick", "removeQuestion();");
 
   // newdiv.appendChild(delbtn);
   newdiv.setAttribute("class", "child");
 
-  var deleteButton=(document.createElement('a'));
-  deleteButton.setAttribute("class","close-button-q");
-  deleteButton.innerHTML="&times";
-  deleteButton.setAttribute('id','additionalQ');
+  var deleteButton = document.createElement("a");
+  deleteButton.setAttribute("class", "close-button-q");
+  deleteButton.innerHTML = "&times";
+  deleteButton.setAttribute("id", "additionalQ");
   // deleteButton.setAttribute("onclick","removeQ(this.id)");
-  deleteButton.setAttribute("onclick","removethis(this)");
+  deleteButton.setAttribute("onclick", "removethis(this)");
   additionalQuestionIndex++;
   newdiv.appendChild(deleteButton);
 
   document.querySelector("#q-div").appendChild(newdiv);
- 
- 
 }
-function removethis(input){
+function removethis(input) {
   input.parentNode.remove();
 }
-function saveFilters(){
-  var keyWord=document.getElementById('search').value;
-  document.cookie='filterSearch='+keyWord;
+function saveFilters() {
+  var keyWord = document.getElementById("search").value;
+  document.cookie = "filterSearch=" + keyWord;
   // var interests=document.querySelectorAll('input[type="checkbox"]:not([checked=false])');
-  var interests=document.querySelectorAll('#interest');
-  var checkedInterests="";
-  for(var i =0;i<interests.length;i++){
-      if(interests[i].checked){
-        checkedInterests+=interests[i].value+",";
-      }
-  }
-  var sortByChecks=''
-  document.cookie='checkedInterests='+checkedInterests;
-  var sortBy=document.querySelectorAll('#sortBy');
-  for(var i=0;i<sortBy.length;i++){
-    if(sortBy[i].checked){
-        sortByChecks+=sortBy[i].value;
+  var interests = document.querySelectorAll("#interest");
+  var checkedInterests = "";
+  for (var i = 0; i < interests.length; i++) {
+    if (interests[i].checked) {
+      checkedInterests += interests[i].value + ",";
     }
   }
-  document.cookie='sortByChecks='+sortByChecks;
-  var moreInterests=document.getElementById('moreInterests').value;
-  document.cookie='moreInterestsInput='+moreInterests;
+  var sortByChecks = "";
+  document.cookie = "checkedInterests=" + checkedInterests;
+  var sortBy = document.querySelectorAll("#sortBy");
+  for (var i = 0; i < sortBy.length; i++) {
+    if (sortBy[i].checked) {
+      sortByChecks += sortBy[i].value;
+    }
+  }
+  document.cookie = "sortByChecks=" + sortByChecks;
+  var moreInterests = document.getElementById("moreInterests").value;
+  document.cookie = "moreInterestsInput=" + moreInterests;
 }
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
+  var ca = decodedCookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
-    while (c.charAt(0) == ' ') {
+    while (c.charAt(0) == " ") {
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
@@ -104,7 +101,7 @@ function getCookie(cname) {
 //   console.log(node);
 //   q_div.removeChild(node);
 //   q_div.removeChild(q_div.lastChild);
-  
+
 // }
 
 // function removeQ(questID){
@@ -161,42 +158,41 @@ function navbarDrop() {
   }
 }
 
-function viewApp(app){
+function viewApp(app) {
   console.log(app.parentNode.children[1]);
   // document.querySelector("#viewAppBox").classList.remove("viewAppHide");
   // document.querySelector("#viewAppBox").classList.add("viewAppShow");
-  app.parentNode.children[1].classList.remove('viewAppHide');
-  app.parentNode.children[1].classList.add('viewAppShow');
+  app.parentNode.children[1].classList.remove("viewAppHide");
+  app.parentNode.children[1].classList.add("viewAppShow");
   var element2 = document.getElementById("overlay2");
   element2.classList.add("show1");
   element2.classList.remove("hidden");
 }
 
-function closeApp(app){
+function closeApp(app) {
   // document.querySelector("#viewAppBox").classList.remove("viewAppShow");
   // document.querySelector("#viewAppBox").classList.add("viewAppHide");
-  app.parentNode.classList.remove('viewAppShow');
-  app.parentNode.classList.add('viewAppHide');
+  app.parentNode.classList.remove("viewAppShow");
+  app.parentNode.classList.add("viewAppHide");
   var element2 = document.getElementById("overlay2");
   element2.classList.add("hidden");
   element2.classList.remove("show1");
 }
 
-function passFriendsIDToInput(friendID){
-    document.getElementById("friendID").value=friendID;
-    console.log(document.getElementById("friendID").value);
+function passFriendsIDToInput(friendID) {
+  document.getElementById("friendID").value = friendID;
+  console.log(document.getElementById("friendID").value);
 }
 function closeFriendsList() {
   document.getElementById("friendsList").style.display = "none";
 }
 
-
 function submit1() {
-    console.log("hey");
-    var appForm = document.querySelector("#application-form");
-    console.log(appForm);
-    appForm.classList.remove("hideform");
-    appForm.classList.add("showform");
+  console.log("hey");
+  var appForm = document.querySelector("#application-form");
+  console.log(appForm);
+  appForm.classList.remove("hideform");
+  appForm.classList.add("showform");
 }
 
 function closeAppForm() {
@@ -265,9 +261,5 @@ function hideNotifications() {
   }
   box.classList.add("hide1");
 }
-function showFriendsList(){
-  
-}
-function hideFriendsList(){
-
-}
+function showFriendsList() {}
+function hideFriendsList() {}

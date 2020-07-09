@@ -5,11 +5,11 @@ from .models import NotificationModel
 
 # Create your views here.
 
-def Notifications(request):
-  all_notifications = NotificationModel.objects.filter(account=request.user)
+def Notifications(request): #returns all notification relating to user in time order
+  all_notifications = NotificationModel.objects.filter(account=request.user).order_by('date_created').reverse()
  
   return all_notifications
-  #return render(request,'authorize_main/base.html',{"all_notifications":all_notifications})
+  
 
 def delete_notification(request, notification_id):
   notification = NotificationModel.objects.get(id=notification_id)
@@ -20,7 +20,7 @@ def delete_notification(request, notification_id):
 #debug
 
 def delete_all_notifications(request):
-  #notification = NotificationModel.objects.all()
+  
   notification = NotificationModel.objects.filter(account__id=request.user.id)
   for notif in notification:
     notif.delete()

@@ -10,20 +10,19 @@ from Notifications.views import Notifications
 from chat.views import list_all_people
 
 def landing_page_view(request):
-  #print(request.user.is_authenticated)
   if request.user.is_authenticated:
     return render(request,'authorize_main/landing_page.html',{"all_notifications":Notifications(request), 'friends': list_all_people()})
   else:
     return render(request,'authorize_main/landing_page.html',{})
    
   
-
 def logout_view(request):
   logout(request)
   messages.success(request,'You have successfully logged out.')
   return redirect('landing_page')
 
-def login_view(request):
+
+def login_view(request): #Signs user in
   if request.POST:
       form = LogInForm(request.POST)
       email = request.POST['email']
@@ -36,7 +35,6 @@ def login_view(request):
         login(request,user)
         messages.success(request,'Welcome, ' + user.first_name + '! You have successfully logged in.')
         return redirect('hometemplate')
-        #Make sure to change after development
         
       else:
         badform = True
@@ -48,7 +46,8 @@ def login_view(request):
     messages.success(request,'Please fill out the fields correctly!') 
   return render(request,'authorize_main/login_page.html',{"form":form})
 
-def registration_view(request):
+
+def registration_view(request): #validates and creates USer Model
   if request.POST:
     form = RegistrationForm(request.POST)
     
@@ -70,8 +69,9 @@ def registration_view(request):
     form = RegistrationForm()
   return render(request,'authorize_main/register_page.html',{"registration_form":form})
 
+
 @login_required
-def profile_view(request):
+def profile_view(request): #see private profile with friend list
   user = Account.objects.get(id=request.user.id)
   friend_list = []
   user_settings = user.show_to_public
@@ -80,23 +80,24 @@ def profile_view(request):
     friend = Account.objects.get(id=friend_id)
     friend_list.append(friend)
   
-  #[profile_pic, email, first_name, last_name, university, major, school_year, date_joined]
   return render(request,'authorize_main/new_profile.html', {'friend_list': friend_list,'profile_pic': user_settings[0], 'email': user_settings[1],'first_name': user_settings[2], 'last_name': user_settings[3],'university': user_settings[4], 'major': user_settings[5],'school_year': user_settings[6], 'date_joined': user_settings[7],"all_notifications":Notifications(request)})
  
-@login_required
-def edit_profile(request):
+@login_required 
+def edit_profile(request): #edit provate profile
   if request.POST:
-    print(request.POST)
+
     user = Account.objects.get(id=request.user.id)
     user.email = request.POST['email']
+    
     if request.FILES.get('img'):
       user.profile_pic = request.FILES.get('img')
+      
     user.university = request.POST['university']
     user.major = request.POST['major']
     user.school_year = request.POST['school_year']
     user.bio = request.POST['bio']
     user.save()
-    print(request.POST)
+
     
     if request.POST.get('display_profile') == "1":
       user.show_to_public[0] = True
@@ -133,13 +134,12 @@ def edit_profile(request):
     #   user.show_to_public[6] = False
     #   user.save()
     
-    print(user.show_to_public)
     messages.success(request,'Profile Updated')
   
     return redirect('profile')
   else:
     messages.success(request,'Error')
-    print('error')
+   
     return redirect('profile')  
 
 def list_all_people():
