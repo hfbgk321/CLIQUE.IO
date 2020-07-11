@@ -162,5 +162,3 @@ if DEBUG == True:
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = 'Clique.io Team <noreply@Clique.io.com>'
-
-django_heroku.settings(locals())
