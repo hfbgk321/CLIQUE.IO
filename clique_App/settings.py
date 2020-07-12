@@ -130,6 +130,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CACHES = {
+    "default": {
+         "BACKEND": "redis_cache.RedisCache",
+         "LOCATION": os.environ.get('REDIS_URL'),
+    }
+}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
