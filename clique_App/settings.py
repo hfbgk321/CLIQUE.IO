@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'friends',
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -67,6 +67,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'clique_App.urls'
 
@@ -176,3 +178,4 @@ if DEBUG == True:
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = 'Clique.io Team <noreply@Clique.io.com>'
 
+django_heroku.settings(locals())
