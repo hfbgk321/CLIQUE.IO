@@ -1,0 +1,544 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.background {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(125deg,#1B9AAA,#06D6A0, #FFC43D);
+    background-size: 400%;
+    animation: bg 12s infinite;
+}
+@keyframes bg{
+    0%{
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position:0% 50%;
+    }
+}
+.founderTag{
+
+}
+.founderTag:hover{
+    cursor:pointer;
+    
+}
+.frontEnd img:hover{
+    transition:all 0.3s ease;
+    transform: scale(1.1); 
+    box-shadow: 5px 5px 5px #ccc;
+}
+.founders {
+    position:relative;
+    z-index:5;
+    height: 800px;
+}
+
+.founders-title {
+    font-size: 50px;
+    padding-left: 20px;
+    color: #1B9AAA;
+    background-color: #A8E6CE;
+}
+
+.front, .back{
+    text-align: center;
+    font-size: 40px;
+}
+/* .fa {
+    padding: 10px;
+    position: relative;
+    font-size: 20px;
+    left: -20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  } */
+
+.scroll-container {
+    width: 100%;
+    height: 500px;
+    text-align: center;
+    
+}
+#landingpageScroll{
+    position: relative;
+    height: 50px;
+    width: auto;
+    z-index: 5;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0% {top: 120%}
+   
+    50% {top: 128%}
+  
+    100% {top: 120%}
+}
+
+
+  
+.fa:hover {
+    opacity: 0.7;
+}
+  
+.fa-facebook {
+    position: relative;
+    left: -20px;
+    background: #3B5998;
+    color: white;
+  }
+.fa-twitter {
+    position: relative;
+    left: 11px;
+    background: #55ACEE;
+    color: white;
+  }
+.fa-linkedin {
+    position: relative;
+    left: 40px;
+    background: #007bb5;
+    color: white;
+  }
+
+  
+
+.frontEnd {
+    position: relative;
+    height:500px;
+}
+
+#footer {
+    background-color: #06D6A0;
+    height:200px;
+}
+
+#footer-top{
+    /* position: absolute;
+    bottom: 0; */
+    background-color: #06D6A0;
+    height:200px;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.social{
+    padding-bottom: 20px;
+}
+
+#minilogo{
+    padding-top: 10px;
+    height:25px;
+    width: auto;
+}
+
+#footer-text{
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    
+}
+
+.pic {
+    text-align: center;
+    height: 60%;
+    width:auto;
+    border-radius: 50%;
+}
+
+.yupeng, .jie, .isfar {
+    position: relative;
+    top: 20px;
+    width: 200px;
+    height: 300px;
+    text-align: center;
+}
+
+.bcolor{
+    background-color: #A8E6CE;
+}
+
+.bcolor2{
+    background-color: #EDE574;
+}
+
+.name {
+    text-align: center;
+    font-size: 30px;
+}
+
+.yupeng {
+    position: relative;
+    left: 5%;
+}
+
+.jie {
+    position: absolute;
+    left: 40%;
+}
+
+.isfar {
+    position: absolute;
+    left: 75%;
+}
+
+
+
+.button {
+    z-index:2;
+    border:none;
+    display:block;
+    position:relative;
+    width:250px;
+    height:80px;
+    margin-top:10%;
+    margin-left:20%;
+    font-size: 25px;
+    background: transparent;
+    cursor:pointer;
+    user-select: none;
+    line-height: 70px;
+    overflow:hidden;
+    border-radius: 15px;
+}
+.button .span{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:transparent;
+    z-index:-1;
+    border: 10px solid #06D6A0;
+}
+
+.button .span::before{
+    content:'';
+    position:absolute;
+    width:8%;
+    height:500%;
+   background: transparent;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%) rotate(60deg);
+    transition: all .3s;
+    animation: span 5s infinite;
+}
+@keyframes span{
+    0%{
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position:0% 50%;
+    }
+}
+
+.background .container .w .button:hover{
+    text-decoration: none;
+}
+.button:hover .span::before {
+    transform: translate(-50%, -50%) rotate(-90deg);
+    width:100%;
+    background:#06D6A0;
+}
+
+.w {
+    width: 1200px;
+}
+
+.logo {
+    margin-top: 10%;
+    margin-left: 5%;
+    height: 50px;
+    width: auto;
+}
+.homelogo{
+    margin-top: 2%;
+    margin-left: 12%;
+    height:40px;
+    width: auto;
+}
+.loginbutton{
+    position: relative;
+    top:18%;
+}
+.Have {
+    float:left;
+    width: 35%;
+    font-family: Arial;
+    color:#6886c5;
+}
+
+.land {
+    font-size:50px;
+    position:relative;
+    color:white;
+}
+
+.background .w .pland {
+    
+    color: white;
+}
+
+
+.Image{
+    /* position:relative; */
+    overflow:hidden;
+    float:right;
+    margin-right:5%;
+    width: 45%;
+     /* margin-bottom:30%;
+     left:70%; */
+     height:80vh;
+}
+img {
+    width: 100%;
+}
+
+/* img {
+    top:5px;
+    max-width: 700px;
+    height: auto;
+
+} */
+
+
+
+hr {
+    border: none;
+    height: 30px;
+    text-decoration-thickness: 0;
+}
+
+ul {
+    float: right;
+    list-style-type: none;
+    margin-top: 25px;
+}
+
+li {
+    display: inline-block;
+  
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    padding: 5px 20px;
+    font-family: Arial;
+}
+
+.title {
+    float: left;
+}
+
+.clique {
+    display: inline-block;
+    margin-top: 10%;
+    margin-left: 30%;
+    line-height: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 45px;
+    background: linear-gradient(to top, blue 50%, white 50%);
+    /* -webkit-background-clip: text; */
+    -webkit-text-fill-color: transparent;
+}
+
+a:hover {
+    text-decoration:underline;
+    color: #add8e6;
+    transition: 0.6s ease;
+}
+.nav-item a:hover{
+    text-decoration: underline;
+    color: #add8e6;
+    transition: 0.6s ease;
+}
+body{
+    overflow:scroll;
+   
+}
+#videoSection{
+    position:relative;
+    z-index:2;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#landingPageBody{
+    
+}
+section{
+    position:relative;
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+/* section img{
+    position:fixed;
+    top:300px;
+    left:27%;
+    max-width:50%;
+    object-fit:cover;
+    z-index:3;
+} */
+
+#cliqueLogo{
+    position:fixed;
+    top:300px;
+    left:27%;
+    max-width:50%;
+    object-fit:cover;
+    z-index:3;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height:100%; 
+    background-color: #06D6A0;
+    opacity:15%;
+    z-index: 2;
+}
+
+section video{
+    position:fixed;
+    top:0;
+    margin:0;
+    left:0px;
+    width:100%;
+    height:auto;
+    object-fit:cover;
+    z-index:1;
+}
+#videoColor{
+    width:100%;
+    height:100%;
+    display:inline-block;
+}
+section h1{
+    position:relative;
+    color:#1B9AAA;
+    font-size:80px;
+}
+
+.circle {
+    position: absolute;
+    background: #FFC43D;
+    width:100px;
+    height: 100px;
+    /* margin: 0 auto; */
+    border-radius: 50%;
+    /* display: grid; */
+    /* place-items: center; */
+    /* background: white; */
+    animation: ripple 15s infinite;
+    box-shadow: 0px 0px 1px 0px #508fb9
+}
+
+.small{
+    width: 400px;
+    height: 400px;
+    left: -100px;
+    /* bottom: -100px; */
+  }
+  
+  .medium{
+    width: 600px;
+    height: 600px;
+    left: -200px;
+    /* bottom: -200px; */
+  }
+  
+  .large{
+    width: 800px;
+    height: 800px;
+    left: -300px;
+    /* bottom: -300px; */
+  }
+  
+  .xlarge{
+    width: 1000px;
+    height: 1000px;
+    left: -400px;
+    /* bottom: -400px; */
+  }
+  
+  .xxlarge{
+    width: 1200px;
+    height: 1200px;
+    left: -500px;
+    /* bottom: -500px; */
+  }
+  
+  .shade1{
+    opacity: 0.2;
+  }
+  .shade2{
+    opacity: 0.5;
+  }
+  
+  .shade3{
+    opacity: 0.7;
+  }
+  
+  .shade4{
+    opacity: 0.8;
+  }
+  
+  .shade5{
+    opacity: 0.9;
+  }
+  
+  @keyframes ripple{
+    0%{
+      transform: scale(0.8);
+    }
+    
+    50%{
+      transform: scale(1.2);
+    }
+    
+    100%{
+      transform: scale(0.8);
+    }
+  }
+
+.motto{
+    color:#1B9AAA;
+    font-family: 'Montserrat', sans-serif;
+    font-size:1.9vw;
+    padding-left: 10%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.landingText{
+    top:20%;
+    position:absolute;
+    left:40px;
+    padding:10px;
+    width:40%;
+}
+#landingDoodle{
+    position:absolute;
+    top:20%;
+    margin-left:10%;
+    height:70%;
+    width:auto;
+}

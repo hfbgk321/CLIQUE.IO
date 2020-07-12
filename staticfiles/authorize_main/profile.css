@@ -1,0 +1,461 @@
+*{
+   margin:0;
+   padding:0;
+   box-sizing: border-box;
+}
+#fa-search:hover{
+   color:#06D6A0;
+}
+.deleteFriendButton{
+   color:white;
+   position:relative;
+   left:235px;
+   bottom:65px;
+   font-size:15px;
+}
+.deleteFriendButton:hover{
+   cursor:pointer;
+}
+.wrap{
+   /* background-color: green; */
+   position:absolute;
+   overflow:hidden;
+   top:125px;
+   left:30px;
+   width:70%;
+   min-width:800px;
+   margin: auto;
+   /* border-radius:25px; */
+   border:1px solid #f5f5f5;
+   background-color: white;
+   border-radius:10px;
+   /* background:pink; */
+   /* position:absolute;
+    margin-top:100px;;
+    height:420px;
+    width:400px;
+    background:#FFC43D;
+    left:50px;
+    padding:10px;
+    border-radius:25px;
+    border:5px solid white; */
+}
+.profilefriendsList{
+   position:absolute;
+   top:125px;
+   border-radius:10px;
+   left:75%;
+   width:350px;
+   height:800px;
+   right:50px;
+   
+   background:#1B9AAA;
+}
+.profilefriendsButton img{
+   border-radius:50%;
+   width:40px;
+   height:40px
+}
+.profilefriendsButton h1{
+   position:relative;
+   left:130px;
+   bottom:40px;
+   color:White;
+}
+
+.profilefriendsList input{
+   margin-left:48px;
+   border:1px solid white;
+   height:20px;
+   font-size:15px;
+   padding:10px;
+   color:white;
+}
+.profilefriendsBox{
+   overflow:scroll;
+   overflow-x:hidden;
+   max-height:700px;
+   height:700px;
+}
+.profilefriendsButton a:hover{
+   text-decoration:none;
+}
+.profilefriendsButton:hover{
+   background:#06D6A0;
+   
+}
+.profilefriendsButton{
+   max-height:50px;
+}
+input{
+   font-size:22px;
+   background-color: transparent;
+   text-align:center;
+   border:none;
+   outline:none;
+   border-radius:5px;
+
+}
+.profile_pic{
+   position:absolute;
+   z-index:2;
+   top:50%;
+   right:10%;
+   transform:translateY(-50%);
+   height:100px;
+   width:100px;
+   border-radius:50%;
+}
+.profile_pic:hover{
+   box-shadow:1px 1px 1px 1px rgba(20, 20, 255, .2);
+}
+.profileSec::after,
+.emailSec::after,
+.universitySec::after,
+.nameSec::after,
+.majorSec::after,
+.schoolYear::after,
+.BioSec::after
+{
+   content:'';
+   position:absolute;
+   left:50%;
+   transform:translateX(-50%);
+   /* z-index:40; */
+   width:90%;
+   height:1px;
+   bottom:0;
+   background-color:gray;
+}
+.profileSec,
+.emailSec,
+.universitySec,
+.nameSec,
+.majorSec,
+.schoolYear,
+.BioSec{
+   position:relative;
+   background-color:white;
+   padding:10px;
+   width:100%;
+   height:120px;
+   text-align: center;
+}
+.selectImg:hover{
+   cursor:pointer;
+   background-color:#D5DBDB;
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+.majorSec:hover{
+   cursor:pointer;
+   background-color:#D5DBDB;
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+.nameSec:hover{
+   cursor:pointer;
+   background-color:#D5DBDB;
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+.emailSec:hover{
+   cursor:pointer;
+   background-color:#D5DBDB;
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+.universitySec:hover{
+   cursor:pointer;
+   background-color:#D5DBDB;
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+.schoolYear:hover{
+   cursor:pointer;
+   background-color:#D5DBDB;
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+
+.BioSec:hover {
+   cursor:pointer;
+   background-color:#D5DBDB;
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+}
+
+.selectImg {
+   position:absolute;
+   top:0;
+   left:0;
+   height:100%;
+   width:100%;
+   /* background-color:blue;  */
+}
+ .editProf{
+    width:100%;
+    height:100%;
+   /* background-color:green;  */
+}
+.uploadPhoto,
+.nameTag,
+.emailTag,
+.universityTag,
+.majorTag,
+.schoolYearTag,
+.BioTag{
+   /* background-color:green; */
+   position:absolute;
+   left:5%;
+   top:50%;
+   transform:translateY(-50%);
+   z-index:22;
+   font-size:18px;
+   font-weight: 700;
+   cursor:pointer;
+}
+.imgName{
+   position:absolute;
+   top:50%;
+   left:50%;
+   transform:translate(-50%,-50%);
+   z-index:23;
+   font-size: 20px;
+   color:Black;
+   cursor:pointer;
+   /* background-color: purple; */ 
+}
+.displayImg{
+   position:relative;
+   margin-top:40px;
+}
+.displayEmail{
+   position:absolute;
+   top:50%;
+   left:50%;
+   transform:translate(-50%,-50%);
+   margin-top:30px;
+}
+.displayImg,
+.displayEmail{
+   z-index:22;
+   font-size:14px;
+   cursor:pointer;
+}
+
+
+.uname,
+.email,
+.university,
+.major,
+select{
+   position:absolute;
+   top:50%;
+   left:50%;
+   transform:translate(-50%,-50%);
+   font-size: 29px;
+   font-weight: 900;
+   cursor:pointer;
+}
+.uname{
+   font-size: 22px;
+}
+select{
+   font-weight: 400;
+   padding-right:5px;
+   outline:none;
+   border:none;
+   font-size:20px;
+   background-color: transparent;
+}
+.pressImg{
+   position:absolute;
+   top:50%;
+   right:100px;
+   cursor:pointer;
+   /* background-color: pink; */
+}
+.biography{
+   /* background-color:red; */
+   height:100%;
+   width:60%;
+   margin:auto;
+}
+textarea{
+   background-color: transparent;
+   text-align:center;
+   width:100%;
+   height:100%;
+   font-size: 20px;
+   border:none;
+   resize:none;
+   cursor:pointer;
+   overflow:hidden;
+   border-radius:10px;
+}
+textarea:hover{
+   /* overflow:scroll; */
+   box-shadow:1px 1px 1px 1px rgba(6,214,160,.3);
+}
+input:hover{
+   box-shadow:1px 1px 1px 1px rgba(6,214,160,.3);
+}
+
+/* input,
+select{
+   background-color: rgba(255,255,255,0.5);
+   border:none;
+   border-radius:5px;
+   padding:5px;
+}
+.profile_pic{
+   position:relative;
+   left:50%;
+   transform:translateX(-50%);
+   margin-top:20px;
+   width:180px;
+   height:180px;
+   border-radius: 50%;
+   box-shadow: 2px 2px 2px 1px rgba(0, 0, 255, .2);
+}*/
+
+
+
+/* .makeChange:hover{
+   box-shadow: .5px .5px 1px 1px rgba(0, 0, 255, .2);
+} */
+#img {
+   display:none;
+}
+/* .changeImg{ */
+   /* background-color:green; */
+   /* position:relative;
+   height:45px;
+} */
+ /* .imgName {
+   display:none;
+   position:absolute;
+   top:50%;
+   transform:translateY(-50%);
+   left:61%;
+   height:20px;
+   background-color:#FFC43D;
+   padding:5px 10px 5px 10px;
+   font-size: 12px;
+   border-radius:5px;
+   text-align: center;
+   line-height: 9px;
+}
+.imgName:before{
+   position:absolute;
+   z-index:-1;
+   content:'';
+   height:10px;
+   width:10px;
+   background:pink;
+   left:-3px;
+   transform: rotate(45deg);
+} */
+
+/* .checkdisplay,
+.checkDisplayEmail{
+   margin-top:10px; */
+   /* background-color: green; */
+ /* }
+.displayImg,
+.displayEmail{
+   /* background-color:green; */
+   /* position:relative;
+   left:50%;
+   transform:translateX(-50%);
+   transform: translateX(-50%);
+} */ 
+
+/* .uname,
+.university,
+.major,
+.email,
+.schoolYear{
+   margin-top:13px;
+  text-align: center;
+  font-size: 18px;
+  font-weight:700;
+   /* background-color: green; */
+/* } */
+
+ .makeChange{
+   position:relative;
+  outline:none;
+  margin-top:30px;
+   padding:20px;
+   border-radius: 10px;
+   left:50%;
+   transform:translateX(-50%);
+   margin-bottom:20px;
+   border:none;
+   background-color:rgb(6,214,160);
+} 
+.makeChange:hover{
+   box-shadow:.5px .5px 1px 1px #D5DBDB ;
+}
+
+/* .flip-card {
+   float: right;
+   margin-right: 10px;
+   margin-top: 200px;
+   background-color: transparent;
+   width: 200px;
+   height: 100px;
+   border: 1px solid #f1f1f1;
+   perspective: 1000px; /* Remove this if you don't want the 3D effect */
+ /* } */
+ 
+ /* This container is needed to position the front and back side */
+ /* .flip-card-inner {
+   position: relative;
+   width: 200px;
+   height: 100px;
+   text-align: center;
+   transition: transform 0.8s;
+   transform-style: preserve-3d;
+ } */
+ 
+ /* Do an horizontal flip when you move the mouse over the flip box container */
+ /* .flip-card:hover .flip-card-inner {
+   transform: rotateY(180deg);
+ } */
+ 
+ /* Position the front and back side */
+ /* .flip-card-front, .flip-card-back {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   -webkit-backface-visibility: hidden; /* Safari */
+   /* backface-visibility: hidden; */
+ /* }  */
+ 
+ /* Style the front side (fallback if image is missing) */
+ /* .flip-card-front {
+   background-color: #bbb;
+   color: black;
+ } */
+ 
+ /* Style the back side */
+ /* .flip-card-back {
+   background-color: dodgerblue;
+   color: white;
+   transform: rotateY(180deg);
+ } */
+
+ /* .hidetextbox {
+    visibility: hidden;
+ }
+
+ .showtextbox {
+    visibility: visible;
+ } */
+
+ /* #actualbio {
+    height: 200px;
+    width: 70%;
+    position:absolute;
+    top:110%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    
+    background-color: blue;
+ } */

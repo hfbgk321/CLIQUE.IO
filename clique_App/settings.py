@@ -14,6 +14,11 @@ import os
 import pytz
 import django_heroku
 import whitenoise
+
+import dj_database_url
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ALLOWED_HOSTS = ['*']
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -30,7 +35,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR,'authorize_main','static'),
+    os.path.join(BASE_DIR,'clique_App','static'),
 )
 
 # Application definition
@@ -98,14 +104,10 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
 
-        'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': os.path.join(BASE_DIR,'clique_data'),
-    }
-}
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -125,6 +127,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'NAME': 'd2ivheiihabs8q',
+        'HOST': 'ec2-52-202-146-43.compute-1.amazonaws.com',
+        'PORT': '5432',                    
+        'USER': 'uzhrcnqqdvelbs',
+        'PASSWORD': 'a4db495feaa5dedaed649249e274e318f3d480fe23ceecd2426a4f3da5f25f3e',                             
+    }
+}
 
 
 # Internationalization
@@ -162,3 +175,4 @@ if DEBUG == True:
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = 'Clique.io Team <noreply@Clique.io.com>'
+

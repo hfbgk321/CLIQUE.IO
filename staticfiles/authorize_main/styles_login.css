@@ -1,0 +1,131 @@
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+     background: linear-gradient(90deg, rgba(226,105,91,1) 0%, rgba(222,107,102,1) 43%, rgba(250,219,60,1) 100%);
+     height:100%
+}
+.w {
+    width: 980px;
+    padding-top:50px;
+}
+
+.loginlogo{ 
+    width:30%;
+    height:40%; 
+    font-size:40px;
+   margin: 5% auto;
+    text-align: center;
+    font-family:arial;
+    
+}
+.welcomebacklogin{
+    right:50%;
+    font-weight:bold;
+    margin-top:30px;
+    color:#1B9AAA;
+  
+}
+.loginlogo img{
+    width:100%;
+    margin:0 auto;
+}
+.login{
+    border-radius: 10px;
+    position:relative;
+    text-align:center;
+    margin:0 auto;
+    padding-bottom: 5%;
+    width:50%;
+    background-color: #06D6A0;
+    
+}
+.login h1{
+    padding:10px;
+    font-family:arial;
+    margin-top:35px;
+    font-size:25px;
+    text-align: center;
+    color:white;
+}
+.login input{
+
+    left:15%;
+    width:400px;
+}
+/* .login p{
+    margin-left:25%;
+    font-weight:bold;
+    font-size:22px;
+    margin-bottom: auto;
+} */
+#password{
+    margin:0;
+    border:none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline:none;
+    color:#fff;
+    font-size:20px;
+    margin-top:10%;
+    color: white;
+}
+#email{
+    margin:0;
+    border:none;
+    border-bottom: 1px solid #fff;
+    outline:none;
+    color:#fff;
+    font-size:20px;
+    margin-top:5%;
+    color: white;
+}
+.login input[type="submit"]{
+    margin-top:20px;
+    border-radius:10px;
+    right:0;
+    border:none;
+    outline:none;
+    height:30px;
+    font-size:15px;
+    font-weight: bold;
+    background:#ef476f;
+    color:#FFF;
+}
+.login input[type="submit"]:hover{
+    cursor:pointer;
+    background:#FFF;
+    color:rgb(226,105,91);
+    
+}
+.login a{
+    text-decoration:none;
+    font-size:15px;
+    font-weight: bold;
+    line-height: 20px;
+    color:white;
+}
+.forgetpw{
+    margin-top:5%;
+    display:inline-block;
+    font-family:arial;
+}
+.noacc{
+    font-family:arial;
+}
+p.solid{
+    border-style:solid;
+}
+::placeholder{
+    color:#f9f9f9;
+}
+.loginerror{
+    position: absolute;
+    color:rgb(126, 0, 0);
+    font-size:20px;
+    top:35%;
+    left:42%;
+}
