@@ -62,7 +62,9 @@ A platform to promote entrepreneurship and collaboration amongst college student
     </p>
 
 ## Getting Started
-
+  How to run this on your local server: 
+  1. Clone the project, and run the command 'pip install -r requirements.txt' to install dependencies.
+  2. cd into the project folder with the file 'manage.py' and run the command 'python manage.py runserver'.
 ## Prerequisites
 
 ## Installing
