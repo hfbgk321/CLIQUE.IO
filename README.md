@@ -66,13 +66,24 @@ A platform to promote entrepreneurship and collaboration amongst college student
   1. Clone the project, and run the command 'pip install -r requirements.txt' to install dependencies.
   2. cd into the project folder with the file 'manage.py' and run the command 'python manage.py runserver'.
 ## Prerequisites
+  What things you need to install the software and how to install them
 
+  ```
+  You will need to install VSCode, Python3, and pip.
+  ```
 ## Installing
-
+  ```
+  $git clone https://github.com/hfbgk321/CLIQUE.IO.git
+  $pip install -r requirements.txt
+  $cd CLIQUE.IO
+  $python manage.py runserver
+  ```
+  A link will appear in the terminal that will open up the website.
 ## Deployment
-
+  Both frontend and backend were deployed in Heroku
+  Check it out: http://www.cliqueio.com/
 ## Built With
-
+  HTML, CSS, JavaScript, Django, Python, SQLite, Web Socket, Docker Bootstrap, Heroku, Redis, CSRF Token
 ## Contributing
 
 Github:
