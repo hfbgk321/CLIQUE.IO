@@ -94,7 +94,7 @@ Github:
 - Yu Peng Lu: https://github.com/ylu1100
 - Jie Zhang: https://github.com/Jie-Zhang-2001
 - Junming: https://github.com/Junming-Qiu
-- Kevin: To be determined
+- Kevin: https://github.com/Kevin1289
 - Isfar Oshir: https://github.com/ioshir4350
 
 Linkedin:
