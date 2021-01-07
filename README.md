@@ -32,8 +32,33 @@ A platform to promote entrepreneurship and collaboration amongst college student
   </p>
 
 - **Applying to post** Allows users to easily apply to postings by their peers, through a simple Q/A provided before hand by the owner. Upon submitting, the owner will immediately be notified of the application, making it fast and simple. The applicant will also be able to see any progress of their application in their applied page.
+
+  <table>
+      <tr>
+        <td><img src = "https://user-images.githubusercontent.com/43207435/103947267-d5e25b80-5105-11eb-89fe-da47e8cf3543.gif"></td>
+        <td><img src = "https://user-images.githubusercontent.com/43207435/103947310-e561a480-5105-11eb-9ca3-7b660c6305f6.gif"></td>
+      </tr>
+    </table>
+
+- **Customizing User Profile** Our platform makes it easy for users to customize their profile pages. Users can set a profile a picture, update their school year, write a biography, and many more. They can choose what to display in their public profiles,by making certain information private or public.
   <p align="center">
-      <img src="https://user-images.githubusercontent.com/43207435/103947267-d5e25b80-5105-11eb-89fe-da47e8cf3543.gif" width = "700" height = "350">
+      <img src="https://user-images.githubusercontent.com/43207435/103947313-e5fa3b00-5105-11eb-80b8-e1bb48f9835f.gif" width = "700" height = "350">
+    </p>
+
+- **view applicant/accept applicant** We provide a user-friendly dashboard that allows users to know more about their potential teammates. Before users choose their teammates, they can chat, view their applications, and look at their profiles before accepting them as a potential partner in their startup. This provides a seamless vetting process of the user.
+  <p align="center">
+      <img src="https://user-images.githubusercontent.com/43207435/103947304-e1ce1d80-5105-11eb-8f0d-4a0cd0ea7474.gif" width = "700" height = "350">
+    </p>
+
+- **Filtering System** View projects that cater to your interests and skill sets. Want to start something as soon as possible? Sort by upcoming deadlines! Want to create a website? Filter by Web App Development! Users may also search by keyword to view projects with their keyword in the titles and/or descriptions.
+  <p align="center">
+      <img src="https://user-images.githubusercontent.com/43207435/103947453-13df7f80-5106-11eb-8fe5-7be67cac5e21.gif" width = "700" height = "350">
+    </p>
+
+- **Chat System** Our chat system allows users and their applicants to talk to one another in a more casual interview process. It allows users to network and get to know each other better before working with one another. Better communication = Better Success
+
+  <p align="center">
+      <img src="https://user-images.githubusercontent.com/43207435/103950761-74bd8680-510b-11eb-9ba6-c213f113edaf.PNG" width = "700" height = "350">
     </p>
 
 ## Getting Started
