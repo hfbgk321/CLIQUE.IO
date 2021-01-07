@@ -83,7 +83,9 @@ A platform to promote entrepreneurship and collaboration amongst college student
   Both frontend and backend were deployed in Heroku
   Check it out: http://www.cliqueio.com/
 ## Built With
-  HTML, CSS, JavaScript, Django, Python, SQLite, Web Socket, Docker Bootstrap, Heroku, Redis, CSRF Token
+  Framework: Django
+  Frontend:  HTML, CSS, JavaScript, Bootstrap
+  Backend:   Python, SQLite, Web Socket, Docker, Heroku, Redis, CSRF Token
 ## Contributing
 
 Github:
