@@ -62,3 +62,31 @@ A platform to promote entrepreneurship and collaboration amongst college student
     </p>
 
 ## Getting Started
+
+## Prerequisites
+
+## Installing
+
+## Deployment
+
+## Built With
+
+## Contributing
+
+Github:
+
+- Jacky Chen: https://github.com/nbodduluri
+- Yu Peng Lu: https://github.com/ylu1100
+- Jie Zhang: https://github.com/Jie-Zhang-2001
+- Junming: https://github.com/Junming-Qiu
+- Kevin: To be determined
+- Isfar Oshir: https://github.com/ioshir4350
+
+Linkedin:
+
+- Jacky Chen: https://www.linkedin.com/in/jacky-chen-sbu/
+- Yu Peng Lu: https://www.linkedin.com/in/yuplu/
+- Jie Zhang: https://www.linkedin.com/in/jie-zhang-54a2b2160/
+- Junming: https://www.linkedin.com/in/junming-qiu-32b343191/
+- Kevin: https://www.linkedin.com/in/shixinkevinwu/
+- Isfar Oshir: https://www.linkedin.com/in/isfar-oshir-043403190/
