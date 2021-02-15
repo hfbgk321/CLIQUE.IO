@@ -90,7 +90,7 @@ A platform to promote entrepreneurship and collaboration amongst college student
 
 Github:
 
-- Jacky Chen: https://github.com/nbodduluri
+- Jacky Chen: https://github.com/hfbgk321
 - Yu Peng Lu: https://github.com/ylu1100
 - Jie Zhang: https://github.com/Jie-Zhang-2001
 - Junming: https://github.com/Junming-Qiu
